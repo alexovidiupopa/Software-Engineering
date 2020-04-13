@@ -28,3 +28,5 @@ gradle
 #angular
 node_modules
 
+
+sendgrid.env
