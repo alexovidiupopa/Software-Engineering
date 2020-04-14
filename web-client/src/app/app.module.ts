@@ -18,8 +18,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { HeroSearchComponent } from './components/hero-search/hero-search.component';
 import { CreateConferenceComponent } from './components/create-conference/create-conference.component';
 import { AmazingTimePickerModule } from 'amazing-time-picker'; // this line you need
+import {MatListModule} from '@angular/material/list';
 import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
+import { ManagePCComponent } from './components/manage-pc/manage-pc.component';
 
 @NgModule({
   imports: [
@@ -32,6 +34,7 @@ import {MatIconModule} from '@angular/material/icon';
     MatInputModule,
     MatDatepickerModule,
     MatIconModule,
+    MatListModule,
     AmazingTimePickerModule,
     ReactiveFormsModule,
     MatCardModule,
@@ -49,7 +52,8 @@ import {MatIconModule} from '@angular/material/icon';
     HeroDetailComponent,
     MessagesComponent,
     HeroSearchComponent,
-    CreateConferenceComponent
+    CreateConferenceComponent,
+    ManagePCComponent
   ],
   bootstrap: [ AppComponent ]
 })

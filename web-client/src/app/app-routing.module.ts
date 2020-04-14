@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { HeroesComponent } from './components/heroes/heroes.component';
 import { HeroDetailComponent } from './components/hero-detail/hero-detail.component';
+import {ManagePCComponent} from './components/manage-pc/manage-pc.component';
 import {CreateConferenceComponent} from './components/create-conference/create-conference.component';
 
 const routes: Routes = [
@@ -11,7 +12,8 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'detail/:id', component: HeroDetailComponent },
   { path: 'heroes', component: HeroesComponent },
-  { path: 'create-conference', component: CreateConferenceComponent }
+  { path: 'create-conference', component: CreateConferenceComponent },
+  { path: 'manage-pcs', component: ManagePCComponent}
 
 ];
 
