@@ -6,11 +6,13 @@ import { HeroesComponent } from './components/heroes/heroes.component';
 import { HeroDetailComponent } from './components/hero-detail/hero-detail.component';
 import {ManagePCComponent} from './components/manage-pc/manage-pc.component';
 import {CreateConferenceComponent} from './components/create-conference/create-conference.component';
+import {PcDetailComponent} from './components/pc-detail/pc-detail.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'detail/:id', component: HeroDetailComponent },
+  { path: 'pc/detail/:id', component: PcDetailComponent },
   { path: 'heroes', component: HeroesComponent },
   { path: 'create-conference', component: CreateConferenceComponent },
   { path: 'manage-pcs', component: ManagePCComponent}

@@ -25,10 +25,4 @@ export class ManagePCComponent implements OnInit {
     this.pcService.getProgramCommittees()
       .subscribe(pcs => this.pcs = pcs);
   }
-  makeChair(pc: ProgramCommittee) {
-
-  }
-  onNgModelChange(event){
-    console.log('on ng model change', event);
-  }
 }

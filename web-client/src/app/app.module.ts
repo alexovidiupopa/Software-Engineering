@@ -14,6 +14,7 @@ import { HeroDetailComponent } from './components/hero-detail/hero-detail.compon
 import { HeroesComponent } from './components/heroes/heroes.component';
 import { MessagesComponent } from './components/messages/messages.component';
 import { HttpClientModule } from '@angular/common/http';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { AppRoutingModule } from './app-routing.module';
 import { HeroSearchComponent } from './components/hero-search/hero-search.component';
 import { CreateConferenceComponent } from './components/create-conference/create-conference.component';
@@ -22,6 +23,7 @@ import {MatListModule} from '@angular/material/list';
 import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 import { ManagePCComponent } from './components/manage-pc/manage-pc.component';
+import { PcDetailComponent } from './components/pc-detail/pc-detail.component';
 
 @NgModule({
   imports: [
@@ -35,6 +37,7 @@ import { ManagePCComponent } from './components/manage-pc/manage-pc.component';
     MatDatepickerModule,
     MatIconModule,
     MatListModule,
+    MatSnackBarModule,
     AmazingTimePickerModule,
     ReactiveFormsModule,
     MatCardModule,
@@ -53,7 +56,8 @@ import { ManagePCComponent } from './components/manage-pc/manage-pc.component';
     MessagesComponent,
     HeroSearchComponent,
     CreateConferenceComponent,
-    ManagePCComponent
+    ManagePCComponent,
+    PcDetailComponent
   ],
   bootstrap: [ AppComponent ]
 })

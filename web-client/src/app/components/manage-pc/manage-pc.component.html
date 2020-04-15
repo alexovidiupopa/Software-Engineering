@@ -22,15 +22,10 @@
     </div>
 
     <h4 class="mat-h4">Here is a list of the Program Committee.</h4>
-    <h5 class="mat-small">Select them to give Chair credentials</h5>
-    <mat-selection-list #pcList>
-      <mat-list-option *ngFor="let pc of pcs">
-        {{pc.firstName}} {{pc.lastName}} ({{pc.email}})
-      </mat-list-option>
-    </mat-selection-list>
-    <button mat-flat-button id="make-chair-button" color="primary" (click)="makeChair(null)">Give Chair credentials</button>
-
-
+    <h5 class="mat-small">Click on name for more details.</h5>
+    <mat-nav-list>
+      <a mat-list-item href="/pc/detail/{{pc.id}}" *ngFor="let pc of pcs"> {{pc.firstName}} {{pc.lastName}} ({{pc.affiliation}}) </a>
+    </mat-nav-list>
   </mat-card>
 
 </div>

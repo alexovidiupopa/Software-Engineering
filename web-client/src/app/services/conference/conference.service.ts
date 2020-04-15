@@ -3,7 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {MessageService} from '../message/message.service';
 import {Observable, of} from 'rxjs';
 import {Hero} from '../hero/hero';
-import {catchError, tap} from 'rxjs/operators';
+import {catchError, map, tap} from 'rxjs/operators';
 import {Todo} from '../../todo';
 import {Conference} from './conference';
 
@@ -15,7 +15,7 @@ export class ConferenceService {
   constructor(
     private http: HttpClient,
     private messageService: MessageService) { }
-  private conferenceUrl = 'api/conference';  // URL to web api
+  private conferenceUrl = 'http://demo4608640.mockable.io/api/conference';  // URL to web api
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
@@ -43,11 +43,19 @@ export class ConferenceService {
       return of(result as T);
     };
   }
-  addConference(conference: Conference): Observable<Conference> {
+  addConference(conference: Conference): Observable<boolean> {
     const url = `${this.conferenceUrl}/create`;
+    const conferenceFormatted = {conferenceName: conference.conferenceName,
+      preliminaryPhaseDeadline: conference.preliminaryPhaseDeadline.format("DD-MM-YYYY HH:mm"),
+      firstPhaseDeadline: conference.firstPhaseDeadline.format("DD-MM-YYYY HH:mm"),
+      secondPhaseDeadline: conference.secondPhaseDeadline.format("DD-MM-YYYY HH:mm"),
+      thirdPhaseDeadline: conference.thirdPhaseDeadline.format("DD-MM-YYYY HH:mm")
+    };
+    console.log(conferenceFormatted);
 
-    return this.http.post<Conference>(url, conference, this.httpOptions).pipe(
-      tap((newConference: Conference) => this.log(`added conference w/ name=${conference.conferenceName}`)),
+    return this.http.post<boolean>(url, conferenceFormatted, this.httpOptions).pipe(
+      map(response => response["success"]),
+      // tap((newConference: Conference) => this.log(`added conference w/ name=${conference.conferenceName}`)),
       catchError(this.handleError<Conference>('addConference'))
     );
   }

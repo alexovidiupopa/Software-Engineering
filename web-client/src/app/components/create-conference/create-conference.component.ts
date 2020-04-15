@@ -4,6 +4,7 @@ import {MatDatepickerInputEvent} from '@angular/material/datepicker';
 import * as moment from 'moment';
 import {ConferenceService} from '../../services/conference/conference.service';
 import {Conference} from '../../services/conference/conference';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-create-conference',
@@ -28,7 +29,7 @@ export class CreateConferenceComponent implements OnInit {
   validData: boolean;
 
 
-  constructor(private atp: AmazingTimePickerService, private conferenceService: ConferenceService) {
+  constructor(private atp: AmazingTimePickerService, private conferenceService: ConferenceService, private router: Router) {
     // Set the minimum to January 1st 20 years in the past and December 31st a year in the future.
     const currentYear = new Date().getFullYear();
     this.minDate = moment().toDate();
@@ -119,7 +120,7 @@ export class CreateConferenceComponent implements OnInit {
       this.secondPhaseDeadline.isAfter(this.firstPhaseDeadline) &&
       this.thirdPhaseDeadline.isAfter(this.secondPhaseDeadline);
   }
-
+  conferenceFailed: boolean = false;
   createConferenceButtonPressed() {
     this.formatConferenceData();
     this.printCreateConference();
@@ -132,8 +133,13 @@ export class CreateConferenceComponent implements OnInit {
         secondPhaseDeadline: this.secondPhaseDeadline,
         thirdPhaseDeadline: this.thirdPhaseDeadline
       } as Conference)
-        .subscribe(conference => {
-          console.log('successfully added conference:\n' + conference);
+        .subscribe(success => {
+          if(success){
+            this.conferenceFailed = false;
+            this.router.navigateByUrl('/');
+          } else {
+            this.conferenceFailed = true;
+          }
         });
     }
   }

@@ -78,6 +78,7 @@
 
     <button mat-raised-button color="primary" id="create-conference-button" (click)="createConferenceButtonPressed()">Create conference!</button>
     <mat-error *ngIf="!validData">Input data is invalid!</mat-error>
+    <mat-error *ngIf="conferenceFailed">Couldn't create conference</mat-error>
 
   </mat-card>
 
