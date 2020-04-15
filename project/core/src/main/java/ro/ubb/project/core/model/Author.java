@@ -1,7 +1,6 @@
 package ro.ubb.project.core.model;
 
 import lombok.*;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -12,7 +11,8 @@ import javax.persistence.Id;
 @Setter
 @Builder
 @EqualsAndHashCode
-public class Author {
+public class Author  {
     @Id
     private int aid;
+
 }

@@ -1,10 +1,21 @@
 package ro.ubb.project.web.converter;
 
+import org.springframework.stereotype.Component;
 import ro.ubb.project.web.dto.PersonDto;
 import ro.ubb.project.core.model.Person;
 
-public class PersonConverter implements Converter<Person, PersonDto> {
+@Component
+public class PersonConverter extends AbstractConverter<Person, PersonDto> implements Converter<Person, PersonDto> {
     @Override
+    public Person dtoToModel(PersonDto personDto) {
+        return null;
+    }
+
+    @Override
+    public PersonDto modelToDto(Person person) {
+        return null;
+    }
+    /*@Override
     public Person dtoToModel(PersonDto personDto) {
         return Person.builder()
                 .uid(personDto.getUid())
@@ -32,5 +43,5 @@ public class PersonConverter implements Converter<Person, PersonDto> {
                 .email(Person.getEmail())
                 .academicrank(Person.getAcademicrank())
                 .build();
-    }
+    }*/
 }

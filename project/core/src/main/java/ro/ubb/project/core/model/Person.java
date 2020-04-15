@@ -8,9 +8,9 @@ import javax.persistence.Id;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder(builderClassName = "Builder", toBuilder = true)
 @Getter
 @Setter
-@Builder
 @EqualsAndHashCode
 public class Person {
     @Id
