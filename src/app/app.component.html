@@ -1,23 +1,32 @@
 <!-- nav -->
 <!--<nav class="navbar navbar-expand navbar-dark bg-dark" *ngIf="currentUser">f
     <div class="navbar-nav">
-      
+
         <ul>
         <li><a class="nav-item nav-link" routerLink="/" class="round green" >Login<span class="round">That is, if you already have an account.</span></a></li>
         <li><a class="nav-item nav-link" routerLink="/login" class="round red">Home<span class="round">You, get back home</span></a></li>
         <li><a class="nav-item nav-link" routerLink="/register"class="round yellow">Register<span class="round">Only if you really really want to</span></a></li>
         </ul>
     </div>
-   
+
 </nav>
 -->
 <!-- nav -->
+
+<script src="https://code.iconify.design/1/1.0.5/iconify.min.js"></script>
+
+
 <nav class="navbar navbar-expand navbar-dark bg-dark" *ngIf="currentUser">
     <div class="navbar-nav">
-        <a class="nav-item nav-link" routerLink="/">Home</a>
-        <a class="nav-item nav-link" (click)="logout()">Logout</a>
+        <a class="nav-item nav-link" routerLink="/"> <mat-icon>home</mat-icon></a>
+      <div class="example-button-row">
+        <a class="nav-item nav-link" (click)="logout()"><button mat-raised-button color="warn">logout</button> </a>
+
+        <a class="nav-item nav-link" (click)="back_to_clients_page()"><button mat-raised-button color="warn">Get to your page</button></a>
+      </div>
     </div>
 </nav>
+
 
 <!-- main content container -->
 <div class="jumbotron">

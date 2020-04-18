@@ -8,15 +8,14 @@ import { ChairHomeComponent } from './chair-home';
 import { PcHomeComponent } from './pc-home/pc-home.component';
 
 const routes: Routes = [
-    
-    { path: '', component: HomeComponent, canActivate: [AuthGuard] },
+    { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
     { path: 'pc-home', component: PcHomeComponent},
     { path: 'chair-home', component: ChairHomeComponent},
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
 
     // otherwise redirect to home
-    { path: '**', redirectTo: '' }
+    { path: '**', redirectTo: 'home' }
 ];
 
 export const appRoutingModule = RouterModule.forRoot(routes);

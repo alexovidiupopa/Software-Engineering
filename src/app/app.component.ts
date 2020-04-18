@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { User } from './user'   
+import { User } from './user';
 import { AuthenticationService } from './_services';
 
 @Component({ selector: 'app-root', templateUrl: 'app.component.html' })
@@ -17,5 +17,13 @@ export class AppComponent {
     logout() {
         this.authenticationService.logout();
         this.router.navigate(['/login']);
+    }
+
+    back_to_clients_page() {
+    debugger
+      const user: User = this.authenticationService.get_current_user();
+      // @ts-ignore
+
+      this.router.navigate([user.get_url()]);
     }
 }
