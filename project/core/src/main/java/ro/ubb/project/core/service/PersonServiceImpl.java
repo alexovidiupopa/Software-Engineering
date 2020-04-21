@@ -10,6 +10,8 @@ import java.util.List;
 @Service
 public class PersonServiceImpl implements PersonService {
 
+   // private static final Logger log = LoggerFactory.getLogger(PersonServiceImpl.class);
+
     @Autowired
     private PersonRepository personRepository;
 

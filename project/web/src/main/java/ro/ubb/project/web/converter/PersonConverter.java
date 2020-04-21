@@ -6,16 +6,8 @@ import ro.ubb.project.core.model.Person;
 
 @Component
 public class PersonConverter extends AbstractConverter<Person, PersonDto> implements Converter<Person, PersonDto> {
-    @Override
-    public Person dtoToModel(PersonDto personDto) {
-        return null;
-    }
 
     @Override
-    public PersonDto modelToDto(Person person) {
-        return null;
-    }
-    /*@Override
     public Person dtoToModel(PersonDto personDto) {
         return Person.builder()
                 .uid(personDto.getUid())
@@ -43,5 +35,5 @@ public class PersonConverter extends AbstractConverter<Person, PersonDto> implem
                 .email(Person.getEmail())
                 .academicrank(Person.getAcademicrank())
                 .build();
-    }*/
+    }
 }

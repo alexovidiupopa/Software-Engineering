@@ -3,17 +3,21 @@ package ro.ubb.project.core.model;
 import lombok.*;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder(builderClassName = "Builder", toBuilder = true)
+@Builder
 @Getter
 @Setter
 @EqualsAndHashCode
 public class Person {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int uid;
 
     private String username;

@@ -12,6 +12,7 @@ public class Main {
         PersonService personService = context.getBean(PersonService.class);
         personService.getAllPersons().forEach(System.out::println);
 
-        Person person = new Person();
+        Person p = new Person();
+        System.out.println(p.getUsername());
     }
 }

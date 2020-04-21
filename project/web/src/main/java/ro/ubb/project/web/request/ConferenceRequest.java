@@ -2,16 +2,19 @@ package ro.ubb.project.web.request;
 
 
 import lombok.*;
+import org.joda.time.DateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @Builder
+@ToString
 public class ConferenceRequest {
+    private int conf_id;
     private String name;
-    private String preliminaryPhaseDeadline;
-    private String firstPhaseDeadline;
-    private String secondPhaseDeadline;
-    private String thirdPhaseDeadline;
+    private DateTime preliminaryPhaseDeadline;
+    private DateTime firstPhaseDeadline;
+    private DateTime secondPhaseDeadline;
+    private DateTime thirdPhaseDeadline;
 }

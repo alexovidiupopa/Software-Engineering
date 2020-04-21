@@ -9,11 +9,15 @@ public class AuthorConverter extends AbstractConverter<Author, AuthorDto> implem
 
     @Override
     public Author dtoToModel(AuthorDto authorDto) {
-        return null;
+        return Author.builder()
+                .aid(authorDto.getAid())
+                .build();
     }
 
     @Override
     public AuthorDto modelToDto(Author author) {
-        return null;
+        return AuthorDto.builder()
+                .aid(author.getAid())
+                .build();
     }
 }
