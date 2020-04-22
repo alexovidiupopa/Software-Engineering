@@ -24,6 +24,9 @@ import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 import { ManagePCComponent } from './components/manage-pc/manage-pc.component';
 import { PcDetailComponent } from './components/pc-detail/pc-detail.component';
+import {MatSliderModule} from "@angular/material/slider";
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import {MatCheckboxModule} from "@angular/material/checkbox";
 
 @NgModule({
   imports: [
@@ -42,7 +45,10 @@ import { PcDetailComponent } from './components/pc-detail/pc-detail.component';
     ReactiveFormsModule,
     MatCardModule,
     MatNativeDateModule,
-    NgxMaterialTimepickerModule
+    NgxMaterialTimepickerModule,
+    MatSliderModule,
+    MatSlideToggleModule,
+    MatCheckboxModule,
   ],
   providers: [
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },
