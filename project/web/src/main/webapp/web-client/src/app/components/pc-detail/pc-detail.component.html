@@ -16,8 +16,8 @@
       </section>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-flat-button color="primary" (click)="makeChair(pc.id)">Give Chair credentials</button>
-      <button mat-flat-button (click)="goBack()">Back</button>
+      <button (click)="makeChair(pc.id)" color="primary" mat-flat-button>Give Chair credentials</button>
+      <button (click)="goBack()" mat-flat-button>Back</button>
     </mat-card-actions>
     <mat-error *ngIf="!successfulUpdate">Couldn't update to chair</mat-error>
   </mat-card>

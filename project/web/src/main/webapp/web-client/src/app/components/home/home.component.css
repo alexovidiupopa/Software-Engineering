@@ -2,10 +2,12 @@
 mat-slider {
   width: 300px;
 }
+
 .example-button-row button {
   display: table-cell;
   margin-right: 8px;
 }
+
 ul {
   list-style: none;
   padding: 0;
@@ -14,10 +16,12 @@ ul {
   width: 200px;
   overflow: hidden
 }
-li{
+
+li {
 
 }
-li img{
+
+li img {
   width: 200px;
 
 }

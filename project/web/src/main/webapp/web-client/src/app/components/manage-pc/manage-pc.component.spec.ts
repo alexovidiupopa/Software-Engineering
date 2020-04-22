@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ManagePCComponent } from './manage-pc.component';
+import {ManagePCComponent} from './manage-pc.component';
 
 describe('ManagePCComponent', () => {
   let component: ManagePCComponent;
@@ -8,9 +8,9 @@ describe('ManagePCComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ManagePCComponent ]
+      declarations: [ManagePCComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

@@ -6,20 +6,22 @@
     <form class="example-form">
       <mat-form-field class="example-full-width">
         <mat-label>Conference name</mat-label>
-        <input matInput placeholder="Ex. 6th Quarterly Symposium on Quantum Physics" #conferenceNameInput id="conference-name-input" (change)="conferenceNameChanged(conferenceNameInput.value)">
+        <input #conferenceNameInput (change)="conferenceNameChanged(conferenceNameInput.value)" id="conference-name-input"
+               matInput placeholder="Ex. 6th Quarterly Symposium on Quantum Physics">
       </mat-form-field>
     </form>
 
     <div class="datetime-container">
       <mat-form-field class="example-full-width datetime-container-children">
         <mat-label>Preliminary phase deadline</mat-label>
-        <input matInput [min]="minDate" [matDatepicker]="datepickerPreliminaryPhase" (dateInput)="preliminaryPhaseDateAdded($event)" (dateChange)="preliminaryPhaseDateAdded($event)">
-        <mat-datepicker-toggle matSuffix [for]="datepickerPreliminaryPhase"></mat-datepicker-toggle>
+        <input (dateChange)="preliminaryPhaseDateAdded($event)" (dateInput)="preliminaryPhaseDateAdded($event)" [matDatepicker]="datepickerPreliminaryPhase"
+               [min]="minDate" matInput>
+        <mat-datepicker-toggle [for]="datepickerPreliminaryPhase" matSuffix></mat-datepicker-toggle>
         <mat-datepicker #datepickerPreliminaryPhase></mat-datepicker>
       </mat-form-field>
       <div class="time-input">
         <input matInput type="time" value="{{preliminarySelectedTime}}">
-        <button mat-icon-button (click)="openTimePreliminary()">
+        <button (click)="openTimePreliminary()" mat-icon-button>
           <mat-icon>alarm</mat-icon>
         </button>
       </div>
@@ -30,14 +32,15 @@
 
       <mat-form-field class="example-full-width datetime-container-children">
         <mat-label>First phase deadline</mat-label>
-        <input matInput [min]="minDate" [matDatepicker]="datepickerFirstPhase" (dateInput)="firstPhaseDateAdded($event)" (dateChange)="firstPhaseDateAdded($event)">
-        <mat-datepicker-toggle matSuffix [for]="datepickerFirstPhase"></mat-datepicker-toggle>
+        <input (dateChange)="firstPhaseDateAdded($event)" (dateInput)="firstPhaseDateAdded($event)" [matDatepicker]="datepickerFirstPhase" [min]="minDate"
+               matInput>
+        <mat-datepicker-toggle [for]="datepickerFirstPhase" matSuffix></mat-datepicker-toggle>
         <mat-datepicker #datepickerFirstPhase></mat-datepicker>
       </mat-form-field>
       <div class="time-input">
 
         <input matInput type="time" value="{{firstPhaseSelectedTime}}">
-        <button mat-icon-button (click)="openTimeFirstPhase()">
+        <button (click)="openTimeFirstPhase()" mat-icon-button>
           <mat-icon>alarm</mat-icon>
         </button>
       </div>
@@ -48,14 +51,15 @@
 
       <mat-form-field class="example-full-width datetime-container-children">
         <mat-label>Second phase deadline</mat-label>
-        <input matInput [min]="minDate" [matDatepicker]="datepickerSecondPhase" (dateInput)="secondPhaseDateAdded($event)" (dateChange)="secondPhaseDateAdded($event)">
-        <mat-datepicker-toggle matSuffix [for]="datepickerSecondPhase"></mat-datepicker-toggle>
+        <input (dateChange)="secondPhaseDateAdded($event)" (dateInput)="secondPhaseDateAdded($event)" [matDatepicker]="datepickerSecondPhase"
+               [min]="minDate" matInput>
+        <mat-datepicker-toggle [for]="datepickerSecondPhase" matSuffix></mat-datepicker-toggle>
         <mat-datepicker #datepickerSecondPhase></mat-datepicker>
       </mat-form-field>
       <div class="time-input">
 
         <input matInput type="time" value="{{secondPhaseSelectedTime}}">
-        <button mat-icon-button (click)="openTimeSecondPhase()">
+        <button (click)="openTimeSecondPhase()" mat-icon-button>
           <mat-icon>alarm</mat-icon>
         </button>
       </div>
@@ -64,19 +68,22 @@
     <div class="datetime-container">
       <mat-form-field class="example-full-width datetime-container-children">
         <mat-label>Third phase deadline</mat-label>
-        <input matInput [min]="minDate" [matDatepicker]="datepickerThirdPhase" (dateInput)="thirdPhaseDateAdded($event)" (dateChange)="thirdPhaseDateAdded($event)">
-        <mat-datepicker-toggle matSuffix [for]="datepickerThirdPhase"></mat-datepicker-toggle>
+        <input (dateChange)="thirdPhaseDateAdded($event)" (dateInput)="thirdPhaseDateAdded($event)" [matDatepicker]="datepickerThirdPhase" [min]="minDate"
+               matInput>
+        <mat-datepicker-toggle [for]="datepickerThirdPhase" matSuffix></mat-datepicker-toggle>
         <mat-datepicker #datepickerThirdPhase></mat-datepicker>
       </mat-form-field>
       <div class="time-input">
         <input matInput type="time" value="{{thirdPhaseSelectedTime}}">
-        <button mat-icon-button (click)="openTimeThirdPhase()">
+        <button (click)="openTimeThirdPhase()" mat-icon-button>
           <mat-icon>alarm</mat-icon>
         </button>
       </div>
     </div>
 
-    <button mat-raised-button color="primary" id="create-conference-button" (click)="createConferenceButtonPressed()">Create conference!</button>
+    <button (click)="createConferenceButtonPressed()" color="primary" id="create-conference-button" mat-raised-button>
+      Create conference!
+    </button>
     <mat-error *ngIf="!validData">Input data is invalid!</mat-error>
     <mat-error *ngIf="conferenceFailed">Couldn't create conference</mat-error>
 

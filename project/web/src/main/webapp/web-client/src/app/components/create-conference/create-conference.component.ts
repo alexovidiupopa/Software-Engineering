@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AmazingTimePickerService} from 'amazing-time-picker';
 import {MatDatepickerInputEvent} from '@angular/material/datepicker';
 import * as moment from 'moment';
@@ -25,9 +25,9 @@ export class CreateConferenceComponent implements OnInit {
   firstPhaseDeadline: moment.Moment;
   secondPhaseDeadline: moment.Moment;
   thirdPhaseDeadline: moment.Moment;
-  private conferenceName: string;
   validData: boolean;
-
+  conferenceFailed: boolean = false;
+  private conferenceName: string;
 
   constructor(private atp: AmazingTimePickerService, private conferenceService: ConferenceService, private router: Router) {
     // Set the minimum to January 1st 20 years in the past and December 31st a year in the future.
@@ -92,17 +92,44 @@ export class CreateConferenceComponent implements OnInit {
 
   }
 
-  private validateConferenceData(): void{
+  createConferenceButtonPressed() {
+    this.formatConferenceData();
+    this.printCreateConference();
+    this.validateConferenceData();
+    if (this.validData) {
+      this.conferenceService.addConference({
+        conferenceName: this.conferenceName,
+        preliminaryPhaseDeadline: this.preliminaryPhaseDeadline,
+        firstPhaseDeadline: this.firstPhaseDeadline,
+        secondPhaseDeadline: this.secondPhaseDeadline,
+        thirdPhaseDeadline: this.thirdPhaseDeadline
+      } as Conference)
+        .subscribe(success => {
+          if (success) {
+            this.conferenceFailed = false;
+            this.router.navigateByUrl('/');
+          } else {
+            this.conferenceFailed = true;
+          }
+        });
+    }
+  }
+
+  conferenceNameChanged(conferenceName: string) {
+    this.conferenceName = conferenceName;
+  }
+
+  private validateConferenceData(): void {
     if (!this.conferenceName ||
       !this.preliminaryPhaseDate || !this.preliminarySelectedTime ||
       !this.firstPhaseDate || !this.firstPhaseDate ||
       !this.secondPhaseDate || !this.secondPhaseDate ||
-      !this.thirdPhaseDate || !this.thirdPhaseDate){
-        this.validData = false;
-        return;
+      !this.thirdPhaseDate || !this.thirdPhaseDate) {
+      this.validData = false;
+      return;
     }
 
-    if(!this.preliminaryPhaseDeadline || !this.firstPhaseDeadline || !this.secondPhaseDeadline || !this.thirdPhaseDeadline) {
+    if (!this.preliminaryPhaseDeadline || !this.firstPhaseDeadline || !this.secondPhaseDeadline || !this.thirdPhaseDeadline) {
       this.validData = false;
       return;
     }
@@ -120,32 +147,9 @@ export class CreateConferenceComponent implements OnInit {
       this.secondPhaseDeadline.isAfter(this.firstPhaseDeadline) &&
       this.thirdPhaseDeadline.isAfter(this.secondPhaseDeadline);
   }
-  conferenceFailed: boolean = false;
-  createConferenceButtonPressed() {
-    this.formatConferenceData();
-    this.printCreateConference();
-    this.validateConferenceData();
-    if(this.validData) {
-      this.conferenceService.addConference({
-        conferenceName: this.conferenceName,
-        preliminaryPhaseDeadline: this.preliminaryPhaseDeadline,
-        firstPhaseDeadline: this.firstPhaseDeadline,
-        secondPhaseDeadline: this.secondPhaseDeadline,
-        thirdPhaseDeadline: this.thirdPhaseDeadline
-      } as Conference)
-        .subscribe(success => {
-          if(success){
-            this.conferenceFailed = false;
-            this.router.navigateByUrl('/');
-          } else {
-            this.conferenceFailed = true;
-          }
-        });
-    }
-  }
 
   private printCreateConference() {
-    console.log("valid data:" + this.validData);
+    console.log('valid data:' + this.validData);
 
     console.log('conference name:');
     console.log(this.conferenceName);
@@ -171,24 +175,20 @@ export class CreateConferenceComponent implements OnInit {
     console.log(this.thirdPhaseDeadline);
   }
 
-  conferenceNameChanged(conferenceName: string) {
-    this.conferenceName = conferenceName;
-  }
-
   private formatConferenceData() {
     if (this.conferenceName) {
       this.conferenceName = this.conferenceName.trim();
     }
-    if(this.preliminaryPhaseDate && this.preliminarySelectedTime) {
+    if (this.preliminaryPhaseDate && this.preliminarySelectedTime) {
       this.preliminaryPhaseDeadline = this.formatDeadline(this.preliminaryPhaseDate, this.preliminarySelectedTime);
     }
-    if(this.firstPhaseDate && this.firstPhaseSelectedTime) {
+    if (this.firstPhaseDate && this.firstPhaseSelectedTime) {
       this.firstPhaseDeadline = this.formatDeadline(this.firstPhaseDate, this.firstPhaseSelectedTime);
     }
-    if(this.secondPhaseDate && this.secondPhaseSelectedTime) {
+    if (this.secondPhaseDate && this.secondPhaseSelectedTime) {
       this.secondPhaseDeadline = this.formatDeadline(this.secondPhaseDate, this.secondPhaseSelectedTime);
     }
-    if(this.thirdPhaseDate && this.thirdPhaseSelectedTime) {
+    if (this.thirdPhaseDate && this.thirdPhaseSelectedTime) {
       this.thirdPhaseDeadline = this.formatDeadline(this.thirdPhaseDate, this.thirdPhaseSelectedTime);
     }
 

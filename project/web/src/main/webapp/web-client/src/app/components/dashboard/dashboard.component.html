@@ -8,7 +8,7 @@
   </a>
 </div>
 <h4><label for="custom-http-request">Request</label></h4>
-<input #searchBox id="custom-http-request" (input)="httpRequest(searchBox.value)" />
+<input #searchBox (input)="httpRequest(searchBox.value)" id="custom-http-request"/>
 <div *ngIf="todo">
   <h4>{{todo.title}}</h4>
 </div>

@@ -5,26 +5,27 @@
     <h4 class="mat-h4">Here you can invite a new PC by entering his/hers email:</h4>
 
     <div id="add-pc-container">
-    <form class="example-form">
-      <mat-form-field class="example-full-width">
-        <mat-label>Invite</mat-label>
-        <input matInput [formControl]="emailFormControl" placeholder="Ex. pat@example.com">
-        <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-          Please enter a valid email address
-        </mat-error>
-        <mat-error *ngIf="emailFormControl.hasError('required')">
-          Email is <strong>required</strong>
-        </mat-error>
-      </mat-form-field>
-    </form>
-      <button mat-flat-button id="invite-button" color="primary">Invite</button>
+      <form class="example-form">
+        <mat-form-field class="example-full-width">
+          <mat-label>Invite</mat-label>
+          <input [formControl]="emailFormControl" matInput placeholder="Ex. pat@example.com">
+          <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+            Please enter a valid email address
+          </mat-error>
+          <mat-error *ngIf="emailFormControl.hasError('required')">
+            Email is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </form>
+      <button color="primary" id="invite-button" mat-flat-button>Invite</button>
 
     </div>
 
     <h4 class="mat-h4">Here is a list of the Program Committee.</h4>
     <h5 class="mat-small">Click on name for more details.</h5>
     <mat-nav-list>
-      <a mat-list-item href="/pc/detail/{{pc.id}}" *ngFor="let pc of pcs"> {{pc.firstName}} {{pc.lastName}} ({{pc.affiliation}}) </a>
+      <a *ngFor="let pc of pcs" href="/pc/detail/{{pc.id}}" mat-list-item> {{pc.firstName}} {{pc.lastName}}
+        ({{pc.affiliation}}) </a>
     </mat-nav-list>
   </mat-card>
 

@@ -1,1 +1,1 @@
-export * from './chair-home.component'
+export * from './chair-home.component';

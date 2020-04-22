@@ -1,7 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {Hero} from '../../services/hero/hero';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {HeroService} from '../../services/hero/hero.service';
 import {Location} from '@angular/common';
 import {ProgramCommittee} from '../../services/program-committee/program-committee';
 import {ProgramCommitteeService} from '../../services/program-committee/program-committee.service';
@@ -14,14 +12,16 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 })
 export class PcDetailComponent implements OnInit {
   pc: ProgramCommittee;
+  successfulUpdate: boolean = true;
 
   constructor(
     private route: ActivatedRoute,
     private pcService: ProgramCommitteeService,
     private location: Location,
     private _snackBar: MatSnackBar
-  ) {}
-  successfulUpdate: boolean = true;
+  ) {
+  }
+
   ngOnInit(): void {
     this.getPC();
   }
@@ -39,9 +39,10 @@ export class PcDetailComponent implements OnInit {
   makeChair(id: number) {
     this.pcService.updatePCToChair(id).subscribe(success => {
       this.successfulUpdate = success;
-      if(this.successfulUpdate == true) {
-        this.openSnackBar("Made chair :)", null);
-      }});
+      if (this.successfulUpdate == true) {
+        this.openSnackBar('Made chair :)', null);
+      }
+    });
     console.log(this.successfulUpdate);
   }
 

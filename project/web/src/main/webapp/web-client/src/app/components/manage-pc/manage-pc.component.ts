@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormControl, Validators} from '@angular/forms';
 import {ProgramCommittee} from '../../services/program-committee/program-committee';
-import {HeroService} from '../../services/hero/hero.service';
 import {ProgramCommitteeService} from '../../services/program-committee/program-committee.service';
 
 @Component({
@@ -15,7 +14,9 @@ export class ManagePCComponent implements OnInit {
     Validators.email,
   ]);
   pcs: ProgramCommittee[];
-  constructor(private pcService: ProgramCommitteeService) { }
+
+  constructor(private pcService: ProgramCommitteeService) {
+  }
 
   ngOnInit() {
     this.getPCs();

@@ -1,20 +1,18 @@
-import { Injectable } from '@angular/core';
-import { HttpRequest, HttpResponse, HttpHandler, HttpEvent, HttpInterceptor, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { HttpClient,HttpHeaders } from '@angular/common/http';
-import { Observable, of, throwError } from 'rxjs';
-import { delay, mergeMap, materialize, dematerialize } from 'rxjs/operators';
-import { User } from '../user'
-import { stringify } from 'querystring';
-import {catchError, map, tap} from 'rxjs/operators';
-let users = [{ id: 1, firstName: 'Jason', lastName: 'Watmore', username: 'test', password: 'test' }];
-let myUsers = [new User('fn','ln','test1','test1','Chair','chair-home'),new User('fn','ln','test2','test2','Pc','pc-home')];
+import {Injectable} from '@angular/core';
+import {User} from '../user';
+import {HTTP_INTERCEPTORS, HttpClient, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse} from '@angular/common/http';
+import {Observable, of, throwError} from 'rxjs';
+import {delay, dematerialize, materialize, mergeMap} from 'rxjs/operators';
+
+const users = [{ id: 1, firstName: 'Jason', lastName: 'Watmore', username: 'test', password: 'test' }];
+const myUsers = [new User('fn', 'ln', 'test1', 'test1', 'Chair', 'chair-home'), new User('fn', 'ln', 'test2', 'test2', 'Pc', 'pc-home')];
 @Injectable()
 export class FakeBackendInterceptor implements HttpInterceptor {
-    //httpOptions:any;
-    response$:Observable<boolean>;
-    constructor(private http:HttpClient){
+    // httpOptions:any;
+    response$: Observable<boolean>;
+    constructor(private http: HttpClient) {
         this.http = http;
-        mocupURL : "https://demo4608640.mockable.io/api/login";
+        mocupURL : 'https://demo4608640.mockable.io/api/login';
   //      this.httpOptions = {
  //   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
  // };
@@ -22,7 +20,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const { url, method, headers, body } = request;
 
-        
+
 
         // wrap in delayed observable to simulate server api call
         return of(null)
@@ -34,7 +32,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         function handleRoute() {
             switch (true) {
                 case url.endsWith('/users/authenticate') && method === 'POST':
-                    
+
                     return authenticate();
                 default:
                     // pass through any requests not handled above
@@ -45,24 +43,24 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         // route functions
 
         function authenticate() {
-            
+
             const { username, password } = body;
-            
+
 
             const user = myUsers.find(x => x.username === username && x.password === password);
-            
-         
 
 
-            
-            if (!user) return error('Username or password is incorrect');
+
+
+
+            if (!user) { return error('Username or password is incorrect'); }
             return ok(user);
         }
 
         // helper functions
 
         function ok(body?) {
-            return of(new HttpResponse({ status: 200, body }))
+            return of(new HttpResponse({ status: 200, body }));
         }
 
         function error(message) {
