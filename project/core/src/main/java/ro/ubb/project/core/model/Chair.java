@@ -13,6 +13,7 @@ import javax.persistence.Id;
 @Builder
 @EqualsAndHashCode
 public class Chair {
+
     @Id
     private int cid;
 }

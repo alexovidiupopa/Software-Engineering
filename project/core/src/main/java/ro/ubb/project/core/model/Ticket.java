@@ -15,11 +15,11 @@ import java.sql.Date;
 @Builder
 @EqualsAndHashCode
 public class Ticket {
+
     @Id
     private int tid;
     private BigDecimal price;
     private Integer seatno;
     private Date datepurchased;
     private String name;
-
 }

@@ -11,8 +11,8 @@ import javax.persistence.Id;
 @Setter
 @Builder
 @EqualsAndHashCode
-public class Author  {
+public class Author {
+
     @Id
     private int aid;
-
 }

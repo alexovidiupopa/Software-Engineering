@@ -2,10 +2,8 @@ package ro.ubb.project.core.model.pk;
 
 import lombok.*;
 
-import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.io.Serializable;
-
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -14,9 +12,9 @@ import java.io.Serializable;
 @Builder
 @EqualsAndHashCode
 public class PaperSubjectsPK implements Serializable {
+
     @Id
     private int pid;
     @Id
     private int kid;
-
 }

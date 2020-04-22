@@ -1,7 +1,13 @@
 package ro.ubb.project.core.service;
 
-import org.springframework.stereotype.Service;
+import ro.ubb.project.core.model.Author;
 
-@Service
+import java.util.List;
+
 public interface AuthorService {
+
+    List<Author> getAllAuthors();
+    void addAuthor(Author author);
+    void deleteAuthor(Author author);
+    void updateAuthor(Author author);
 }

@@ -13,6 +13,7 @@ import javax.persistence.Id;
 @Setter
 @EqualsAndHashCode
 public class Person {
+
     @Id
     private int uid;
 
@@ -20,11 +21,11 @@ public class Person {
     private String password;
     private String website;
     private String affiliation;
-    private String firstname;
-    private String lastname;
-    private String phonenumber;
+    private String firstName;
+    private String lastName;
+    private String phoneNumber;
     private String email;
-    private String academicrank;
+    private String academicRank;
 
     @Override
     public String toString() {
@@ -34,11 +35,11 @@ public class Person {
                 ", password='" + password + '\'' +
                 ", website='" + website + '\'' +
                 ", affiliation='" + affiliation + '\'' +
-                ", firstname='" + firstname + '\'' +
-                ", lastname='" + lastname + '\'' +
-                ", phonenumber='" + phonenumber + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
                 ", email='" + email + '\'' +
-                ", academicrank='" + academicrank + '\'' +
+                ", academicRank='" + academicRank + '\'' +
                 '}';
     }
 }

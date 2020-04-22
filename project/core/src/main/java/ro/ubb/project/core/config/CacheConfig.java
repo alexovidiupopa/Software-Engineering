@@ -17,6 +17,7 @@ import java.util.concurrent.TimeUnit;
 
 @Configuration
 public class CacheConfig {
+
     @Bean
     public CacheManager cacheManager() {
         String specAsString = "initialCapacity=100,maximumSize=500,expireAfterAccess=5m,recordStats";
@@ -29,10 +30,8 @@ public class CacheConfig {
     }
 
     CaffeineSpec caffeineSpec() {
-        return CaffeineSpec.parse
-                ("initialCapacity=100,maximumSize=500,expireAfterAccess=5m,recordStats");
+        return CaffeineSpec.parse("initialCapacity=100,maximumSize=500,expireAfterAccess=5m,recordStats");
     }
-
 
     Caffeine<Object, Object> caffeineCacheBuilder() {
         return Caffeine.newBuilder()

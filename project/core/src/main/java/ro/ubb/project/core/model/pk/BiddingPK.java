@@ -2,7 +2,6 @@ package ro.ubb.project.core.model.pk;
 
 import lombok.*;
 
-import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.io.Serializable;
 
@@ -13,6 +12,7 @@ import java.io.Serializable;
 @Builder
 @EqualsAndHashCode
 public class BiddingPK implements Serializable {
+
     @Id
     private int pcid;
     @Id

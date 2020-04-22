@@ -1,7 +1,7 @@
 package ro.ubb.project.core.model;
 
 import lombok.*;
-import ro.ubb.project.core.model.pk.PaperSubjectsPK;
+import ro.ubb.project.core.model.pk.BiddingPK;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -14,10 +14,12 @@ import javax.persistence.IdClass;
 @Setter
 @Builder
 @EqualsAndHashCode
-@IdClass(PaperSubjectsPK.class)
-public class PaperSubjects {
+@IdClass(BiddingPK.class)
+public class Assignment {
+
+    @Id
+    private int pcid;
     @Id
     private int pid;
-    @Id
-    private int kid;
+    private int qualifier;
 }

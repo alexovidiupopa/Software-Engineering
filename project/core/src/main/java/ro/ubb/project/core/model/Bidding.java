@@ -16,6 +16,7 @@ import javax.persistence.IdClass;
 @EqualsAndHashCode
 @IdClass(BiddingPK.class)
 public class Bidding {
+
     @Id
     private int pcid;
     @Id

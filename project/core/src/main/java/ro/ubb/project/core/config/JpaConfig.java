@@ -25,29 +25,24 @@ import javax.sql.DataSource;
 @EnableTransactionManagement
 @EnableCaching
 public class JpaConfig {
+
     //@Value("${db.jdbcUrl}")
-    private String jdbcUrl =  "jdbc:postgresql://localhost:5432/cms";
+    private String jdbcUrl =  "jdbc:postgresql://localhost:5432/cmsdb";
 
     //@Value("${db.username}")
     private String username = "postgres";
 
     //@Value("${db.password}")
-    private String password = "postgres";
+    private String password = "1234";
 
     //@Value("${db.generateDDL}")
     private Boolean generateDDL=true;
-
 
     /**
      * http://www.baeldung.com/hikaricp
      *
      * @return
      */
-
-    @Bean
-    public AuthorService authorService(){
-        return new AuthorServiceImpl();
-    }
 
     @Bean
     public DataSource dataSource() {
@@ -61,7 +56,6 @@ public class JpaConfig {
         //config.setDriverClassName("com.postgresql.postgresql");
         return new HikariDataSource(config);
     }
-
 
     @Bean
     public EntityManagerFactory entityManagerFactory() {

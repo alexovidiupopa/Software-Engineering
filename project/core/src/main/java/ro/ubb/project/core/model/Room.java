@@ -13,6 +13,7 @@ import javax.persistence.Id;
 @Builder
 @EqualsAndHashCode
 public class Room {
+
     @Id
     private int rid;
     private int capacity;

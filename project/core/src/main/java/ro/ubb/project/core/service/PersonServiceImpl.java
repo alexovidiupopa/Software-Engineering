@@ -2,10 +2,12 @@ package ro.ubb.project.core.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ro.ubb.project.core.model.Person;
 import ro.ubb.project.core.repository.PersonRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PersonServiceImpl implements PersonService {
@@ -15,26 +17,53 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public List<Person> getAllPersons() {
-        return personRepository.findAll();
+        return this.personRepository.findAll();
     }
 
     @Override
     public void addPerson(Person person) {
+        this.personRepository.save(person);
 
     }
 
     @Override
     public void deletePerson(Person person) {
-
+        this.personRepository.delete(person);
     }
 
     @Override
+    @Transactional
     public void updatePerson(Person person) {
-
+        Optional<Person> toUpdate = this.personRepository.findById(person.getUid());
+        if(toUpdate.isPresent()) {
+            Person p = toUpdate.get();
+            p.setUsername(person.getUsername());
+            p.setPassword(person.getPassword());
+            p.setWebsite(person.getWebsite());
+            p.setAffiliation(person.getAffiliation());
+            p.setFirstName(person.getFirstName());
+            p.setLastName(person.getLastName());
+            p.setPhoneNumber(person.getPhoneNumber());
+            p.setEmail(person.getEmail());
+            p.setAcademicRank(person.getAcademicRank());
+            this.personRepository.save(p);
+        }
+        else{
+            throw new RuntimeException("No person with this name found");
+        }
     }
 
     @Override
     public Person getPersonByUserName(String username) {
-        return null;
+        Optional<Person> result = this.personRepository.findAll()
+                .stream()
+                .filter(p -> p.getUsername().equals(username))
+                .findAny();
+        if(result.isPresent()) {
+            return result.get();
+        }
+        else{
+            throw new RuntimeException("No person with this name found");
+        }
     }
 }

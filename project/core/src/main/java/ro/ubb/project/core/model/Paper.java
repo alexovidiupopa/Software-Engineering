@@ -13,6 +13,7 @@ import javax.persistence.Id;
 @Builder
 @EqualsAndHashCode
 public class Paper {
+
     @Id
     private int pid;
     private String topic;

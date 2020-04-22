@@ -1,9 +1,11 @@
 package ro.ubb.project.core.model;
 
 import lombok.*;
+import ro.ubb.project.core.model.pk.PaperSubjectsPK;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 
 @Entity
 @AllArgsConstructor
@@ -12,8 +14,11 @@ import javax.persistence.Id;
 @Setter
 @Builder
 @EqualsAndHashCode
-public class PcMember {
+@IdClass(PaperSubjectsPK.class)
+public class PaperSubject {
 
     @Id
-    private int pcid;
+    private int pid;
+    @Id
+    private int kid;
 }

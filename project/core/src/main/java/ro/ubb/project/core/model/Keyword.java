@@ -13,6 +13,7 @@ import javax.persistence.Id;
 @Builder
 @EqualsAndHashCode
 public class Keyword {
+
     @Id
     private int kid;
     private String name;

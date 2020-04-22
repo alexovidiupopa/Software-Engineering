@@ -14,6 +14,7 @@ import java.sql.Time;
 @Builder
 @EqualsAndHashCode
 public class Session {
+
     @Id
     private int sid;
     private Time time;
