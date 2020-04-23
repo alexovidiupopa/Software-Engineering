@@ -1,0 +1,92 @@
+<div class="main-div">
+  <mat-card>
+
+    <h1 class="mat-h1">Welcome to the Conference Dashboard!</h1>
+    <h3 class="mat-h3">For starters, please fill in with most basic information</h3>
+    <form class="example-form">
+      <mat-form-field class="example-full-width">
+        <mat-label>Conference name</mat-label>
+        <input #conferenceNameInput (change)="conferenceNameChanged(conferenceNameInput.value)" id="conference-name-input"
+               matInput placeholder="Ex. 6th Quarterly Symposium on Quantum Physics">
+      </mat-form-field>
+    </form>
+
+    <div class="datetime-container">
+      <mat-form-field class="example-full-width datetime-container-children">
+        <mat-label>Preliminary phase deadline</mat-label>
+        <input (dateChange)="preliminaryPhaseDateAdded($event)" (dateInput)="preliminaryPhaseDateAdded($event)" [matDatepicker]="datepickerPreliminaryPhase"
+               [min]="minDate" matInput>
+        <mat-datepicker-toggle [for]="datepickerPreliminaryPhase" matSuffix></mat-datepicker-toggle>
+        <mat-datepicker #datepickerPreliminaryPhase></mat-datepicker>
+      </mat-form-field>
+      <div class="time-input">
+        <input matInput type="time" value="{{preliminarySelectedTime}}">
+        <button (click)="openTimePreliminary()" mat-icon-button>
+          <mat-icon>alarm</mat-icon>
+        </button>
+      </div>
+
+    </div>
+
+    <div class="datetime-container">
+
+      <mat-form-field class="example-full-width datetime-container-children">
+        <mat-label>First phase deadline</mat-label>
+        <input (dateChange)="firstPhaseDateAdded($event)" (dateInput)="firstPhaseDateAdded($event)" [matDatepicker]="datepickerFirstPhase" [min]="minDate"
+               matInput>
+        <mat-datepicker-toggle [for]="datepickerFirstPhase" matSuffix></mat-datepicker-toggle>
+        <mat-datepicker #datepickerFirstPhase></mat-datepicker>
+      </mat-form-field>
+      <div class="time-input">
+
+        <input matInput type="time" value="{{firstPhaseSelectedTime}}">
+        <button (click)="openTimeFirstPhase()" mat-icon-button>
+          <mat-icon>alarm</mat-icon>
+        </button>
+      </div>
+    </div>
+
+
+    <div class="datetime-container">
+
+      <mat-form-field class="example-full-width datetime-container-children">
+        <mat-label>Second phase deadline</mat-label>
+        <input (dateChange)="secondPhaseDateAdded($event)" (dateInput)="secondPhaseDateAdded($event)" [matDatepicker]="datepickerSecondPhase"
+               [min]="minDate" matInput>
+        <mat-datepicker-toggle [for]="datepickerSecondPhase" matSuffix></mat-datepicker-toggle>
+        <mat-datepicker #datepickerSecondPhase></mat-datepicker>
+      </mat-form-field>
+      <div class="time-input">
+
+        <input matInput type="time" value="{{secondPhaseSelectedTime}}">
+        <button (click)="openTimeSecondPhase()" mat-icon-button>
+          <mat-icon>alarm</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <div class="datetime-container">
+      <mat-form-field class="example-full-width datetime-container-children">
+        <mat-label>Third phase deadline</mat-label>
+        <input (dateChange)="thirdPhaseDateAdded($event)" (dateInput)="thirdPhaseDateAdded($event)" [matDatepicker]="datepickerThirdPhase" [min]="minDate"
+               matInput>
+        <mat-datepicker-toggle [for]="datepickerThirdPhase" matSuffix></mat-datepicker-toggle>
+        <mat-datepicker #datepickerThirdPhase></mat-datepicker>
+      </mat-form-field>
+      <div class="time-input">
+        <input matInput type="time" value="{{thirdPhaseSelectedTime}}">
+        <button (click)="openTimeThirdPhase()" mat-icon-button>
+          <mat-icon>alarm</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <button (click)="createConferenceButtonPressed()" color="primary" id="create-conference-button" mat-raised-button>
+      Create conference!
+    </button>
+    <mat-error *ngIf="!validData">Input data is invalid!</mat-error>
+    <mat-error *ngIf="conferenceFailed">Couldn't create conference</mat-error>
+
+  </mat-card>
+
+</div>
