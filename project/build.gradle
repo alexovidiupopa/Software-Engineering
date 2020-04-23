@@ -1,0 +1,77 @@
+
+
+plugins {
+    id 'org.springframework.boot' version '2.2.6.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+    id 'java'
+}
+
+group = 'ro.ubb'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+configurations {
+    developmentOnly
+    runtimeClasspath {
+        extendsFrom developmentOnly
+    }
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+ext {
+    springVersion = '5.0.3.RELEASE'
+    postgresqlVersion = '42.2.1'
+    dbcpVersion = '2.2.0'
+
+    slf4jVersion = '1.7.25'
+    log4jVersion = '2.10.0'
+
+    springDataVersion = '2.0.3.RELEASE'
+    hibernateVersion = '5.2.6.Final'
+    caffeineVersion = '2.6.1'
+    hikariVersion = '2.7.7'
+    jaxbapiVersion = '2.3.0'
+
+    jacksonDatabindVersion = '2.9.4'
+//        javaxServeletApiVersion = '3.1.0'
+    javaxServeletApiVersion = '4.0.1'
+
+    lombokVersion = '1.18.12'
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-data-rest'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    //compile group: 'org.springframework', name: 'spring-context', version: "$springVersion"
+    compile group: 'org.springframework', name: 'spring-context-support', version: "$springVersion"
+    //logging
+    compile group: 'org.slf4j', name: 'slf4j-api', version: "$slf4jVersion"
+    testCompile group: 'org.slf4j', name: 'slf4j-simple', version: "$slf4jVersion"
+    //implementation 'org.liquibase:liquibase-core'
+    compileOnly 'org.projectlombok:lombok'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    compile group: 'org.postgresql', name: 'postgresql', version: "$postgresqlVersion"
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.4'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.9.4'
+    compile group: 'com.github.ben-manes.caffeine', name: 'caffeine', version: '2.6.1'
+    compile group:'joda-time', name:'joda-time', version: '2.9.9'
+    compile group: 'com.zaxxer', name: 'HikariCP', version: "$hikariVersion"
+    /*compile group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version: "$log4jVersion"
+    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: "$log4jVersion"
+    compile group: 'org.apache.logging.log4j', name: 'log4j-1.2-api', version: "$log4jVersion"*/
+    compile group:'com.sendgrid', name:'sendgrid-java', version:'4.0.1'
+}
+
+test {
+    useJUnitPlatform()
+}
