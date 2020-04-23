@@ -31,13 +31,12 @@ export class ConferenceService {
     };
     console.log(conferenceFormatted);
 
-    let headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*'});
-    let options = { headers: headers };
+    const customHeaders = new HttpHeaders({
+      'Content-Type': 'application/json'});
+    const options = { headers: customHeaders };
 
     return this.http.post<boolean>(url, conferenceFormatted, options).pipe(
-      map(response => response['success']),
+      map(response => response['message']),
       // tap((newConference: Conference) => this.log(`added conference w/ name=${conference.conferenceName}`)),
       catchError(this.handleError<Conference>('addConference'))
     );

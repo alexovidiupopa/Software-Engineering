@@ -3,7 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {ManagePCComponent} from './components/manage-pc/manage-pc.component';
 import {CreateConferenceComponent} from './components/create-conference/create-conference.component';
 import {PcDetailComponent} from './components/pc-detail/pc-detail.component';
-import {AuthGuard} from './_helper';
+import {AuthGuard} from './helper';
 import {HomeComponent} from './components/home';
 import {PcHomeComponent} from './components/pc-home/pc-home.component';
 import {ChairHomeComponent} from './components/chair-home';
