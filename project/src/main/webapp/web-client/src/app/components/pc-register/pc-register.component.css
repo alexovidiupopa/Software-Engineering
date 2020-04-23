@@ -1,0 +1,49 @@
+div
+{
+  margin-left: 10px;
+  margin-top: 1%;
+  width:100%;
+  height:100%;
+}
+
+h1{
+  margin: auto;
+  margin-top: 2%;
+  width: 20%;
+}
+
+.decorationText{
+  width: 30%;
+  margin: auto;
+  margin-top: 20%;
+  color: #1a8b04;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+
+input
+{
+  margin-left: 8px;
+}
+
+form{
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+}
+
+button
+{
+  width: 20%;
+  margin-left: 40%
+}
+
+mat-form-field
+{
+  margin: auto;
+  margin-top: 15px;
+  width: 500px;
+}

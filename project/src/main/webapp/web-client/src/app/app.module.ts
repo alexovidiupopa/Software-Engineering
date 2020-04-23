@@ -33,6 +33,8 @@ import {RegisterComponent} from './components/register';
 import {LoginComponent} from './components/login';
 import {HomeComponent} from './components/home';
 import {MatSelectModule} from '@angular/material/select';
+import {AuthorRegisterComponent} from './components/author-register/author-register.component';
+import {PcRegisterComponent} from './components/pc-register/pc-register.component';
 
 @NgModule({
   imports: [
@@ -57,7 +59,7 @@ import {MatSelectModule} from '@angular/material/select';
     MatCheckboxModule,
 
     MatFormFieldModule,
-    MatSelectModule,
+    MatSelectModule
   ],
   providers: [
     {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'fill'}},
@@ -78,7 +80,9 @@ import {MatSelectModule} from '@angular/material/select';
     HeroSearchComponent,
     CreateConferenceComponent,
     ManagePCComponent,
-    PcDetailComponent
+    PcDetailComponent,
+    AuthorRegisterComponent,
+    PcRegisterComponent
   ],
   bootstrap: [AppComponent]
 })
