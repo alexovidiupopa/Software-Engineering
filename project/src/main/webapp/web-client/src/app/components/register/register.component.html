@@ -1,7 +1,8 @@
-<nav class="navbar navbar-expand navbar-dark bg-dark">
-  <div class="navbar-nav">
-    <a class="nav-item nav-link" routerLink="/">Home</a>
-
+<div class = "main">
+  <button class = "homeButton" mat-raised-button color="warn" (click)="goHome()"> Back to login </button>
+  <div class = "registerButtonComponent">
+    <button mat-flat-button class = "loginButton"  color="primary" (click)="goToAuthorRegister()"> Register as Author </button>
+    <button mat-flat-button class = "loginButton"  color="primary" (click)="goToPCRegister()"> Register as PC Member</button>
   </div>
-</nav>
-<p>register works!</p>
+</div>
+

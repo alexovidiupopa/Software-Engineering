@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {UserService} from '../../services/sign-up/user.service';
 import {ProgramCommittee} from '../../services/sign-up/program-comittee';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-pc-register',
@@ -12,7 +13,7 @@ export class PcRegisterComponent implements OnInit {
 
   myForm: FormGroup;
   success = false;
-  constructor(private userService: UserService, private fb: FormBuilder) {
+  constructor(private userService: UserService, private fb: FormBuilder, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -48,6 +49,11 @@ export class PcRegisterComponent implements OnInit {
         Validators.required,
       ]],
     });
+  }
+
+  goHome()
+  {
+    this.router.navigate(['register']);
   }
 
   get email()
