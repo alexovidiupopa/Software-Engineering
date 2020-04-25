@@ -10,6 +10,7 @@ import {AuthenticationService} from '../../services/login';
 })
 export class AppComponent {
   currentUser: User;
+  title = 'loginSites';
 
   constructor(
     private router: Router,
@@ -17,6 +18,7 @@ export class AppComponent {
   ) {
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
   }
+
 
   logout() {
     this.authenticationService.logout();
