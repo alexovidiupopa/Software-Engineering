@@ -3,10 +3,12 @@ package ro.ubb.project.core.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ro.ubb.project.core.model.Chair;
+import ro.ubb.project.core.model.PcMember;
 import ro.ubb.project.core.repository.ChairRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ChairServiceImpl implements ChairService {
@@ -39,5 +41,14 @@ public class ChairServiceImpl implements ChairService {
         else{
             throw new RuntimeException("No assignment found");
         }
+    }
+
+    @Override
+    public boolean isChair(int uid) {
+        Optional<Chair> chair = this.chairRepository.findAll()
+                .stream()
+                .filter(c -> c.getUid()==uid)
+                .findAny();
+        return chair.isPresent();
     }
 }

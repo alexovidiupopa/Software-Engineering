@@ -10,4 +10,6 @@ public interface PcMemberService {
     void addPcMember(PcMember pcMember);
     void deletePcMember(PcMember pcMember);
     void updatePcMember(PcMember pcMember);
+
+    boolean isPcMember(int uid);
 }

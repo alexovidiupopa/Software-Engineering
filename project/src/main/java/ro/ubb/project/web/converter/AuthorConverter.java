@@ -11,6 +11,7 @@ public class AuthorConverter extends AbstractConverter<Author, AuthorDto> implem
     public Author dtoToModel(AuthorDto authorDto) {
         return Author.builder()
                 .aid(authorDto.getAid())
+                .uid(authorDto.getUid())
                 .build();
     }
 
@@ -18,6 +19,7 @@ public class AuthorConverter extends AbstractConverter<Author, AuthorDto> implem
     public AuthorDto modelToDto(Author author) {
         return AuthorDto.builder()
                 .aid(author.getAid())
+                .uid(author.getUid())
                 .build();
     }
 }

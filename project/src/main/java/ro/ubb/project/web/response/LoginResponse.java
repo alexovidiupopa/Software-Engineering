@@ -9,6 +9,6 @@ import lombok.*;
 @Builder
 @ToString
 public class LoginResponse {
-    private String userType;
-    private String username;
+    private boolean success;
+    private String type;
 }

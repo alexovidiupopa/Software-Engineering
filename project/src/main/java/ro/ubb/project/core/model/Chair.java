@@ -15,4 +15,5 @@ import javax.persistence.Id;
 public class Chair {
     @Id
     private int cid;
+    private int uid;
 }
