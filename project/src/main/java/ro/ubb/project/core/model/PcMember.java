@@ -14,6 +14,5 @@ public class PcMember {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int pcid;
-
     private int uid;
 }

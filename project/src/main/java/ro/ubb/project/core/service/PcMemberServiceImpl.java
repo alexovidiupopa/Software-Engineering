@@ -44,6 +44,9 @@ public class PcMemberServiceImpl implements PcMemberService {
     }
 
     @Override
+    public Optional<PcMember> getPcMemberById(int pcid){
+        return this.pcMemberRepository.findById(pcid);
+
     public boolean isPcMember(int uid) {
         Optional<PcMember> member = this.pcMemberRepository.findAll()
                 .stream()
