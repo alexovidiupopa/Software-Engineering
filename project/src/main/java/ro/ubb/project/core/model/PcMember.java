@@ -15,4 +15,5 @@ import javax.persistence.Id;
 public class PcMember {
     @Id
     private int pcid;
+    private int uid;
 }

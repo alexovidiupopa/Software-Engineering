@@ -1,0 +1,25 @@
+package ro.ubb.project.web.converter;
+
+import org.springframework.stereotype.Component;
+import ro.ubb.project.core.model.Author;
+import ro.ubb.project.core.model.Chair;
+import ro.ubb.project.web.dto.AuthorDto;
+import ro.ubb.project.web.dto.ChairDto;
+
+@Component
+public class ChairConverter extends AbstractConverter<Chair, ChairDto> {
+
+    @Override
+    public Chair dtoToModel(ChairDto chairDto) {
+        return Chair.builder()
+                .cid(chairDto.getCid())
+                .build();
+    }
+
+    @Override
+    public ChairDto modelToDto(Chair chair) {
+        return ChairDto.builder()
+                .cid(chair.getCid())
+                .build();
+    }
+}

@@ -40,4 +40,9 @@ public class PcMemberServiceImpl implements PcMemberService {
             throw new RuntimeException("No assignment found");
         }
     }
+
+    @Override
+    public Optional<PcMember> getPcMemberById(int pcid){
+        return this.pcMemberRepository.findById(pcid);
+    }
 }
