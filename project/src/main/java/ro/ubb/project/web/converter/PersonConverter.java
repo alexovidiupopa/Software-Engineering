@@ -18,6 +18,7 @@ public class PersonConverter extends AbstractConverter<Person, PersonDto> implem
                 .lastname(personDto.getLastname())
                 .phonenumber(personDto.getPhonenumber())
                 .email(personDto.getEmail())
+                .website(personDto.getWebsite())
                 .academicrank(personDto.getAcademicrank())
                 .build();
     }
@@ -33,6 +34,7 @@ public class PersonConverter extends AbstractConverter<Person, PersonDto> implem
                 .lastname(Person.getLastname())
                 .phonenumber(Person.getPhonenumber())
                 .email(Person.getEmail())
+                .website(Person.getWebsite())
                 .academicrank(Person.getAcademicrank())
                 .build();
     }

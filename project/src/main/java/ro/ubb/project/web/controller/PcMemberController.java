@@ -25,6 +25,8 @@ import ro.ubb.project.web.response.PcMembersResponse;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import ro.ubb.project.web.request.RegisterRequest;
+import ro.ubb.project.web.utils.EmailSender;
 
 @RestController
 @RequestMapping("/api/pc")
@@ -46,11 +48,11 @@ public class PcMemberController {
 
     @Autowired
     private PcMemberConverter pcMemberConverter;
-
+  
     @Autowired
     private ChairConverter chairConverter;
 
-    @RequestMapping(value = "/pc/getAllPcMembers", method = RequestMethod.GET)
+    @RequestMapping(value = "/getAllPcMembers", method = RequestMethod.GET)
     public PcMembersResponse getAllPcMembers(){
         List<PcMember> pcMembers = this.pcMemberService.getAllPcMembers();
         ArrayList<PcMemberDto> pcMemberDtos = new ArrayList<>();
@@ -59,13 +61,13 @@ public class PcMemberController {
         return new PcMembersResponse(pcMemberDtos);
     }
 
-    @RequestMapping(value = "/pc/getPcMemberById", method = RequestMethod.GET)
+    @RequestMapping(value = "/getPcMemberById", method = RequestMethod.GET)
     public PcMemberResponse getPcMemberById(@RequestBody GetPcMemberByIdRequest getPcMemberByIdRequest){
         Optional<PcMember> pcMember = this.pcMemberService.getPcMemberById(getPcMemberByIdRequest.getPcid());
         return pcMember.map(member -> new PcMemberResponse(new PcMemberConverter().modelToDto(member))).orElseGet(PcMemberResponse::new);
     }
 
-    @RequestMapping(value = "/pc/pcToChair", method = RequestMethod.GET)
+    @RequestMapping(value = "/pcToChair", method = RequestMethod.GET)
     public MessageResponse pcToChair(@RequestBody PcToChairRequest pcToChairRequest){
         Optional<PcMember> pcMember = this.pcMemberService.getPcMemberById(pcToChairRequest.getPcid());
         if(pcMember.isPresent()) {
@@ -78,5 +80,31 @@ public class PcMemberController {
         else {
             return new MessageResponse("error");
         }
+    }
+}
+
+    @RequestMapping(value = "/signup", method = RequestMethod.POST)
+    public MessageResponse register(@RequestBody RegisterRequest registerRequest){
+        System.out.println(registerRequest);
+        personService.addPerson(personConverter.dtoToModel(
+                PersonDto.builder()
+                        .username(registerRequest.getUsername())
+                        .password(registerRequest.getPassword())
+                        .email(registerRequest.getEmail())
+                        .affiliation(registerRequest.getAffiliation())
+                        .firstname(registerRequest.getFirstname())
+                        .lastname(registerRequest.getLastname())
+                        .website(registerRequest.getWebsite())
+                        .phonenumber(registerRequest.getPhonenumber())
+                        .academicrank(registerRequest.getAcademicrank())
+                        .build()
+        ));
+        pcMemberService.addPcMember(pcMemberConverter.dtoToModel(
+                PcMemberDto.builder()
+                        .uid(personService.getPersonByUserName(registerRequest.getUsername()).getUid())
+                        .build()
+        ));
+        EmailSender.send(EmailSender.ORIGIN_EMAIL, registerRequest.getEmail(),EmailSender.WELCOME_MSG, "http://localhost:4200/api/login");
+        return new MessageResponse("success");
     }
 }
