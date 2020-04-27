@@ -1,28 +1,24 @@
-.loginButton{
+.loginButton {
   height: 20%;
   width: 30%;
   margin: auto;
 }
 
-.registerButtonComponent
-{
+.registerButtonComponent {
   display: flex;
   height: 80%;
 }
 
-.homeButton
-{
+.homeButton {
   width: 20%;
   margin-left: 1%;
   margin-top: 1%;
 }
 
-.main
-{
+.main {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
 }
-

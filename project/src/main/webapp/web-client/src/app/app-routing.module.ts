@@ -8,7 +8,7 @@ import {HomeComponent} from './components/home';
 import {PcHomeComponent} from './components/pc-home/pc-home.component';
 import {ChairHomeComponent} from './components/chair-home';
 import {LoginComponent} from './components/login';
-import {RegisterComponent} from './components/register';
+import {RegisterComponent} from './components/register/register.component';
 import {AuthorRegisterComponent} from './components/author-register/author-register.component';
 import {PcRegisterComponent} from './components/pc-register/pc-register.component';
 
@@ -21,8 +21,8 @@ const routes: Routes = [
   {path: 'chair-home', component: ChairHomeComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
-  { path: 'author-register', component: AuthorRegisterComponent},
-  { path: 'pc-register', component: PcRegisterComponent},
+  {path: 'author-register', component: AuthorRegisterComponent},
+  {path: 'pc-register', component: PcRegisterComponent},
   // otherwise redirect to home
   {path: '**', redirectTo: 'home'}
 ];

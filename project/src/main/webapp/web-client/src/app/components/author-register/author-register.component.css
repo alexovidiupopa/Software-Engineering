@@ -1,12 +1,11 @@
-div
-{
+div {
   margin-left: 10px;
   margin-top: 1%;
-  width:100%;
-  height:700px;
+  width: 100%;
+  height: 700px;
 }
 
-.decorationText{
+.decorationText {
   width: 30%;
   margin-left: 43%;
   margin-top: 20%;
@@ -17,39 +16,35 @@ div
   display: none !important;
 }
 
-h1{
+h1 {
   margin: auto;
   margin-top: 2%;
   width: 20%;
 }
 
-input
-{
+input {
   margin-left: 8px;
 }
 
-form{
+form {
   display: flex;
   flex-direction: column;
   margin: auto;
 }
 
-.registerButton
-{
+.registerButton {
   width: 20%;
   margin-left: 40%;
   margin-bottom: 2%;
 }
 
-.homeButton
-{
+.homeButton {
   width: 20%;
   margin-left: 1%;
   margin-top: 1%;
 }
 
-mat-form-field
-{
+mat-form-field {
   margin: auto;
   margin-top: 15px;
   width: 500px;

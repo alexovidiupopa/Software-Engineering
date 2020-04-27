@@ -1,40 +1,45 @@
-
-<button mat-raised-button class = "homeButton" color="accent" (click)="goHome()">
+<button (click)="goHome()" class="homeButton" color="accent" mat-raised-button>
   Back to register page
 </button>
-<h2 class = "decorationText" [hidden]="!success"> You are now an author!</h2>
+<h2 [hidden]="!success" class="decorationText"> You are now an author!</h2>
 <h1 [hidden]="success">Register as Author</h1>
-<div  [hidden]="success">
+<div [hidden]="success">
   <form [formGroup]="myForm">
     <mat-form-field>
-      <input matInput placeholder = "username" formControlName="username">
+      <input formControlName="username" matInput placeholder="username">
     </mat-form-field>
     <mat-form-field>
-      <input matInput placeholder = "email" formControlName="email">
+      <input formControlName="email" matInput placeholder="email">
       <mat-error *ngIf="email.invalid && email.touched;">
         Email is invalid
       </mat-error>
     </mat-form-field>
     <mat-form-field>
-      <input  matInput placeholder = "password" type="password" formControlName="password">
+      <input formControlName="password" matInput placeholder="password" type="password">
       <mat-error *ngIf="password.invalid && password.touched;">
         Password must have 8 - 16 caracters and contain at least a number
       </mat-error>
     </mat-form-field>
     <mat-form-field>
-      <input  matInput placeholder = "affiliation" formControlName="affiliation">
+      <input formControlName="website" matInput placeholder="website">
     </mat-form-field>
     <mat-form-field>
-      <input  matInput placeholder = "firstName" formControlName="firstName">
+      <input formControlName="affiliation" matInput placeholder="affiliation">
     </mat-form-field>
     <mat-form-field>
-      <input  matInput placeholder = "lastName" formControlName="lastName">
+      <input formControlName="firstName" matInput placeholder="firstName">
     </mat-form-field>
     <mat-form-field>
-      <input  matInput placeholder = "phoneNumber" formControlName="phoneNumber">
+      <input formControlName="lastName" matInput placeholder="lastName">
+    </mat-form-field>
+    <mat-form-field>
+      <input formControlName="phoneNumber" matInput placeholder="phoneNumber">
+    </mat-form-field>
+    <mat-form-field>
+      <input formControlName="academicRank" matInput placeholder="academicRank">
     </mat-form-field>
   </form>
-  <button mat-raised-button class = "registerButton" [disabled]="myForm.invalid" (click)="registerAuthor() ">
+  <button (click)="registerAuthor() " [disabled]="myForm.invalid" class="registerButton" mat-raised-button>
     Submit Author Registration
   </button>
 </div>
