@@ -1,4 +1,7 @@
 
+<button mat-raised-button class = "homeButton" color="accent" (click)="goHome()">
+  Back to register page
+</button>
 <h2 class = "decorationText" [hidden]="!success"> You are now an author!</h2>
 <h1 [hidden]="success">Register as Author</h1>
 <div  [hidden]="success">
@@ -31,7 +34,7 @@
       <input  matInput placeholder = "phoneNumber" formControlName="phoneNumber">
     </mat-form-field>
   </form>
-  <button mat-raised-button [disabled]="myForm.invalid" (click)="registerAuthor() ">
+  <button mat-raised-button class = "registerButton" [disabled]="myForm.invalid" (click)="registerAuthor() ">
     Submit Author Registration
   </button>
 </div>

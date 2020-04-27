@@ -2,11 +2,13 @@ package ro.ubb.project.core.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ro.ubb.project.core.model.Author;
 import ro.ubb.project.core.model.PcMember;
 import ro.ubb.project.core.repository.PcMemberRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class PcMemberServiceImpl implements PcMemberService {
@@ -39,5 +41,14 @@ public class PcMemberServiceImpl implements PcMemberService {
         else{
             throw new RuntimeException("No assignment found");
         }
+    }
+
+    @Override
+    public boolean isPcMember(int uid) {
+        Optional<PcMember> member = this.pcMemberRepository.findAll()
+                .stream()
+                .filter(pcMember -> pcMember.getUid()==uid)
+                .findAny();
+        return member.isPresent();
     }
 }

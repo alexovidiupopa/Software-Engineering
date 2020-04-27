@@ -3,12 +3,12 @@ div
   margin-left: 10px;
   margin-top: 1%;
   width:100%;
-  height:80%;
+  height:700px;
 }
 
 .decorationText{
-  width: 15%;
-  margin: auto;
+  width: 30%;
+  margin-left: 43%;
   margin-top: 20%;
   color: #1a8b04;
 }
@@ -34,10 +34,18 @@ form{
   margin: auto;
 }
 
-button
+.registerButton
 {
   width: 20%;
-  margin-left: 40%
+  margin-left: 40%;
+  margin-bottom: 2%;
+}
+
+.homeButton
+{
+  width: 20%;
+  margin-left: 1%;
+  margin-top: 1%;
 }
 
 mat-form-field

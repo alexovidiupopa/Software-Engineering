@@ -10,4 +10,6 @@ public interface ChairService {
     void addChair(Chair chair);
     void deleteChair(Chair chair);
     void updateChair(Chair chair);
+
+    boolean isChair(int uid);
 }

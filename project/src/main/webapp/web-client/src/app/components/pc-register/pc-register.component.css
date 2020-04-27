@@ -7,15 +7,15 @@ div
 }
 
 h1{
-  margin: auto;
   margin-top: 2%;
-  width: 20%;
+  margin-left: 39%;
+  width: 25%;
 }
 
 .decorationText{
   width: 30%;
-  margin: auto;
   margin-top: 20%;
+  margin-left: 35%;
   color: #1a8b04;
 }
 
@@ -35,10 +35,18 @@ form{
   margin: auto;
 }
 
-button
+.registerButton
 {
   width: 20%;
-  margin-left: 40%
+  margin-left: 40%;
+  margin-bottom: 2%;
+}
+
+.homeButton
+{
+  margin-left: 1%;
+  margin-top: 1%;
+  width: 20%;
 }
 
 mat-form-field

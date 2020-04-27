@@ -32,40 +32,10 @@ public class PersonController {
     @Autowired
     private PersonConverter converter;
 
-    @RequestMapping(value = "/")
-    private String index(){
-        System.out.println("here");
-        return "";
-    }
-
     @RequestMapping(value = "/users", method = RequestMethod.GET)
     public Set<PersonDto> getPersons(){
         List<Person> persons = personService.getAllPersons();
         return (Set<PersonDto>) converter.convertModelsToDtos(persons);
     }
 
-    @RequestMapping(value="/login", method= RequestMethod.PUT)
-    public LoginResponse login(@RequestBody LoginRequest loginRequest){
-        //TODO implement this...
-        return new LoginResponse();
-    }
-
-    @RequestMapping(value="/register", method= RequestMethod.PUT)
-    public MessageResponse register(@RequestBody RegisterRequest registerRequest){
-        System.out.println(registerRequest);
-        personService.addPerson(converter.dtoToModel(
-                PersonDto.builder()
-                        .username(registerRequest.getUsername())
-                        .password(registerRequest.getPassword())
-                        .email(registerRequest.getEmail())
-                        .affiliation(registerRequest.getAffiliation())
-                        .firstname(registerRequest.getFirstname())
-                        .lastname(registerRequest.getLastname())
-                        .website(registerRequest.getWebsite())
-                        .phonenumber(registerRequest.getPhonenumber())
-                        .build()
-        ));
-        EmailSender.send(EmailSender.ORIGIN_EMAIL, registerRequest.getEmail(),"Welcome to CMS!", "Dummy message");
-        return new MessageResponse("user successfully registered");
-    }
 }

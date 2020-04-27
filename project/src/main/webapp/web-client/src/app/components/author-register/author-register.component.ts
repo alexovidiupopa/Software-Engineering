@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {UserService} from '../../services/sign-up/user.service';
 import {Author} from '../../services/sign-up/author';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-author-register',
@@ -13,7 +14,7 @@ export class AuthorRegisterComponent implements OnInit {
 
   myForm: FormGroup;
   success = false;
-  constructor(private userService: UserService, private fb: FormBuilder) {}
+  constructor(private userService: UserService, private fb: FormBuilder, private router: Router) {}
 
   ngOnInit(): void {
       this.myForm = this.fb.group({
@@ -44,6 +45,10 @@ export class AuthorRegisterComponent implements OnInit {
       });
   }
 
+  goHome()
+  {
+    this.router.navigate(['register']);
+  }
   get email()
   {
     return this.myForm.get('email');
