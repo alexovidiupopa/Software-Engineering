@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {User} from '../../user';
+import {User} from '../../model/user';
 import {Router} from '@angular/router';
 import {AuthenticationService} from '../../services/login';
 
@@ -26,7 +26,7 @@ export class AppComponent {
   }
 
   back_to_clients_page() {
-    const user: User = this.authenticationService.get_current_user();
+    const user: User = this.authenticationService.getCurrentUser();
     // @ts-ignore
 
     this.router.navigate([user.get_url()]);

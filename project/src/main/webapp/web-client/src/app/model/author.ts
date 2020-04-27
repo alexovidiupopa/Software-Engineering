@@ -1,4 +1,4 @@
-export class ProgramCommittee {
+export class Author {
   username: string;
   password: string;
   website: string;
@@ -10,7 +10,10 @@ export class ProgramCommittee {
   academicRank: string;
   id: number;
 
-  constructor(username: string, password: string, website: string, affiliation: string, firstName: string, lastName: string, phoneNumber: string, email: string, academicRank: string, id: number) {
+  // tslint:disable-next-line:max-line-length
+  constructor(username: string, password: string, website: string, affiliation: string,
+              firstName: string, lastName: string, phoneNumber: string, email: string,
+              academicRank: string, id: number) {
     this.username = username;
     this.password = password;
     this.website = website;
@@ -23,4 +26,3 @@ export class ProgramCommittee {
     this.id = id;
   }
 }
-

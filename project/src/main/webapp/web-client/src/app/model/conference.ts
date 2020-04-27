@@ -1,6 +1,6 @@
 import * as moment from 'moment';
 
-export class Conference  {
+export class Conference {
   conferenceName: string;
   preliminaryPhaseDeadline: moment.Moment;
   firstPhaseDeadline: moment.Moment;

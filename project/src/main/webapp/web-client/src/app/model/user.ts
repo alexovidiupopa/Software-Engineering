@@ -18,11 +18,11 @@ export class User {
     this.tokenLength = 10;
   }
 
-  public get_token() {
+  public getToken() {
     return this.token;
   }
 
-  public set_token(token: string) {
+  public setToken(token: string) {
     this.token = token;
   }
 
