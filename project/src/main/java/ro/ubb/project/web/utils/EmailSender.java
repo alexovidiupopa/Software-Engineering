@@ -6,6 +6,7 @@ import java.io.IOException;
 
 public class EmailSender {
     public static final String ORIGIN_EMAIL="paie2602@scs.ubbcluj.ro";
+    public static final String WELCOME_MSG = "Welcome to CMS!";
     public static void send(String from, String to, String subj, String msg){
         Email sender = new Email(from);
         Email recipient = new Email(to);

@@ -10,7 +10,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @EqualsAndHashCode
-public class ChairDto implements Serializable {
-    private int cid;
+public class PcMemberDto implements Serializable {
+    private int pcid;
     private int uid;
 }

@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.io.Serializable;
 
 @Entity
 @AllArgsConstructor
@@ -12,7 +13,7 @@ import javax.persistence.Id;
 @Setter
 @Builder
 @EqualsAndHashCode
-public class Paper {
+public class Paper implements Serializable {
     @Id
     private int pid;
     private String topic;

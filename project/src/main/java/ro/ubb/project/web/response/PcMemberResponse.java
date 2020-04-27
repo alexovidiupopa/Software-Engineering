@@ -1,14 +1,13 @@
 package ro.ubb.project.web.response;
 
 import lombok.*;
+import ro.ubb.project.web.dto.PcMemberDto;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-@Builder
 @ToString
-public class LoginResponse {
-    private boolean success;
-    private String type;
+public class PcMemberResponse {
+    private PcMemberDto pcMember;
 }
