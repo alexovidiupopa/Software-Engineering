@@ -3,6 +3,8 @@ package ro.ubb.project.core.model;
 import lombok.*;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
 
@@ -15,6 +17,7 @@ import java.io.Serializable;
 @EqualsAndHashCode
 public class Paper implements Serializable {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int pid;
     private String topic;
     private String accepted;
