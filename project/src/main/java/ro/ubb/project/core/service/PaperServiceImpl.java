@@ -47,4 +47,13 @@ public class PaperServiceImpl implements PaperService {
             throw new RuntimeException("No assignment found");
         }
     }
+
+    @Override
+    public Paper getPaperById(int id) {
+        Optional<Paper> paper = this.paperRepository.findById(id);
+        if (paper.isPresent())
+            return paper.get();
+        else
+            throw new RuntimeException("No paper found");
+    }
 }

@@ -5,9 +5,7 @@ import ro.ubb.project.web.dto.PcMemberDto;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
-@ToString
+@Data
 public class PcMemberResponse {
     private PcMemberDto pcMember;
 }

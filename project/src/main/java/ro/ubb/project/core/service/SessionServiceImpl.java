@@ -41,4 +41,13 @@ public class SessionServiceImpl implements SessionService {
             throw new RuntimeException("No assignment found");
         }
     }
+
+    @Override
+    public Session getSessionWithId(Integer id) {
+        Optional<Session> paper = this.sessionRepository.findById(id);
+        if (paper.isPresent())
+            return paper.get();
+        else
+            throw new RuntimeException("No session found");
+    }
 }
