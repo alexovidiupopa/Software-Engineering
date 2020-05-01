@@ -30,32 +30,37 @@ import {HomeComponent} from './components/home';
 import {MatSelectModule} from '@angular/material/select';
 import {AuthorRegisterComponent} from './components/author-register/author-register.component';
 import {PcRegisterComponent} from './components/pc-register/pc-register.component';
+import { UploadAbstractComponent } from './components/upload-abstract/upload-abstract.component';
+import { AuthorPapersComponent } from './components/author-papers/author-papers.component';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { PaperDetailComponent } from './components/paper-detail/paper-detail.component';
 
 @NgModule({
-  imports: [
-    BrowserModule,
-    FormsModule,
-    HttpClientModule,
-    AppRoutingModule,
-    MatButtonModule,
-    BrowserAnimationsModule,
-    MatInputModule,
-    MatDatepickerModule,
-    MatIconModule,
-    MatListModule,
-    MatSnackBarModule,
-    AmazingTimePickerModule,
-    ReactiveFormsModule,
-    MatCardModule,
-    MatNativeDateModule,
-    NgxMaterialTimepickerModule,
-    MatSliderModule,
-    MatSlideToggleModule,
-    MatCheckboxModule,
+    imports: [
+        BrowserModule,
+        FormsModule,
+        HttpClientModule,
+        AppRoutingModule,
+        MatButtonModule,
+        BrowserAnimationsModule,
+        MatInputModule,
+        MatDatepickerModule,
+        MatIconModule,
+        MatListModule,
+        MatSnackBarModule,
+        AmazingTimePickerModule,
+        ReactiveFormsModule,
+        MatCardModule,
+        MatNativeDateModule,
+        NgxMaterialTimepickerModule,
+        MatSliderModule,
+        MatSlideToggleModule,
+        MatCheckboxModule,
 
-    MatFormFieldModule,
-    MatSelectModule
-  ],
+        MatFormFieldModule,
+        MatSelectModule,
+        MatProgressBarModule
+    ],
   providers: [
     {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'fill'}},
     {provide: MAT_DATE_LOCALE, useValue: 'ro-RO'}
@@ -72,7 +77,10 @@ import {PcRegisterComponent} from './components/pc-register/pc-register.componen
     ManagePCComponent,
     PcDetailComponent,
     AuthorRegisterComponent,
-    PcRegisterComponent
+    PcRegisterComponent,
+    UploadAbstractComponent,
+    AuthorPapersComponent,
+    PaperDetailComponent
   ],
   bootstrap: [AppComponent]
 })

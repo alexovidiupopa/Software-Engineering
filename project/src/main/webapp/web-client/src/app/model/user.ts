@@ -7,8 +7,9 @@ export class User {
   url: string;
   token: string;
   tokenLength: number;
+  id: number;
 
-  constructor(firstName: string, lastName: string, username: string, password: string, type: string, url: string) {
+  constructor(firstName: string, lastName: string, username: string, password: string, type: string, url: string, id: number) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.username = username;
@@ -16,6 +17,7 @@ export class User {
     this.type = type;
     this.url = url;
     this.tokenLength = 10;
+    this.id = id;
   }
 
   public getToken() {

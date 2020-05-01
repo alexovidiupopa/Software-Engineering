@@ -1,0 +1,31 @@
+.example-card {
+  max-width: 400px;
+}
+
+#main-div {
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+
+.abstract-button {
+  flex-grow: 1;
+  min-width: 100%;
+}
+
+#abstract-div {
+  display: flex;
+}

@@ -5,7 +5,7 @@ import {Observable, of, throwError} from 'rxjs';
 import {delay, dematerialize, materialize, mergeMap} from 'rxjs/operators';
 
 const users = [{id: 1, firstName: 'Jason', lastName: 'Watmore', username: 'test', password: 'test'}];
-const myUsers = [new User('fn', 'ln', 'test1', 'test1', 'Chair', 'chair-home'), new User('fn', 'ln', 'test2', 'test2', 'Pc', 'pc-home')];
+const myUsers = [new User('fn', 'ln', 'test1', 'test1', 'Chair', 'chair-home'5, ), new User('fn', 'ln', 'test2', 'test2', 'Pc', 'pc-home', 6)];
 
 @Injectable()
 export class FakeBackendInterceptor implements HttpInterceptor {
