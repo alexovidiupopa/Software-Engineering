@@ -10,4 +10,6 @@ public interface SessionService {
     void addSession(Session session);
     void deleteSession(Session session);
     void updateSession(Session session);
+
+    Session getSessionWithId(Integer id);
 }
