@@ -60,6 +60,7 @@ public class PersonServiceImpl implements PersonService {
                 .filter(p -> p.getUsername().equals(username))
                 .findAny();
         if(result.isPresent()) {
+            System.out.println(result.get().getUid());
             return result.get();
         }
         else{

@@ -7,6 +7,7 @@ import ro.ubb.project.core.repository.AuthorRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class AuthorServiceImpl implements AuthorService {
@@ -39,5 +40,14 @@ public class AuthorServiceImpl implements AuthorService {
         else{
             throw new RuntimeException("No assignment found");
         }
+    }
+
+    @Override
+    public boolean isAuthor(int uid) {
+        Optional<Author> author = this.authorRepository.findAll()
+                .stream()
+                .filter(a -> a.getUid()==uid)
+                .findAny();
+        return author.isPresent();
     }
 }

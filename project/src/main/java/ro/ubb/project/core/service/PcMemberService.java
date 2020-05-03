@@ -12,4 +12,6 @@ public interface PcMemberService {
     void deletePcMember(PcMember pcMember);
     void updatePcMember(PcMember pcMember);
     Optional<PcMember> getPcMemberById(int pcid);
+    boolean isPcMember(int uid);
+
 }

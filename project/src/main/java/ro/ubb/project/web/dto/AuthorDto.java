@@ -6,10 +6,12 @@ import java.io.Serializable;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder(builderClassName = "Builder", toBuilder = true)
+@Builder
 @Getter
 @Setter
 @EqualsAndHashCode
+@Data
 public class AuthorDto implements Serializable {
     private int aid;
+    private int uid;
 }
