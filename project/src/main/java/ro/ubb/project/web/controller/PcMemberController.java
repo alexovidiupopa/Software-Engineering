@@ -53,7 +53,7 @@ public class PcMemberController {
     @Autowired
     private ChairConverter chairConverter;
 
-    @RequestMapping(value = "/pc/getAllPcMembers", method = RequestMethod.GET)
+    @RequestMapping(value = "/getAllPcMembers", method = RequestMethod.GET)
     public PcMembersResponse getAllPcMembers(){
         List<PcMember> pcMembers = this.pcMemberService.getAllPcMembers();
         ArrayList<PcMemberDto> pcMemberDtos = new ArrayList<>();
@@ -62,7 +62,7 @@ public class PcMemberController {
         return new PcMembersResponse(pcMemberDtos);
     }
 
-    @RequestMapping(value = "/pc/getPcMemberById", method = RequestMethod.GET)
+    @RequestMapping(value = "/getPcMemberById", method = RequestMethod.GET)
     public PcMemberResponse getPcMemberById(@RequestBody GetPcMemberByIdRequest getPcMemberByIdRequest){
         Optional<PcMember> pcMember = this.pcMemberService.getPcMemberById(getPcMemberByIdRequest.getPcid());
         return pcMember.map(member -> new PcMemberResponse(new PcMemberConverter().modelToDto(member))).orElseGet(PcMemberResponse::new);
