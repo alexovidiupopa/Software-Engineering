@@ -39,7 +39,7 @@ export class User {
     return result;
   }
 
-  get_url() {
+  getHomepageUrl() {
     return this.url;
   }
 

@@ -1,3 +1,5 @@
+<app-header></app-header>
+
 <div class="main-div">
   <mat-card>
 
@@ -30,16 +32,16 @@
     <h3 class="mat-h3">Please upload an abstract (pdf or doc) of your paper (the desirable length is 500 words).</h3>
 
     <div>
-      <button class="abstract-button" mat-raised-button color="primary" (click)="uploadAbstractButtonPressed()">
+      <button (click)="uploadAbstractButtonPressed()" class="abstract-button" color="primary" mat-raised-button>
         <mat-icon>file_upload</mat-icon>
         Upload
       </button>
       <mat-label>{{fileName}}</mat-label>
-      <input type="file" #fileUpload id="fileUpload" name="fileUpload" multiple="multiple"
-             accept="application/pdf, application/msword" style="display:none;"/>
+      <input #fileUpload accept="application/pdf, application/msword" id="fileUpload" multiple="multiple" name="fileUpload"
+             style="display:none;" type="file"/>
     </div>
     <br>
-    <button (click)="createAbstractButtonPressed()" color="primary" class="abstract-button" mat-raised-button>
+    <button (click)="createAbstractButtonPressed()" class="abstract-button" color="primary" mat-raised-button>
       Done
     </button>
     <mat-error *ngIf="abstractFailed">Couldn't create abstract. Please check your data</mat-error>

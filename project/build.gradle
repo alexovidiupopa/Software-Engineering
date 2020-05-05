@@ -69,6 +69,7 @@ dependencies {
     compile group: 'org.apache.logging.log4j', name: 'log4j-1.2-api', version: "$log4jVersion"*/
     compile group:'com.sendgrid', name:'sendgrid-java', version:'4.0.1'
     runtime group: 'com.h2database', name: 'h2', version: '1.4.194'
+
 }
 
 test {

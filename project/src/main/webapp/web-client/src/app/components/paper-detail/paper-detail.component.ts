@@ -1,14 +1,12 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {ProgramCommittee} from '../../model/program-committee';
 import {ActivatedRoute, Router} from '@angular/router';
-import {ProgramCommitteeService} from '../../services/program-committee/program-committee.service';
 import {Location} from '@angular/common';
-import {MatSnackBar} from '@angular/material/snack-bar';
 import {Paper} from '../../model/paper';
 import {PaperService} from '../../services/paper/paper.service';
-import { FileSaver } from 'file-saver';
 import {DomSanitizer} from '@angular/platform-browser';
 import * as $ from 'jquery';
+import {AuthenticationService} from '../../services/login';
+
 @Component({
   selector: 'app-paper-detail',
   templateUrl: './paper-detail.component.html',
@@ -39,7 +37,8 @@ export class PaperDetailComponent implements OnInit {
     private paperService: PaperService,
     private location: Location,
     private router: Router,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private authenticationService: AuthenticationService
   ) {
 
   }
@@ -78,7 +77,7 @@ export class PaperDetailComponent implements OnInit {
       this.paperService.updatePaper(this.id, this.paperTitle, this.paperAuthors, this.paperKeywords, abstract, content)
         .subscribe(response => {
           if (response == true) {
-            this.router.navigateByUrl("/home");
+            this.router.navigateByUrl(this.authenticationService.getCurrentUser().getHomepageUrl());
             this.updateFailed = false;
           } else {
             this.updateFailed = true;
@@ -104,7 +103,8 @@ export class PaperDetailComponent implements OnInit {
       response => {
         this.abstractUrl = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(response));
         console.log(this.abstractUrl);
-      });  }
+      });
+  }
 
   uploadAbstract() {
     const fileUpload = this.abstractFileUpload.nativeElement;

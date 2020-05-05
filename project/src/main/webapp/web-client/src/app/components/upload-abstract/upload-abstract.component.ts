@@ -36,6 +36,7 @@ export class UploadAbstractComponent implements OnInit {
   validData() {
     return this.paperTitle.length > 0 && this.paperKeywords.length > 0 && this.file != null;
   }
+
   createAbstractButtonPressed() {
     if (this.validData()) {
       this.paperService

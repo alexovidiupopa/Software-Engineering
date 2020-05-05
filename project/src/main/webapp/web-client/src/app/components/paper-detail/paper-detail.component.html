@@ -1,3 +1,5 @@
+<app-header></app-header>
+
 <div *ngIf="paper" id="main-div">
   <mat-card class="example-card">
     <mat-card-header>
@@ -35,32 +37,33 @@
       </section>
     </mat-card-content>
     <a [href]="abstractUrl" download="abstract">
-    <button class="abstract-button" mat-raised-button color="primary" (click)="downloadAbstract()">
+      <button (click)="downloadAbstract()" class="abstract-button" color="primary" mat-raised-button>
 
 
-      See uploaded abstract
-    </button>
+        See uploaded abstract
+      </button>
     </a>
     <div>
-      <button class="abstract-button" mat-raised-button color="warn" (click)="uploadAbstract()">
+      <button (click)="uploadAbstract()" class="abstract-button" color="warn" mat-raised-button>
         Update abstract
       </button>
       <mat-label>{{abstractFilename}}</mat-label>
-      <input type="file" #abstractFileUpload id="abstractFileUpload" name="abstractFileUpload" multiple="multiple"
-             accept="application/pdf, application/msword" style="display:none;"/>
+      <input #abstractFileUpload accept="application/pdf, application/msword" id="abstractFileUpload" multiple="multiple" name="abstractFileUpload"
+             style="display:none;" type="file"/>
     </div>
     <a [href]="paperContentUrl" download="content">
-    <button *ngIf="paperUploaded" class="abstract-button" mat-raised-button color="primary" (click)="downloadPaperContent()">
-      See uploaded paper
-    </button>
+      <button (click)="downloadPaperContent()" *ngIf="paperUploaded" class="abstract-button" color="primary"
+              mat-raised-button>
+        See uploaded paper
+      </button>
     </a>
     <div>
-      <button class="abstract-button" mat-raised-button color="warn" (click)="uploadPaper()">
+      <button (click)="uploadPaper()" class="abstract-button" color="warn" mat-raised-button>
         {{uploadPaperButtonText}}
       </button>
       <mat-label>{{paperFilename}}</mat-label>
-      <input type="file" #paperFileUpload id="paperFileUpload" name="paperFileUpload" multiple="multiple"
-             accept="application/pdf, application/msword" style="display:none;"/>
+      <input #paperFileUpload accept="application/pdf, application/msword" id="paperFileUpload" multiple="multiple" name="paperFileUpload"
+             style="display:none;" type="file"/>
     </div>
     <mat-card-actions>
       <button (click)="updatePaper()" color="primary" mat-flat-button>Update</button>

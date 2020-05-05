@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import {ProgramCommittee} from '../../model/program-committee';
+import {Component, OnInit} from '@angular/core';
 import {Paper} from '../../model/paper';
 import {PaperService} from '../../services/paper/paper.service';
 import {AuthenticationService} from '../../services/login';
@@ -11,7 +10,9 @@ import {AuthenticationService} from '../../services/login';
 })
 export class AuthorPapersComponent implements OnInit {
   papers: Paper[];
-  constructor(private paperService: PaperService, private userService: AuthenticationService) { }
+
+  constructor(private paperService: PaperService, private userService: AuthenticationService) {
+  }
 
   ngOnInit(): void {
     this.getPapers();

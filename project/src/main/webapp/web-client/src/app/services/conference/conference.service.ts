@@ -20,6 +20,13 @@ export class ConferenceService {
     private http: HttpClient) {
   }
 
+  getCurrentPhase(): Observable<string> {
+    return this.http.get(this.url + '/getCurrentPhase', this.httpOptions).pipe(
+      map(response => response['message']),
+      catchError(this.handleError<Conference>('getCurrentPhase'))
+    );
+  }
+
   addConference(conference: Conference): Observable<boolean> {
     const conferenceFormatted = {
       conferenceName: conference.conferenceName,
