@@ -1,8 +1,10 @@
 package ro.ubb.project.web.converter;
 
+import org.springframework.stereotype.Component;
 import ro.ubb.project.core.model.Assignment;
 import ro.ubb.project.web.dto.AssignmentDto;
 
+@Component
 public class AssignmentConverter extends AbstractConverter<Assignment, AssignmentDto> implements Converter<Assignment, AssignmentDto> {
 
     @Override

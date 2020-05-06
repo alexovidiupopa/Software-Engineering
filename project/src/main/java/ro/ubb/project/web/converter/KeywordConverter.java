@@ -1,8 +1,10 @@
 package ro.ubb.project.web.converter;
 
+import org.springframework.stereotype.Component;
 import ro.ubb.project.core.model.Keyword;
 import ro.ubb.project.web.dto.KeywordDto;
 
+@Component
 public class KeywordConverter extends AbstractConverter<Keyword, KeywordDto> implements Converter<Keyword, KeywordDto>  {
 
     @Override

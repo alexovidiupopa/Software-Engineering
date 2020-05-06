@@ -1,8 +1,10 @@
 package ro.ubb.project.web.converter;
 
+import org.springframework.stereotype.Component;
 import ro.ubb.project.core.model.Ticket;
 import ro.ubb.project.web.dto.TicketDto;
 
+@Component
 public class TicketConverter extends AbstractConverter<Ticket, TicketDto> implements Converter<Ticket, TicketDto>  {
 
     @Override

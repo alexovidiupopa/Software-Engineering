@@ -1,8 +1,10 @@
 package ro.ubb.project.web.converter;
 
+import org.springframework.stereotype.Component;
 import ro.ubb.project.core.model.PaperSubject;
 import ro.ubb.project.web.dto.PaperSubjectDto;
 
+@Component
 public class PaperSubjectConverter extends AbstractConverter<PaperSubject, PaperSubjectDto> implements Converter<PaperSubject, PaperSubjectDto>  {
 
     @Override

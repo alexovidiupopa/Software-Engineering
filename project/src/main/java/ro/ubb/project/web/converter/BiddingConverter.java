@@ -1,8 +1,10 @@
 package ro.ubb.project.web.converter;
 
+import org.springframework.stereotype.Component;
 import ro.ubb.project.core.model.Bidding;
 import ro.ubb.project.web.dto.BiddingDto;
 
+@Component
 public class BiddingConverter extends AbstractConverter<Bidding, BiddingDto> implements Converter<Bidding, BiddingDto> {
 
     @Override
