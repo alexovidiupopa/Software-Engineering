@@ -1,22 +1,20 @@
-package ro.ubb.project.core.model;
+package ro.ubb.project.web.dto;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Date;
 
-@Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Getter
 @Setter
-@Builder
 @EqualsAndHashCode
-public class Ticket {
+@Data
+public class TicketDto implements Serializable {
 
-    @Id
     private int tid;
     private BigDecimal price;
     private Integer seatno;

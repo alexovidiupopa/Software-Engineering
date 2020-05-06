@@ -1,0 +1,29 @@
+package ro.ubb.project.web.converter;
+
+import ro.ubb.project.core.model.Ticket;
+import ro.ubb.project.web.dto.TicketDto;
+
+public class TicketConverter extends AbstractConverter<Ticket, TicketDto> implements Converter<Ticket, TicketDto>  {
+
+    @Override
+    public Ticket dtoToModel(TicketDto ticketDto) {
+        return Ticket.builder()
+                .tid(ticketDto.getTid())
+                .price(ticketDto.getPrice())
+                .seatno(ticketDto.getSeatno())
+                .datepurchased(ticketDto.getDatepurchased())
+                .name(ticketDto.getName())
+                .build();
+    }
+
+    @Override
+    public TicketDto modelToDto(Ticket ticket) {
+        return TicketDto.builder()
+                .tid(ticket.getTid())
+                .price(ticket.getPrice())
+                .seatno(ticket.getSeatno())
+                .datepurchased(ticket.getDatepurchased())
+                .name(ticket.getName())
+                .build();
+    }
+}
