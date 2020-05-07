@@ -1,5 +1,4 @@
 
-
 plugins {
     id 'org.springframework.boot' version '2.2.6.RELEASE'
     id 'io.spring.dependency-management' version '1.0.9.RELEASE'
@@ -38,7 +37,6 @@ ext {
     jaxbapiVersion = '2.3.0'
 
     jacksonDatabindVersion = '2.9.4'
-//        javaxServeletApiVersion = '3.1.0'
     javaxServeletApiVersion = '4.0.1'
 
     lombokVersion = '1.18.12'
@@ -70,6 +68,8 @@ dependencies {
     compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: "$log4jVersion"
     compile group: 'org.apache.logging.log4j', name: 'log4j-1.2-api', version: "$log4jVersion"*/
     compile group:'com.sendgrid', name:'sendgrid-java', version:'4.0.1'
+    runtime group: 'com.h2database', name: 'h2', version: '1.4.194'
+
 }
 
 test {

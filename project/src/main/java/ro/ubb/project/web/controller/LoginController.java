@@ -29,7 +29,7 @@ public class LoginController {
     @Autowired
     private PcMemberService pcMemberService;
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     LoginResponse login(@RequestBody LoginRequest loginRequest){
         String username = loginRequest.getUsername();
         String password = loginRequest.getPassword();

@@ -1,0 +1,34 @@
+<script src="https://code.iconify.design/1/1.0.5/iconify.min.js"></script>
+
+
+<nav *ngIf="currentUser" class="navbar navbar-expand navbar-dark bg-dark">
+  <div class="navbar-nav">
+    <button (click)="navigateToHome()" mat-icon-button>
+      <mat-icon>home</mat-icon>
+    </button>
+    <div class="example-button-row">
+      <a (click)="logout()" class="nav-item nav-link" routerLink="/">Logout</a>
+<!--      <a class="nav-item nav-link" routerLink="/create-conference">Create Conference</a>-->
+      <a class="nav-item nav-link" *ngIf="isChair()" routerLink="/manage-pcs">Manage Program Committees</a>
+      <a class="nav-item nav-link" *ngIf="(isPC() || isAuthor()) && isFirstPhase()" routerLink="/paper/upload">Upload a new paper</a>
+      <a class="nav-item nav-link" *ngIf="(isPC() || isAuthor())" routerLink="/paper/all">My papers</a>
+      <a class="nav-item nav-link" *ngIf="isChair() && isSecondPhase()" routerLink="/reviews/all">Reviews</a>
+      <a class="nav-item nav-link" *ngIf="isPC() && isSecondPhase()" routerLink="/bid">Bid papers</a>
+      <a class="nav-item nav-link" *ngIf="isChair()" routerLink="/conference/edit">Conference settings</a>
+      <a class="nav-item nav-link" *ngIf="isChair() && isThirdPhase()" routerLink="/conference/structure">Conference schedule</a>
+      <a class="nav-item nav-link" *ngIf="isChair() && isSecondPhase()"  routerLink="/review/assign">Reviews</a>
+      <a class="nav-item nav-link" *ngIf="isPC() && isSecondPhase()" routerLink="/review/pc">Review papers</a>
+    </div>
+  </div>
+</nav>
+
+<!-- main content container -->
+<div class="jumbotron">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-8 offset-sm-2">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+</div>

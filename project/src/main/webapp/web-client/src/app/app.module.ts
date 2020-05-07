@@ -30,6 +30,21 @@ import {HomeComponent} from './components/home';
 import {MatSelectModule} from '@angular/material/select';
 import {AuthorRegisterComponent} from './components/author-register/author-register.component';
 import {PcRegisterComponent} from './components/pc-register/pc-register.component';
+import {UploadAbstractComponent} from './components/upload-abstract/upload-abstract.component';
+import {AuthorPapersComponent} from './components/author-papers/author-papers.component';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {PaperDetailComponent} from './components/paper-detail/paper-detail.component';
+import {AuthorHomeComponent} from './components/author-home/author-home.component';
+import {HomepageComponent} from './components/homepage/homepage.component';
+import { HeaderComponent } from './components/header/header.component';
+import { AllReviewsComponent } from './components/all-reviews/all-reviews.component';
+import { BiddingComponent } from './components/bidding/bidding.component';
+import { BuyTicketComponent } from './components/buy-ticket/buy-ticket.component';
+import { UpdateConferenceComponent } from './components/update-conference/update-conference.component';
+import { StructureConferenceComponent } from './components/structure-conference/structure-conference.component';
+import { PcReviewComponent } from './components/pc-review/pc-review.component';
+import { RoomsComponent } from './components/rooms/rooms.component';
+import { AssignReviewerComponent } from './components/assign-reviewer/assign-reviewer.component';
 
 @NgModule({
   imports: [
@@ -54,14 +69,14 @@ import {PcRegisterComponent} from './components/pc-register/pc-register.componen
     MatCheckboxModule,
 
     MatFormFieldModule,
-    MatSelectModule
+    MatSelectModule,
+    MatProgressBarModule
   ],
   providers: [
     {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'fill'}},
     {provide: MAT_DATE_LOCALE, useValue: 'ro-RO'}
   ],
   declarations: [
-    AppComponent,
     AppComponent,
     HomeComponent,
     LoginComponent,
@@ -72,7 +87,21 @@ import {PcRegisterComponent} from './components/pc-register/pc-register.componen
     ManagePCComponent,
     PcDetailComponent,
     AuthorRegisterComponent,
-    PcRegisterComponent
+    PcRegisterComponent,
+    UploadAbstractComponent,
+    AuthorPapersComponent,
+    PaperDetailComponent,
+    AuthorHomeComponent,
+    HomepageComponent,
+    HeaderComponent,
+    AllReviewsComponent,
+    BiddingComponent,
+    BuyTicketComponent,
+    UpdateConferenceComponent,
+    StructureConferenceComponent,
+    PcReviewComponent,
+    RoomsComponent,
+    AssignReviewerComponent
   ],
   bootstrap: [AppComponent]
 })

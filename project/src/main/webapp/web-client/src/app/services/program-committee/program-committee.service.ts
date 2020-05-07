@@ -17,7 +17,6 @@ export class ProgramCommitteeService {
     private http: HttpClient) {
   }
 
-  /** GET heroes from the server */
   getProgramCommittees(): Observable<ProgramCommittee[]> {
     return this.http.get<ProgramCommittee[]>(this.url + '/getAllPcMembers', this.httpOptions)
       .pipe(
