@@ -10,6 +10,27 @@ h2 {
   padding-top: 0;
 }
 
+button
+{
+  margin-top: 10px;
+  background-color: #324e85;
+  margin-left: 1%;
+  color: white;
+  height: 70%;
+}
+
+button:hover
+{
+  background-color: #3c70b1;}
+
+.example-button-row
+{
+  top: 0;
+  position: relative;
+  background-color: #19265c;
+  height: 60px;
+  width: 100%;
+}
 nav a {
   padding: 5px 10px;
   text-decoration: none;
@@ -17,6 +38,23 @@ nav a {
   display: inline-block;
   background-color: #eee;
   border-radius: 4px;
+}
+
+#logoutButton
+{
+  position: absolute;
+  background-color: #bf0000;
+  right: 1%;
+}
+
+#logoutButton:hover
+{
+  background-color: #ee0000;
+}
+
+#homeButton
+{
+
 }
 
 nav a:visited, a:link {
@@ -206,5 +244,4 @@ a.yellow:hover {
 
 .yellow span {
   background: rgba(161, 145, 0, .7);
-
 }

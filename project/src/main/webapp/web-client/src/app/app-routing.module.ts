@@ -25,6 +25,7 @@ import {PcReviewComponent} from './components/pc-review/pc-review.component';
 import {RoomsComponent} from './components/rooms/rooms.component';
 import {AssignReviewerComponent} from './components/assign-reviewer/assign-reviewer.component';
 
+
 const routes: Routes = [
   {path: 'pc/detail/:id', component: PcDetailComponent},
   {path: 'create-conference', component: CreateConferenceComponent},
@@ -40,7 +41,6 @@ const routes: Routes = [
   {path: 'review/assign', component: AssignReviewerComponent},
   {path: 'review/pc', component: PcReviewComponent},
   {path: 'rooms', component: RoomsComponent},
-
   {path: '', component: HomepageComponent},
   {path: 'chair-home', component: ChairHomeComponent},
   {path: 'login', component: LoginComponent},

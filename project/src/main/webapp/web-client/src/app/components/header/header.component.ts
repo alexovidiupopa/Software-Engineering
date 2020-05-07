@@ -23,10 +23,10 @@ export class HeaderComponent implements OnInit {
     private authenticationService: AuthenticationService,
     private conferenceService: ConferenceService
   ) {
-    this.currentUser = this.authenticationService.getCurrentUser();
+    this.currentUser =  this.authenticationService.getCurrentUser();
     this.setUserType();
     this.setConferencePhase();
-    // this.homepage = this.authenticationService.getCurrentUser().getUrl();
+    this.homepage = this.authenticationService.getCurrentUser().getHomepageUrl();
   }
 
   private setUserType() {
@@ -37,18 +37,24 @@ export class HeaderComponent implements OnInit {
     } else {
       this.currentUserType = UserType.PC;
     }
+    // this.currentUserType = UserType.AUTHOR;
   }
 
   isAuthor() {
     return this.currentUserType === UserType.AUTHOR;
+    return true;
   }
 
   isChair() {
     return this.currentUserType === UserType.CHAIR;
+    return true;
+
   }
 
   isPC() {
     return this.currentUserType === UserType.PC;
+    return true;
+
   }
 
   ngOnInit() {
@@ -75,6 +81,7 @@ export class HeaderComponent implements OnInit {
         this.currentPhase = ConferencePhase.THIRD;
       }
     });
+    // this.currentPhase = ConferencePhase.FIRST;
   }
   isPreliminaryPhase() {
     return this.currentPhase === ConferencePhase.PRELIMINARY;
@@ -82,13 +89,19 @@ export class HeaderComponent implements OnInit {
 
   isFirstPhase() {
     return this.currentPhase === ConferencePhase.FIRST;
+    return true;
+
   }
 
   isSecondPhase() {
     return this.currentPhase === ConferencePhase.SECOND;
+    return true;
+
   }
 
   isThirdPhase() {
     return this.currentPhase === ConferencePhase.THIRD;
+    return true;
+
   }
 }
