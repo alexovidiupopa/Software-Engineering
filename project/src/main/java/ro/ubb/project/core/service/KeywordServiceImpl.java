@@ -41,4 +41,12 @@ public class KeywordServiceImpl implements KeywordService {
             throw new RuntimeException("No assignment found");
         }
     }
+
+    @Override
+    public int getIdByName(String keyword) {
+        for(Keyword key: keywordRepository.findAll())
+            if (key.getName().equals(keyword))
+                return key.getKid();
+        return -1;
+    }
 }
