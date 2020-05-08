@@ -70,13 +70,14 @@ public class PaperController {
         }
     }
 
-    @RequestMapping(value = "/decision", method = RequestMethod.POST)
+    @RequestMapping(value = "/decision", method = RequestMethod.PUT)
     MessageResponse setDecision(@RequestBody PaperDecisionDto paperDecisionDto){
         try {
             paperService.getPaperById(paperDecisionDto.getPid())
                     .setAccepted(paperDecisionDto.getDecision());
             return new MessageResponse("success");
         } catch (RuntimeException e){
+            e.printStackTrace();
             return new MessageResponse("failed");
         }
     }
@@ -99,5 +100,58 @@ public class PaperController {
         } catch (RuntimeException e){
             return new MessageResponse("failed");
         }
+    }
+
+    @RequestMapping(value = "/remove-session",method = RequestMethod.PUT)
+    MessageResponse removePaperSession(@RequestBody PaperDto paperDto){
+        try {
+            Paper paper = converter.dtoToModel(paperDto);
+            paperService.getPaperById(paper.getPid()).setSession(0);
+            return new MessageResponse("success");
+        } catch (RuntimeException e){
+            return new MessageResponse("failed");
+        }
+    }
+
+    @RequestMapping(value = "/add-author",method = RequestMethod.PUT)
+    MessageResponse addPaperAuthor(@RequestBody PaperDto paperDto){
+        try {
+            Paper paper = converter.dtoToModel(paperDto);
+            paperService.getPaperById(paper.getPid()).setAid(paper.getAid());
+            return new MessageResponse("success");
+        } catch (RuntimeException e){
+            return new MessageResponse("failed");
+        }
+    }
+
+    @RequestMapping(value = "/update-topic",method = RequestMethod.PUT)
+    MessageResponse updatePaperTopic(@RequestBody PaperDto paperDto){
+        try {
+            Paper paper = converter.dtoToModel(paperDto);
+            paperService.getPaperById(paper.getPid()).setTopic(paper.getTopic());
+            return new MessageResponse("success");
+        } catch (RuntimeException e){
+            return new MessageResponse("failed");
+        }
+    }
+
+    @RequestMapping(value = "/get-topic/{id}", method = RequestMethod.GET)
+    MessageResponse getTopic(@PathVariable Integer id){
+        return new MessageResponse(paperService.getPaperById(id).getTopic());
+    }
+
+    @RequestMapping(value = "/get-abstract/{id}", method = RequestMethod.GET)
+    MessageResponse getAbstract(@PathVariable Integer id){
+        return new MessageResponse(paperService.getPaperById(id).getAbstracturl());
+    }
+
+    @RequestMapping(value = "/get-content/{id}", method = RequestMethod.GET)
+    MessageResponse getContent(@PathVariable Integer id){
+        return new MessageResponse(paperService.getPaperById(id).getContenturl());
+    }
+
+    @RequestMapping(value = "/get-presentation/{id}", method = RequestMethod.GET)
+    MessageResponse getPresentation(@PathVariable Integer id){
+        return new MessageResponse(paperService.getPaperById(id).getPresentationurl());
     }
 }

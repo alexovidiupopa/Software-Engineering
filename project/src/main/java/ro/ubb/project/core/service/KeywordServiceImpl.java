@@ -36,9 +36,18 @@ public class KeywordServiceImpl implements KeywordService {
             Keyword k = toUpdate.get();
             k.setName(keyword.getName());
             this.keywordRepository.save(k);
+        } else{
+            throw new RuntimeException("No keyword found");
         }
-        else{
-            throw new RuntimeException("No assignment found");
+    }
+
+    @Override
+    public Keyword getKeywordById(int id){
+        Optional<Keyword> keyword = this.keywordRepository.findById(id);
+        if(keyword.isPresent()){
+            return keyword.get();
+        } else {
+            throw new RuntimeException("No keyword found");
         }
     }
 }
