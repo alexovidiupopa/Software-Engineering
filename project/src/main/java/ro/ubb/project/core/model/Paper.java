@@ -19,6 +19,9 @@ public class Paper implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int pid;
+    private int aid;
+    private int session;
+    private String title;
     private String topic;
     private String accepted;
     private String abstracturl;

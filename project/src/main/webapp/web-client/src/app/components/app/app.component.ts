@@ -29,8 +29,15 @@ export class AppComponent {
     this.authenticationService.logout();
   }
 
+  back_to_clients_page() {
+    const user: User = this.authenticationService.getCurrentUser();
+    // @ts-ignore
+
+    this.router.navigate([user.get_url()]);
+
   navigateToHome() {
     this.homepage = this.authenticationService.getCurrentUser().getHomepageUrl();
     this.router.navigateByUrl(this.homepage);
+
   }
 }

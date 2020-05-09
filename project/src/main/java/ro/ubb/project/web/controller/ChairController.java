@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import ro.ubb.project.web.request.MessageRequest;
 import ro.ubb.project.web.response.MessageResponse;
-import ro.ubb.project.web.utils.EmailSender;
+import ro.ubb.project.core.utils.EmailSender;
 
 @RestController
 @RequestMapping("/api/chair")

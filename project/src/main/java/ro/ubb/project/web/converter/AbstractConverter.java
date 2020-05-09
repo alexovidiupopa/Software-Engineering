@@ -8,12 +8,12 @@ public abstract class AbstractConverter<Model,Dto> implements Converter<Model,Dt
     public Collection<Dto> convertModelsToDtos(Collection<Model> models) {
         return models.stream()
                 .map(this::modelToDto)
-                .collect(Collectors.toSet());
+                .collect(Collectors.toList());
     }
 
     public Collection<Model> convertDtosToModels(Collection<Dto> dtos) {
         return dtos.stream()
                 .map(this::dtoToModel)
-                .collect(Collectors.toSet());
+                .collect(Collectors.toList());
     }
 }
