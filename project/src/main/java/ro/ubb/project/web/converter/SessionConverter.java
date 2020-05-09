@@ -11,6 +11,8 @@ public class SessionConverter extends AbstractConverter<Session, SessionDto>{
         return Session.builder()
                 .sid(sessionDto.getSid())
                 .time(sessionDto.getTime())
+                .rid(sessionDto.getRid())
+                .supervisor(sessionDto.getSupervisor())
                 .build();
     }
 
@@ -19,6 +21,8 @@ public class SessionConverter extends AbstractConverter<Session, SessionDto>{
         return SessionDto.builder()
                 .sid(session.getSid())
                 .time(session.getTime())
+                .rid(session.getRid())
+                .supervisor(session.getSupervisor())
                 .build();
     }
 }

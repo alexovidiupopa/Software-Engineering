@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { PcRegisterComponent } from './pc-register.component';
+import {PcRegisterComponent} from './pc-register.component';
 
 describe('PcRegisterComponent', () => {
   let component: PcRegisterComponent;
@@ -8,9 +8,9 @@ describe('PcRegisterComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PcRegisterComponent ]
+      declarations: [PcRegisterComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

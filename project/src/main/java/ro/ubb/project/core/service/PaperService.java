@@ -11,4 +11,6 @@ public interface PaperService {
     void deletePaper(Paper paper);
     void updatePaper(Paper paper);
     Paper getPaperById(int id);
+
+    List<Paper> getPapersOfAuthor(Integer id);
 }

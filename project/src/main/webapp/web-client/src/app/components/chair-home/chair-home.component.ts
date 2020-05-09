@@ -23,4 +23,7 @@ export class ChairHomeComponent implements OnInit {
   }
 
 
+  create_conference() {
+    this.router.navigate(['/create-conference']);
+  }
 }

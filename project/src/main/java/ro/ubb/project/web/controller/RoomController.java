@@ -1,12 +1,11 @@
 package ro.ubb.project.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ro.ubb.project.core.service.RoomService;
 import ro.ubb.project.web.converter.RoomConverter;
 import ro.ubb.project.web.dto.RoomDto;
+import ro.ubb.project.web.response.MessageResponse;
 import ro.ubb.project.web.response.RoomsResponse;
 
 import java.util.ArrayList;
@@ -24,5 +23,27 @@ public class RoomController {
     @RequestMapping(value = "/getAllRooms", method = RequestMethod.GET)
     RoomsResponse getAllRooms(){
         return new RoomsResponse((ArrayList<RoomDto>) converter.convertModelsToDtos(roomService.getAllRooms()));
+    }
+
+    @RequestMapping(value = "", method = RequestMethod.POST)
+    MessageResponse addRoom(@RequestBody RoomDto roomDto){
+        try{
+            roomService.addRoom(converter.dtoToModel(roomDto));
+            return new MessageResponse("success");
+        }
+        catch (RuntimeException e) {
+            return new MessageResponse("error");
+        }
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    MessageResponse delete(@PathVariable Integer id){
+        try{
+            roomService.deleteRoomById(id);
+            return new MessageResponse("success");
+        }
+        catch (RuntimeException e) {
+            return new MessageResponse("error");
+        }
     }
 }

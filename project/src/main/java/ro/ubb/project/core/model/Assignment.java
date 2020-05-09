@@ -22,4 +22,5 @@ public class Assignment {
     @Id
     private int pid;
     private int qualifier;
+    private String reviewUrl;
 }

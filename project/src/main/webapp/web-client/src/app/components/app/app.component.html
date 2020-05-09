@@ -1,5 +1,4 @@
-<script src="https://code.iconify.design/1/1.0.5/iconify.min.js"></script>
-
+<!--<script src="https://code.iconify.design/1/1.0.5/iconify.min.js"></script>-->
 
 <nav *ngIf="currentUser" class="navbar navbar-expand navbar-dark bg-dark">
   <div class="navbar-nav">
@@ -12,13 +11,12 @@
       </a>
       <a class="nav-item nav-link" routerLink="/create-conference">Create Conference</a>
       <a class="nav-item nav-link" routerLink="/manage-pcs">Manage Program Committees</a>
-        <a (click)="back_to_clients_page()" class="nav-item nav-link">
+      <a (click)="back_to_clients_page()" class="nav-item nav-link">
         <button color="warn" mat-raised-button>Get to your page</button>
       </a>
     </div>
   </div>
 </nav>
-
 
 <!-- main content container -->
 <div class="jumbotron">

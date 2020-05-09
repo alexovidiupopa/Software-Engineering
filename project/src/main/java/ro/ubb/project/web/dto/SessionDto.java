@@ -11,4 +11,6 @@ import java.sql.Time;
 public class SessionDto {
     private int sid;
     private Time time;
+    private int rid;
+    private int supervisor;
 }

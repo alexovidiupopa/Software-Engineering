@@ -23,7 +23,7 @@ import ro.ubb.project.web.request.RegisterRequest;
 import ro.ubb.project.web.response.MessageResponse;
 import ro.ubb.project.web.response.PcMemberResponse;
 import ro.ubb.project.web.response.PcMembersResponse;
-import ro.ubb.project.web.utils.EmailSender;
+import ro.ubb.project.core.utils.EmailSender;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +49,7 @@ public class PcMemberController {
 
     @Autowired
     private PcMemberConverter pcMemberConverter;
-  
+
     @Autowired
     private ChairConverter chairConverter;
 

@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {UserService} from '../../services/sign-up/user.service';
-import {Author} from '../../services/sign-up/author';
 import {Router} from '@angular/router';
+import {SignUpService} from '../../services/sign-up/sign-up.service';
+import {Author} from '../../model/author';
 
 @Component({
   selector: 'app-author-register',
@@ -14,87 +14,98 @@ export class AuthorRegisterComponent implements OnInit {
 
   myForm: FormGroup;
   success = false;
-  constructor(private userService: UserService, private fb: FormBuilder, private router: Router) {}
 
-  ngOnInit(): void {
-      this.myForm = this.fb.group({
-        username: '',
-        password: ['', [
-          Validators.required,
-          Validators.pattern('^(?=.*[a-zA-Z])(?=.*[0-9])([a-zA-Z0-9]+)$'),
-    Validators.minLength(7),
-          Validators.maxLength(17)
-        ]],
-        affiliation: ['', [
-          Validators.required,
-        ]],
-        firstName: ['', [
-          Validators.required,
-        ]],
-        lastName: ['', [
-          Validators.required,
-        ]],
-        phoneNumber: ['', [
-          Validators.required,
-          Validators.pattern('(?=.*[0-9])([0-9]+)$'),
-        ]],
-        email: ['', [
-          Validators.required,
-          Validators.email
-        ]]
-      });
+  constructor(private signUpService: SignUpService, private fb: FormBuilder, private router: Router) {
   }
 
-  goHome()
-  {
-    this.router.navigate(['register']);
-  }
-  get email()
-  {
+  get email() {
     return this.myForm.get('email');
   }
 
-  get password()
-  {
+  get password() {
     return this.myForm.get('password');
   }
-  assignId(): number
-  {
+
+  ngOnInit(): void {
+    this.myForm = this.fb.group({
+      username: '',
+      password: ['', [
+        Validators.required,
+        Validators.pattern('^(?=.*[a-zA-Z])(?=.*[0-9])([a-zA-Z0-9]+)$'),
+        Validators.minLength(7),
+        Validators.maxLength(17)
+      ]],
+      affiliation: ['', [
+        Validators.required,
+      ]],
+      firstName: ['', [
+        Validators.required,
+      ]],
+      lastName: ['', [
+        Validators.required,
+      ]],
+      phoneNumber: ['', [
+        Validators.required,
+        Validators.pattern('(?=.*[0-9])([0-9]+)$'),
+      ]],
+      email: ['', [
+        Validators.required,
+        Validators.email
+      ]]
+    });
+  }
+
+  goHome() {
+    this.router.navigate(['register']);
+  }
+
+  assignId(): number {
     return Math.random();
   }
-  getUsername(): string
-  {
+
+  getUsername(): string {
     return this.myForm.value.username;
   }
-  getPassword(): string
-  {
+
+  getPassword(): string {
     return this.myForm.value.password;
   }
-  getAffiliation(): string
-  {
+
+  getAffiliation(): string {
     return this.myForm.value.affiliation;
   }
-  getFirstName(): string
-  {
+
+  getFirstName(): string {
     return this.myForm.value.firstName;
   }
-  getLastName(): string
-  {
+
+  getLastName(): string {
     return this.myForm.value.lastName;
   }
-  getPhoneNumber(): string
-  {
+
+  getPhoneNumber(): string {
     return this.myForm.value.phoneNumber;
   }
-  getEmail(): string
-  {
+
+  getEmail(): string {
     return this.myForm.value.email;
   }
+
+  getAcademicRank(): string {
+    return this.myForm.value.academicRank;
+  }
+
+  getWebsite(): string {
+    return this.myForm.value.website;
+  }
+
   registerAuthor(): void {
     this.success = true;
     // tslint:disable-next-line:max-line-length
-    const author: Author = new Author(this.getUsername(), this.getPassword(), this.getAffiliation(), this.getFirstName(), this.getLastName(), this.getPhoneNumber(), this.getEmail(), this.assignId());
-    this.userService.registerAuthor(author)
+    const author: Author = new Author(this.getUsername(), this.getPassword(), this.getWebsite(), this.getAffiliation(), this.getFirstName(), this.getLastName(), this.getPhoneNumber(), this.getEmail(), this.getAcademicRank(), this.assignId());
+    this.signUpService.registerAuthor(author)
       .subscribe(success => console.log(success));
+    document.getElementById('decorationText').style.display = 'block';
+
   }
 }

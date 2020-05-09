@@ -50,4 +50,15 @@ public class AuthorServiceImpl implements AuthorService {
                 .findAny();
         return author.isPresent();
     }
+
+    @Override
+    public Author getAuthorById(int id){
+        Optional<Author> author = this.authorRepository.findById(id);
+        if(author.isPresent()) {
+            return author.get();
+        }
+        else{
+            throw new RuntimeException("No assignment found");
+        }
+    }
 }

@@ -3,7 +3,7 @@ import {AmazingTimePickerService} from 'amazing-time-picker';
 import {MatDatepickerInputEvent} from '@angular/material/datepicker';
 import * as moment from 'moment';
 import {ConferenceService} from '../../services/conference/conference.service';
-import {Conference} from '../../services/conference/conference';
+import {Conference} from '../../model/conference';
 import {Router} from '@angular/router';
 
 @Component({

@@ -8,6 +8,7 @@ import ro.ubb.project.core.repository.AssignmentRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class AssignmentServiceImpl implements AssignmentService {
@@ -18,6 +19,18 @@ public class AssignmentServiceImpl implements AssignmentService {
     @Override
     public List<Assignment> getAllAssignments() {
         return this.assignmentRepository.findAll();
+    }
+
+    @Override
+    public Assignment getAssignmentById(int pcid, int pid) {
+        Optional<Assignment> assignment = this.assignmentRepository.findAll().stream()
+                .filter(a -> a.getPcid() == pcid)
+                .filter(a -> a.getPid() == pid)
+                .findAny();
+        if (assignment.isPresent())
+            return assignment.get();
+        else
+            throw new RuntimeException("No paper found");
     }
 
     @Override
@@ -45,5 +58,23 @@ public class AssignmentServiceImpl implements AssignmentService {
         else{
             throw new RuntimeException("No assignment found");
         }
+    }
+
+    @Override
+    public List<Integer> getReviewersForPaperId(Integer pid) {
+        return assignmentRepository.findAll()
+                .stream()
+                .filter(assignment -> assignment.getPid()==pid)
+                .map(assignment -> assignment.getPcid())
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Integer> getPapersForReviewer(Integer pcid) {
+        return assignmentRepository.findAll()
+                .stream()
+                .filter(assignment -> assignment.getPcid()==pcid)
+                .map(assignment -> assignment.getPid())
+                .collect(Collectors.toList());
     }
 }
