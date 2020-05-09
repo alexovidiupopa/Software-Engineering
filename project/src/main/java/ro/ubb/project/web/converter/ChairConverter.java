@@ -1,9 +1,7 @@
 package ro.ubb.project.web.converter;
 
 import org.springframework.stereotype.Component;
-import ro.ubb.project.core.model.Author;
 import ro.ubb.project.core.model.Chair;
-import ro.ubb.project.web.dto.AuthorDto;
 import ro.ubb.project.web.dto.ChairDto;
 
 @Component

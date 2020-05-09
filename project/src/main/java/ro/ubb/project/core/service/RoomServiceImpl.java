@@ -30,6 +30,11 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
+    public void deleteRoomById(int rid){
+        this.roomRepository.deleteById(rid);
+    }
+
+    @Override
     public void updateRoom(Room room) {
         Optional<Room> toUpdate = this.roomRepository.findById(room.getRid());
         if(toUpdate.isPresent()) {

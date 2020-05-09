@@ -10,6 +10,6 @@ public interface AuthorService {
     void addAuthor(Author author);
     void deleteAuthor(Author author);
     void updateAuthor(Author author);
-
+    Author getAuthorById(int id);
     boolean isAuthor(int uid);
 }

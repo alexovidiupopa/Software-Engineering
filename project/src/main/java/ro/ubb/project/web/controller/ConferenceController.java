@@ -36,7 +36,7 @@ public class ConferenceController {
 
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public MessageResponse createConference(@RequestBody ConferenceRequest conference){
+    public MessageResponse createConference(@RequestBody ConferenceRequest conference) {
         System.out.println(conference);
         log.trace("received conference creation request={}",conference);
         DateTimeFormatter dtf = DateTimeFormat.forPattern("MM/DD/YYYY HH:mm:ss");

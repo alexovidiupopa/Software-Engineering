@@ -22,6 +22,18 @@ public class AssignmentServiceImpl implements AssignmentService {
     }
 
     @Override
+    public Assignment getAssignmentById(int pcid, int pid) {
+        Optional<Assignment> assignment = this.assignmentRepository.findAll().stream()
+                .filter(a -> a.getPcid() == pcid)
+                .filter(a -> a.getPid() == pid)
+                .findAny();
+        if (assignment.isPresent())
+            return assignment.get();
+        else
+            throw new RuntimeException("No paper found");
+    }
+
+    @Override
     public void addAssignment(Assignment assignment) {
         this.assignmentRepository.save(assignment);
     }

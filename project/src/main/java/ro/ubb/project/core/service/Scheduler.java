@@ -40,7 +40,7 @@ public class Scheduler {
         }
         return "finished";
     }
-
+  
     public void updateCurrentDeadline(DateTime parseDateTime) {
         DateTimeFormatter dtf = DateTimeFormat.forPattern("MM/DD/YYYY HH:mm:ss");
         if (parseDateTime.isBefore(DateTime.parse(preliminaryPhaseDeadline,dtf))){
