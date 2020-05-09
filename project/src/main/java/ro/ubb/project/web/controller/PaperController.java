@@ -1,8 +1,6 @@
 package ro.ubb.project.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-import ro.ubb.project.core.service.PaperService;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -186,12 +184,12 @@ public class PaperController {
     }
 
     @RequestMapping(value = "/get-abstract/{id}", method = RequestMethod.GET)
-    MessageResponse getAbstract(@PathVariable Integer id){
+    MessageResponse getAbstractUrl(@PathVariable Integer id){
         return new MessageResponse(paperService.getPaperById(id).getAbstracturl());
     }
 
     @RequestMapping(value = "/get-content/{id}", method = RequestMethod.GET)
-    MessageResponse getContent(@PathVariable Integer id){
+    MessageResponse getContentUrl(@PathVariable Integer id){
         return new MessageResponse(paperService.getPaperById(id).getContenturl());
     }
 

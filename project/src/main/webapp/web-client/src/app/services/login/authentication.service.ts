@@ -3,7 +3,8 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {User} from '../../model/user';
-
+import {LoginUserBody} from "../../model/LoginUserBody";
+import * as jwt_decode from 'jwt-decode';
 
 // tslint:disable-next-line:class-name
 class request {
@@ -49,12 +50,28 @@ export class AuthenticationService {
     user.setToken(token);
   }
 
+
+  private decode_JWT_token(token: any) {
+    const decodedToken = jwt_decode(token);
+    return decodedToken;
+  }
+
   login(username, password) {
-    return this.http.post<request>(this.url + '/login', {username, password}).pipe(
-      map(user => {
-        this.response.success = user.success;
+
+
+    //s-ar putea sa nu trebuiasca json.stringify dar sunte 99% sigur ca trebuie
+
+    return this.http.post<request>(this.url + '/login',  JSON.stringify(new LoginUserBody(username, password)),{
+      headers: new HttpHeaders({'Content-Type': 'application/json'})
+
+    }).pipe(
+      map(response => {
+        const decodedToken = this.decode_JWT_token(response['message']);
+        console.log(decodedToken);
+        this.response.success = decodedToken['success'];
+
         if (this.response.success === true) {
-          this.response.type = user.type;
+          this.response.type = decodedToken['type']; //s-ar putea sa trebuiasca .type
           this.user = new User('firstname', 'lastname', 'username', 'password', this.response.type, 'idk', 1);
           if (this.user.type === 'chair') {
             this.user.url = '/chair-home';
@@ -66,7 +83,7 @@ export class AuthenticationService {
 
           this.assignAnIdentificationTokenToUser(this.user);
           localStorage.setItem(this.user.getToken(), JSON.stringify(this.user));
-          this.currentUserSubject.next(user);
+          this.currentUserSubject.next(this.user);
           return this.user;
         } else {
           return Error('username or password incorrect');

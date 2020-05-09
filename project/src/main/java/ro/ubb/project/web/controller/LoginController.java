@@ -13,6 +13,7 @@ import ro.ubb.project.core.service.ChairService;
 import ro.ubb.project.core.service.PcMemberService;
 import ro.ubb.project.core.service.PersonService;
 import ro.ubb.project.web.request.LoginRequest;
+import ro.ubb.project.web.response.MessageResponse;
 
 @RestController
 @RequestMapping("/api")
@@ -31,56 +32,56 @@ public class LoginController {
     private PcMemberService pcMemberService;
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    LoginResponse login(@RequestBody LoginRequest loginRequest){
+    MessageResponse login(@RequestBody LoginRequest loginRequest){
         String username = loginRequest.getUsername();
         String password = loginRequest.getPassword();
         Algorithm algorithm = Algorithm.HMAC256("secret");
         try{
             Person person = personService.getPersonByUserName(username);
             if (!person.getPassword().equals(password))
-                return JWT.create()
+                return new MessageResponse(JWT.create()
                         .withIssuer("admin")
                         .withClaim("success", false)
                         .withClaim("type","")
                         .withClaim("uid",0)
-                        .sign(algorithm);
+                        .sign(algorithm));
             int uid = person.getUid();
             if (chairService.isChair(uid))
-                return JWT.create()
+                return new MessageResponse(JWT.create()
                         .withIssuer("admin")
                         .withClaim("success", true)
                         .withClaim("type","chair")
                         .withClaim("uid",uid)
-                        .sign(algorithm);
+                        .sign(algorithm));
 
             if (authorService.isAuthor(uid))
-                return JWT.create()
+                return new MessageResponse(JWT.create()
                         .withIssuer("admin")
                         .withClaim("success", true)
                         .withClaim("type","author")
                         .withClaim("uid",uid)
-                        .sign(algorithm);
+                        .sign(algorithm));
             if (pcMemberService.isPcMember(uid))
-                return JWT.create()
+                return new MessageResponse(JWT.create()
                         .withIssuer("admin")
                         .withClaim("success", true)
                         .withClaim("type","pc")
                         .withClaim("uid",uid)
-                        .sign(algorithm);
-            return JWT.create()
+                        .sign(algorithm));
+            return new MessageResponse(JWT.create()
                     .withIssuer("admin")
                     .withClaim("success", false)
                     .withClaim("type","")
                     .withClaim("uid",0)
-                    .sign(algorithm);
+                    .sign(algorithm));
         }
         catch (RuntimeException e) {
-            return JWT.create()
+            return new MessageResponse(JWT.create()
                     .withIssuer("admin")
                     .withClaim("success", false)
                     .withClaim("type","")
                     .withClaim("uid",0)
-                    .sign(algorithm);
+                    .sign(algorithm));
         }
 
     }
