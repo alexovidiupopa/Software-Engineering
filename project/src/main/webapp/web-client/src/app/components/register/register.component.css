@@ -1,7 +1,41 @@
-.loginButton {
-  height: 20%;
+#loginButton1 {
+  position: absolute;
   width: 30%;
-  margin: auto;
+  color: white;
+  background-color: #324e85;
+  margin-left: 10%;
+  bottom: 0;
+  height: 80%;
+}
+
+app-author-register{
+
+}
+
+#loginButton2 {
+  position: absolute;
+  width: 30%;
+  color: white;
+  background-color: #324e85;
+  margin-left: 47%;
+  bottom: 0;
+  height: 80%;
+}
+
+body{
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+#loginButton1:hover
+{
+  background-color: #3c70b1;
+}
+
+#loginButton2:hover
+{
+  background-color: #3c70b1;
 }
 
 .registerButtonComponent {
@@ -10,15 +44,30 @@
 }
 
 .homeButton {
-  width: 20%;
-  margin-left: 1%;
-  margin-top: 1%;
+  position: relative;
+  background-color: #b5202e;
+  color: white;
+  width: 1%;
+  height: 80%;
+  margin-left: 0.2%;
+  margin-top: 0.3%;
+}
+
+.homeButton:hover
+{
+  background-color: #e12032;
 }
 
 .main {
   position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
-  height: 100%;
+  height: 80%;
+  margin-top: 5%;
+}
+
+.header {
+  position: absolute;
+  width: 100%;
+  height: 50px;
+  background-color: #19265c;
 }

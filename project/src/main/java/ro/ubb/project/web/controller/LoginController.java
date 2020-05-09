@@ -31,7 +31,7 @@ public class LoginController {
     private PcMemberService pcMemberService;
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    String login(@RequestBody LoginRequest loginRequest){
+    LoginResponse login(@RequestBody LoginRequest loginRequest){
         String username = loginRequest.getUsername();
         String password = loginRequest.getPassword();
         Algorithm algorithm = Algorithm.HMAC256("secret");
