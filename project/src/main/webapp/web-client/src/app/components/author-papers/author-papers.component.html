@@ -1,0 +1,14 @@
+<app-header></app-header>
+
+<div class="main-div">
+  <mat-card>
+
+    <h1 class="mat-h1">Here are your papers</h1>
+    <h4 class="mat-h4">You can edit them by clicking on their name.</h4>
+    <h5 class="mat-small">Click on name for more details.</h5>
+    <mat-nav-list>
+      <a *ngFor="let paper of papers" href="/paper/detail/{{paper.id}}" mat-list-item> {{paper.title}} </a>
+    </mat-nav-list>
+  </mat-card>
+
+</div>

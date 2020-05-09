@@ -1,9 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {MessageService} from '../message/message.service';
 import {Observable, of} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
-import {Conference} from './conference';
+import {Conference} from '../../model/conference';
 
 @Injectable({
   providedIn: 'root'
@@ -11,17 +10,24 @@ import {Conference} from './conference';
 @Injectable({providedIn: 'root'})
 export class ConferenceService {
 
+  private url = 'http://localhost:8080/api';  // URL to web api
+  private httpOptions = {
+    headers: new HttpHeaders({'Content-Type': 'application/json'})
 
-  //private conferenceUrl = 'http://demo4608640.mockable.io/api/conference';  // URL to web api
-  private conferenceUrl = 'http://localhost:8080/api';  // URL to web api
+  };
 
   constructor(
-    private http: HttpClient,
-    private messageService: MessageService) {
+    private http: HttpClient) {
   }
+
+  getCurrentPhase(): Observable<string> {
+    return this.http.get(this.url + '/getCurrentPhase', this.httpOptions).pipe(
+      map(response => response['message']),
+      catchError(this.handleError<Conference>('getCurrentPhase'))
+    );
+  }
+
   addConference(conference: Conference): Observable<boolean> {
-    //const url = `${this.conferenceUrl}/create`;
-    const url = "http://localhost:8080/api/create";
     const conferenceFormatted = {
       conferenceName: conference.conferenceName,
       /*preliminaryPhaseDeadline: conference.preliminaryPhaseDeadline.format('MM/DD/YYYY HH:mm:ss'),
@@ -31,19 +37,10 @@ export class ConferenceService {
     };
     console.log(conferenceFormatted);
 
-    const customHeaders = new HttpHeaders({
-      'Content-Type': 'application/json'});
-    const options = { headers: customHeaders };
-
-    return this.http.post<boolean>(url, conferenceFormatted, options).pipe(
+    return this.http.post<boolean>(this.url + '/create', conferenceFormatted, this.httpOptions).pipe(
       map(response => response['message']),
-      // tap((newConference: Conference) => this.log(`added conference w/ name=${conference.conferenceName}`)),
       catchError(this.handleError<Conference>('addConference'))
     );
-  }
-
-  private log(message: string) {
-    this.messageService.add(`ConferenceService: ${message}`);
   }
 
   /**
@@ -59,8 +56,6 @@ export class ConferenceService {
       console.error(error); // log to console instead
 
       // TODO: better job of transforming error for user consumption
-      this.log(`${operation} failed: ${error.message}`);
-
       // Let the app keep running by returning an empty result.
       return of(result as T);
     };

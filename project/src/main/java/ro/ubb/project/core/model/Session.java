@@ -17,4 +17,6 @@ public class Session {
     @Id
     private int sid;
     private Time time;
+    private int rid;
+    private int supervisor;
 }

@@ -17,7 +17,7 @@ import ro.ubb.project.web.dto.AuthorDto;
 import ro.ubb.project.web.dto.PersonDto;
 import ro.ubb.project.web.request.RegisterRequest;
 import ro.ubb.project.web.response.MessageResponse;
-import ro.ubb.project.web.utils.EmailSender;
+import ro.ubb.project.core.utils.EmailSender;
 
 import java.util.Collection;
 import java.util.List;

@@ -11,4 +11,5 @@ public interface KeywordService {
     void deleteKeyword(Keyword keyword);
     void updateKeyword(Keyword keyword);
     Keyword getKeywordById(int id);
+    int getIdByName(String keyword);
 }

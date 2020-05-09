@@ -1,0 +1,35 @@
+<script src="https://code.iconify.design/1/1.0.5/iconify.min.js"></script>
+
+
+<!--<nav *ngIf="currentUser" class="navbar navbar-expand navbar-dark bg-dark">-->
+<nav class="navbar navbar-expand navbar-dark bg-dark">
+  <div class="navbar-nav">
+
+    <div class="example-button-row">
+      <button id = "homeButton" (click)="navigateToHome()" mat-icon-button><mat-icon>home</mat-icon></button>
+
+<!--      <button class="nav-item nav-link" *ngIf="isChair()" routerLink="/create-conference" mat-flat-button>Create Conference</button>-->
+      <button class="nav-item nav-link" *ngIf="isChair()" routerLink="/manage-pcs" mat-flat-button>Manage Program Committees</button>
+      <button class="nav-item nav-link" *ngIf="(isPC() || isAuthor()) && isFirstPhase()" routerLink="/paper/upload" mat-flat-button>Upload a new paper</button>
+      <button class="nav-item nav-link" *ngIf="(isPC() || isAuthor())" routerLink="/paper/all" mat-flat-button>My papers</button>
+      <button class="nav-item nav-link" *ngIf="isChair() && isSecondPhase()" routerLink="/reviews/all" mat-flat-button>Reviews</button>
+      <button class="nav-item nav-link" *ngIf="isPC() && isSecondPhase()" routerLink="/bid" mat-flat-button>Bid papers</button>
+      <button class="nav-item nav-link" *ngIf="isChair()" routerLink="/conference/edit" mat-flat-button>Conference settings</button>
+      <button class="nav-item nav-link" *ngIf="isChair() && isThirdPhase()" routerLink="/conference/structure" mat-flat-button>Conference schedule</button>
+      <button class="nav-item nav-link" *ngIf="isChair() && isSecondPhase()"  routerLink="/review/assign" mat-flat-button>Reviews</button>
+      <button class="nav-item nav-link" *ngIf="isPC() && isSecondPhase()" routerLink="/review/pc" mat-flat-button>Review papers</button>
+      <button id = "logoutButton" (click)="logout()" class="nav-item nav-link" routerLink="/" mat-flat-button><mat-icon>logout</mat-icon></button>
+    </div>
+  </div>
+</nav>
+
+<!-- main content container -->
+<div class="jumbotron">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-8 offset-sm-2">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+</div>

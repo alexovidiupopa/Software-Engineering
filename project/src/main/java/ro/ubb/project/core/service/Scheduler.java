@@ -26,6 +26,9 @@ public class Scheduler {
 
     public String getCurrentPhase(){
         DateTimeFormatter dtf = DateTimeFormat.forPattern("MM/DD/YYYY HH:mm:ss");
+        if (DateTime.parse(preliminaryPhaseDeadline, dtf).isAfterNow()){
+            return "preliminary";
+        }
         if (DateTime.parse(preliminaryPhaseDeadline, dtf).isBeforeNow()){
             return "first";
         }
@@ -36,5 +39,24 @@ public class Scheduler {
             return "third";
         }
         return "finished";
+    }
+  
+    public void updateCurrentDeadline(DateTime parseDateTime) {
+        DateTimeFormatter dtf = DateTimeFormat.forPattern("MM/DD/YYYY HH:mm:ss");
+        if (parseDateTime.isBefore(DateTime.parse(preliminaryPhaseDeadline,dtf))){
+            preliminaryPhaseDeadline = parseDateTime.toString();
+            return;
+        }
+        if (parseDateTime.isBefore(DateTime.parse(firstPhaseDeadline,dtf))){
+            firstPhaseDeadline = parseDateTime.toString();
+            return;
+        }
+        if (parseDateTime.isBefore(DateTime.parse(secondPhaseDeadline,dtf))){
+            secondPhaseDeadline = parseDateTime.toString();
+            return;
+        }
+        if (parseDateTime.isBefore(DateTime.parse(thirdPhaseDeadline,dtf))){
+            thirdPhaseDeadline = parseDateTime.toString();
+        }
     }
 }

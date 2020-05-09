@@ -1,5 +1,7 @@
 package ro.ubb.project.web.controller;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,7 +13,6 @@ import ro.ubb.project.core.service.ChairService;
 import ro.ubb.project.core.service.PcMemberService;
 import ro.ubb.project.core.service.PersonService;
 import ro.ubb.project.web.request.LoginRequest;
-import ro.ubb.project.web.response.LoginResponse;
 
 @RestController
 @RequestMapping("/api")
@@ -29,30 +30,57 @@ public class LoginController {
     @Autowired
     private PcMemberService pcMemberService;
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     LoginResponse login(@RequestBody LoginRequest loginRequest){
         String username = loginRequest.getUsername();
         String password = loginRequest.getPassword();
-
+        Algorithm algorithm = Algorithm.HMAC256("secret");
         try{
             Person person = personService.getPersonByUserName(username);
             if (!person.getPassword().equals(password))
-                return new LoginResponse(false, "");
-
+                return JWT.create()
+                        .withIssuer("admin")
+                        .withClaim("success", false)
+                        .withClaim("type","")
+                        .withClaim("uid",0)
+                        .sign(algorithm);
             int uid = person.getUid();
             if (chairService.isChair(uid))
-                return new LoginResponse(true,"chair");
+                return JWT.create()
+                        .withIssuer("admin")
+                        .withClaim("success", true)
+                        .withClaim("type","chair")
+                        .withClaim("uid",uid)
+                        .sign(algorithm);
 
             if (authorService.isAuthor(uid))
-                return new LoginResponse(true,"author");
-
+                return JWT.create()
+                        .withIssuer("admin")
+                        .withClaim("success", true)
+                        .withClaim("type","author")
+                        .withClaim("uid",uid)
+                        .sign(algorithm);
             if (pcMemberService.isPcMember(uid))
-                return new LoginResponse(true,"pc");
-
-            return new LoginResponse(false, "");
+                return JWT.create()
+                        .withIssuer("admin")
+                        .withClaim("success", true)
+                        .withClaim("type","pc")
+                        .withClaim("uid",uid)
+                        .sign(algorithm);
+            return JWT.create()
+                    .withIssuer("admin")
+                    .withClaim("success", false)
+                    .withClaim("type","")
+                    .withClaim("uid",0)
+                    .sign(algorithm);
         }
         catch (RuntimeException e) {
-            return new LoginResponse(false, "");
+            return JWT.create()
+                    .withIssuer("admin")
+                    .withClaim("success", false)
+                    .withClaim("type","")
+                    .withClaim("uid",0)
+                    .sign(algorithm);
         }
 
     }

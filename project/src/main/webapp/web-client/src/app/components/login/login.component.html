@@ -212,16 +212,18 @@
 
 
 </style>
+
 <div class="loginLabel"><h2>Login</h2></div>
 
 <form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
   <div class="username">
     <div class="form-group">
       <label for="username">Username </label>
-      <input [ngClass]="{ 'is-invalid': submitted && f.username.errors }" class="form-control" formControlName="username"
+      <input [ngClass]="{ 'is-invalid': submitted && formFields.username.errors }" class="form-control"
+             formControlName="username"
              type="text"/>
-      <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
-        <div *ngIf="f.username.errors.required">Username is required</div>
+      <div *ngIf="submitted && formFields.username.errors" class="invalid-feedback">
+        <div *ngIf="formFields.username.errors.required">Username is required</div>
       </div>
     </div>
   </div>
@@ -230,10 +232,11 @@
   <div class="password">
     <div class="form-group">
       <label for="password">Password </label>
-      <input [ngClass]="{ 'is-invalid': submitted && f.password.errors }" class="form-control" formControlName="password"
+      <input [ngClass]="{ 'is-invalid': submitted && formFields.password.errors }" class="form-control"
+             formControlName="password"
              type="password"/>
-      <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-        <div *ngIf="f.password.errors.required">Password is required</div>
+      <div *ngIf="submitted && formFields.password.errors" class="invalid-feedback">
+        <div *ngIf="formFields.password.errors.required">Password is required</div>
       </div>
     </div>
   </div>
@@ -248,9 +251,6 @@
             Login
             <span class="round">Only if you have an account</span>
           </button>
-        </li>
-        <li><a class="round yellow" routerLink="/register">Register<span class="round">Only if you want to</span></a>
-        </li>
       </ul>
     </div>
   </div>
