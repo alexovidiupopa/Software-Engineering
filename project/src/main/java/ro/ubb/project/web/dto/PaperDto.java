@@ -6,6 +6,8 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 @Data
+@Getter
+@Setter
 public class PaperDto {
     private int pid;
     private String topic;

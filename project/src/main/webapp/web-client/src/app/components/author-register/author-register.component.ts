@@ -105,5 +105,7 @@ export class AuthorRegisterComponent implements OnInit {
     const author: Author = new Author(this.getUsername(), this.getPassword(), this.getWebsite(), this.getAffiliation(), this.getFirstName(), this.getLastName(), this.getPhoneNumber(), this.getEmail(), this.getAcademicRank(), this.assignId());
     this.signUpService.registerAuthor(author)
       .subscribe(success => console.log(success));
+    document.getElementById('decorationText').style.display = 'block';
+
   }
 }

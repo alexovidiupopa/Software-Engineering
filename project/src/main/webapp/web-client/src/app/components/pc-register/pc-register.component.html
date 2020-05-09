@@ -1,12 +1,12 @@
-<button (click)="goHome()" class="homeButton" color="accent" mat-raised-button>
-  Back to register page
-</button>
-<h2 [hidden]="!success" class="decorationText"> You are now a Program Comittee member!</h2>
+<!--<button (click)="goHome()" class="homeButton" color="accent" mat-raised-button>-->
+<!--  Back to register page-->
+<!--</button>-->
+<h2 [hidden]="!success" class="decorationText"> Thank you for the Program Comittee registration!</h2>
 <h1 [hidden]="success">Register as PC Member</h1>
 <div [hidden]="success">
-  <form [formGroup]="myForm">
+  <form [formGroup]="myForm" >
     <mat-form-field>
-      <input formControlName="username" matInput placeholder="username">
+      <input matInput formControlName="username"  placeholder="username">
     </mat-form-field>
     <mat-form-field>
       <input formControlName="email" matInput placeholder="email">

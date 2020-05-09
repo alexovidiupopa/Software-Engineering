@@ -12,10 +12,14 @@ h1 {
 }
 
 .decorationText {
-  width: 30%;
+  width: 40%;
   margin-top: 20%;
-  margin-left: 35%;
+  margin-left: 33%;
   color: #1a8b04;
+}
+
+form{
+  display: block;
 }
 
 [hidden] {

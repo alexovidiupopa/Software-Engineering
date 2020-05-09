@@ -101,7 +101,7 @@ import { AssignReviewerComponent } from './components/assign-reviewer/assign-rev
     StructureConferenceComponent,
     PcReviewComponent,
     RoomsComponent,
-    AssignReviewerComponent
+    AssignReviewerComponent,
   ],
   bootstrap: [AppComponent]
 })
