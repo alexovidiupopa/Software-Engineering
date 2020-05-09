@@ -34,23 +34,22 @@ public class PcMemberServiceImpl implements PcMemberService {
     @Override
     public void updatePcMember(PcMember pcMember) {
         Optional<PcMember> toUpdate = this.pcMemberRepository.findById(pcMember.getPcid());
-        if(toUpdate.isPresent()) {
+        if (toUpdate.isPresent()) {
             PcMember pm = toUpdate.get();
             this.pcMemberRepository.save(pm);
-        }
-        else{
+        } else {
             throw new RuntimeException("No assignment found");
         }
     }
 
     @Override
-    public Optional<PcMember> getPcMemberById(int pcid){
+    public Optional<PcMember> getPcMemberById(int pcid) {
         return this.pcMemberRepository.findById(pcid);
-
-    public boolean isPcMember(int uid) {
+    }
+    public boolean isPcMember (int uid){
         Optional<PcMember> member = this.pcMemberRepository.findAll()
                 .stream()
-                .filter(pcMember -> pcMember.getUid()==uid)
+                .filter(pcMember -> pcMember.getUid() == uid)
                 .findAny();
         return member.isPresent();
     }

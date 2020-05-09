@@ -10,4 +10,5 @@ public interface PaperService {
     void addPaper(Paper paper);
     void deletePaper(Paper paper);
     void updatePaper(Paper paper);
+    Paper getPaperById(int id);
 }

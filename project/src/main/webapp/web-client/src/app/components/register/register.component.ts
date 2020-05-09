@@ -9,6 +9,10 @@ import {Router} from '@angular/router';
 export class RegisterComponent implements OnInit {
   authorButton = 'primary';
   pcButton = 'primary';
+  // tslint:disable-next-line:variable-name
+  author_register = false;
+  // tslint:disable-next-line:variable-name
+  pc_register = false;
 
   constructor(private router: Router) {
   }
@@ -17,19 +21,31 @@ export class RegisterComponent implements OnInit {
   }
 
   goHome() {
-    this.router.navigate(['/login']);
+    this.router.navigate(['']);
   }
 
   goToPCRegister() {
-    this.pcButton = 'none';
-    this.authorButton = 'primary';
-    this.router.navigate(['/pc-register']);
+    this.author_register = false;
+    this.pc_register = true;
+    document.getElementById('loginButton2').style.backgroundColor = 'white';
+    document.getElementById('loginButton1').style.backgroundColor = '#324e85';
+    document.getElementById('loginButton2').style.color = 'black';
+    document.getElementById('loginButton1').style.color = 'white';
+    // this.pcButton = 'none';ik0
+    // this.authorButton = 'primary';
+    // this.router.navigate(['/pc-register']);
   }
 
   goToAuthorRegister() {
-    this.pcButton = 'primary';
-    this.authorButton = 'none';
-    this.router.navigate(['/author-register']);
+    this.author_register = true;
+    this.pc_register = false;
+    document.getElementById('loginButton1').style.backgroundColor = 'white';
+    document.getElementById('loginButton2').style.backgroundColor = '#324e85';
+    document.getElementById('loginButton1').style.color = 'black';
+    document.getElementById('loginButton2').style.color = 'white';
+    // this.pcButton = 'primary';
+    // this.authorButton = 'none';
+    // this.router.navigate(['/author-register']);
   }
 
 }

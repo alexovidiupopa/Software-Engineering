@@ -37,6 +37,7 @@ export class AuthenticationService {
   }
 
   public getCurrentUser() {
+    console.log(this.user);
     return this.user;
   }
 
@@ -54,14 +55,15 @@ export class AuthenticationService {
         this.response.success = user.success;
         if (this.response.success === true) {
           this.response.type = user.type;
-          this.user = new User('firstname', 'lastname', 'username', 'password', this.response.type, 'idk');
+          this.user = new User('firstname', 'lastname', 'username', 'password', this.response.type, 'idk', 1);
           if (this.user.type === 'chair') {
-            this.user.url = 'chair-home';
+            this.user.url = '/chair-home';
           } else if (this.user.type === 'pc') {
-            this.user.url = 'pc-home';
+            this.user.url = '/pc-home';
           } else if (this.user.type === 'author') {
-            this.user.url = 'author-home';
+            this.user.url = '/author-home';
           }
+
           this.assignAnIdentificationTokenToUser(this.user);
           localStorage.setItem(this.user.getToken(), JSON.stringify(this.user));
           this.currentUserSubject.next(user);

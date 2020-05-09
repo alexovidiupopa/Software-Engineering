@@ -12,7 +12,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 })
 export class PcDetailComponent implements OnInit {
   pc: ProgramCommittee;
-  successfulUpdate: boolean = true;
+  successfulUpdate = true;
 
   constructor(
     private route: ActivatedRoute,

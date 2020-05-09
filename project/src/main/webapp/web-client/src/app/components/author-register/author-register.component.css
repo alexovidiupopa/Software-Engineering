@@ -5,11 +5,12 @@ div {
   height: 700px;
 }
 
-.decorationText {
+#decorationText {
   width: 30%;
-  margin-left: 43%;
+  margin-left: 37%;
   margin-top: 20%;
   color: #1a8b04;
+  display: none;
 }
 
 [hidden] {
