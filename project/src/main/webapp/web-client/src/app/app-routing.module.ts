@@ -24,6 +24,9 @@ import {StructureConferenceComponent} from './components/structure-conference/st
 import {PcReviewComponent} from './components/pc-review/pc-review.component';
 import {RoomsComponent} from './components/rooms/rooms.component';
 import {AssignReviewerComponent} from './components/assign-reviewer/assign-reviewer.component';
+import {CheckoutComponent} from './components/checkout/checkout.component';
+import {PaymentComponent} from './components/payment/payment.component';
+import {SuccessBuyComponent} from './components/success-buy/success-buy.component';
 
 
 const routes: Routes = [
@@ -36,6 +39,9 @@ const routes: Routes = [
   {path: 'reviews/all', component: AllReviewsComponent},
   {path: 'bid', component: BiddingComponent},
   {path: 'ticket', component: BuyTicketComponent},
+  {path: 'checkout', component: CheckoutComponent},
+  {path: 'pay/safe', component: PaymentComponent},
+  {path: 'pay/end', component: SuccessBuyComponent},
   {path: 'conference/edit', component: UpdateConferenceComponent},
   {path: 'conference/structure', component: StructureConferenceComponent},
   {path: 'review/assign', component: AssignReviewerComponent},

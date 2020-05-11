@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {Ticket} from '../../model/ticket';
 
 @Component({
   selector: 'app-homepage',
@@ -11,6 +12,7 @@ export class HomepageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    localStorage.setItem('cart', JSON.stringify(new Array<Ticket>()));
   }
 
 }

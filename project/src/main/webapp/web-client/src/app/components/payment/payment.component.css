@@ -18,3 +18,7 @@
 .example-full-width {
   width: 100%;
 }
+
+#pay {
+  transform: scale(0.3);
+}

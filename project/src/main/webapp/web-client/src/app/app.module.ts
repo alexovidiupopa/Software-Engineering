@@ -45,7 +45,11 @@ import { StructureConferenceComponent } from './components/structure-conference/
 import { PcReviewComponent } from './components/pc-review/pc-review.component';
 import { RoomsComponent } from './components/rooms/rooms.component';
 import { AssignReviewerComponent } from './components/assign-reviewer/assign-reviewer.component';
-
+import { CheckoutComponent } from './components/checkout/checkout.component';
+import { SuccessBuyComponent } from './components/success-buy/success-buy.component';
+import { PaymentComponent } from './components/payment/payment.component';
+import {NgPaymentCardModule} from 'ng-payment-card';
+import {CreditCardDirectivesModule} from 'angular-cc-library';
 @NgModule({
   imports: [
     BrowserModule,
@@ -70,7 +74,9 @@ import { AssignReviewerComponent } from './components/assign-reviewer/assign-rev
 
     MatFormFieldModule,
     MatSelectModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    NgPaymentCardModule,
+    CreditCardDirectivesModule
   ],
   providers: [
     {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'fill'}},
@@ -102,6 +108,9 @@ import { AssignReviewerComponent } from './components/assign-reviewer/assign-rev
     PcReviewComponent,
     RoomsComponent,
     AssignReviewerComponent,
+    CheckoutComponent,
+    SuccessBuyComponent,
+    PaymentComponent,
   ],
   bootstrap: [AppComponent]
 })

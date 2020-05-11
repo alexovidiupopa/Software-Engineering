@@ -1,0 +1,22 @@
+<div class="main-div">
+  <mat-card>
+
+    <h1 class="mat-h1">Checkout</h1>
+
+
+    <mat-list>
+      <mat-list-item *ngFor="let ticket of tickets">
+        <h4 class="mat-h4">{{ticket.firstName}} {{ticket.lastName}} ({{getPrice(ticket)}}$)</h4>
+      </mat-list-item>
+    </mat-list>
+    <h2 class="mat-h2">Total: {{totalPrice}}$</h2>
+
+
+
+    <button (click)="proceedToPayment()" class="abstract-button" color="primary" mat-raised-button>
+      Proceed to Payment
+    </button>
+  </mat-card>
+
+
+</div>
