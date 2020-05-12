@@ -45,33 +45,34 @@ import { StructureConferenceComponent } from './components/structure-conference/
 import { PcReviewComponent } from './components/pc-review/pc-review.component';
 import { RoomsComponent } from './components/rooms/rooms.component';
 import { AssignReviewerComponent } from './components/assign-reviewer/assign-reviewer.component';
+import {MatRadioModule} from "@angular/material/radio";
 
 @NgModule({
-  imports: [
-    BrowserModule,
-    FormsModule,
-    HttpClientModule,
-    AppRoutingModule,
-    MatButtonModule,
-    BrowserAnimationsModule,
-    MatInputModule,
-    MatDatepickerModule,
-    MatIconModule,
-    MatListModule,
-    MatSnackBarModule,
-    AmazingTimePickerModule,
-    ReactiveFormsModule,
-    MatCardModule,
-    MatNativeDateModule,
-    NgxMaterialTimepickerModule,
-    MatSliderModule,
-    MatSlideToggleModule,
-    MatCheckboxModule,
-
-    MatFormFieldModule,
-    MatSelectModule,
-    MatProgressBarModule
-  ],
+    imports: [
+        BrowserModule,
+        FormsModule,
+        HttpClientModule,
+        AppRoutingModule,
+        MatButtonModule,
+        BrowserAnimationsModule,
+        MatInputModule,
+        MatDatepickerModule,
+        MatIconModule,
+        MatListModule,
+        MatSnackBarModule,
+        AmazingTimePickerModule,
+        ReactiveFormsModule,
+        MatCardModule,
+        MatNativeDateModule,
+        NgxMaterialTimepickerModule,
+        MatSliderModule,
+        MatSlideToggleModule,
+        MatCheckboxModule,
+        MatRadioModule,
+        MatFormFieldModule,
+        MatSelectModule,
+        MatProgressBarModule,
+    ],
   providers: [
     {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'fill'}},
     {provide: MAT_DATE_LOCALE, useValue: 'ro-RO'}
