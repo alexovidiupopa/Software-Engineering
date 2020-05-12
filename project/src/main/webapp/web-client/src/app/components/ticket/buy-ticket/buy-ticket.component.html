@@ -1,0 +1,67 @@
+<div class="main-div">
+  <mat-card>
+
+    <h1 class="mat-h1">Buy a ticket</h1>
+    <h5 class="mat-h5">
+      Disclaimer: due to the fact that each ticket contains sensitive data,
+      <br>we have to ask you to complete each ticket with full and valid data
+      <br>for the participant who wants to use them.
+      <br>The tickets are nominal and, once issued, cannot be canceled.
+    </h5>
+
+    <form class="example-form">
+      <mat-form-field class="example-full-width">
+        <mat-label>First name:</mat-label>
+        <input
+          [(ngModel)]="firstName"
+          id="first-name-input" matInput
+          name="first-name" placeholder="Ex. Oliver">
+      </mat-form-field>
+    </form>
+    <form class="example-form">
+      <mat-form-field class="example-full-width">
+        <mat-label>Last name:</mat-label>
+        <input
+          [(ngModel)]="lastName"
+          id="paper-authors" matInput
+          name="last-name" placeholder="Ex. Cromwell">
+      </mat-form-field>
+    </form>
+    <form class="example-form">
+      <mat-form-field class="example-full-width">
+        <mat-label>Email:</mat-label>
+        <input [(ngModel)]="email" [formControl]="emailFormControl"
+               matInput name="email"
+               placeholder="Ex. pat@example.com">
+        <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+          Please enter a valid email address
+        </mat-error>
+        <mat-error *ngIf="emailFormControl.hasError('required')">
+          Email is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+    </form>
+    <br>
+    <br>
+    <mat-label>Sessions willing to participate in:</mat-label>
+
+    <mat-selection-list (ngModelChange)="selectionChanged($event)" [(ngModel)]="selectedOptions">
+      <mat-list-option *ngFor="let session of sessions" [value]="session">
+        {{session.name}} ({{session.price}})
+      </mat-list-option>
+    </mat-selection-list>
+
+    <mat-label>Cost: {{ticketCost}}$</mat-label>
+    <div id="buttons-grid">
+      <button (click)="buyAnotherTicket()" class="abstract-button" color="primary" mat-raised-button>
+        Buy another ticket
+      </button>
+      <button (click)="proceedToCheckout()" class="abstract-button" color="warn" mat-raised-button>
+        Checkout
+      </button>
+    </div>
+    <mat-error *ngIf="badData">Input data is invalid!</mat-error>
+
+  </mat-card>
+
+</div>

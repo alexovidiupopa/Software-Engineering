@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
 import {catchError, map, tap} from 'rxjs/operators';
 import {Paper} from '../../model/paper';
+import {Review} from '../../model/review';
 
 @Injectable({
   providedIn: 'root'
@@ -185,6 +186,36 @@ export class PaperService {
     //     catchError(this.handleError<File>('getPapersForAuthor'))
     //   );
     return of(new File(['paper blob'], 'paperTestFile'));
+  }
+
+  getAllPapersForReviewer(pcId: number): Observable<Paper[]> {
+    const url = this.url + '/for-review/' + pcId;
+    return this.http.get<Paper[]>('http://demo4608640.mockable.io/api/paper/for-review/1', this.httpOptions)
+      .pipe(
+        map(result => {
+          let papers: Paper[] = result['papers'];
+          for (let paper of papers) {
+            paper.abstract = new File(['abstract blob ' + paper.title], 'abstract test ' + paper.title);
+            paper.paperContent = new File(['paper blob' + paper.title], 'paper test' + paper.title); // fixme this should be the real file
+          }
+          return papers;
+        }),
+        catchError(this.handleError<Paper[]>('getAllPapersForReviewer', []))
+      );
+  }
+
+  submitReview(pcId: number, review: Review): Observable<boolean> {
+    console.log('submitting review');
+    console.log(pcId);
+    console.log(review);
+    console.log(review.review.name);
+    // const url = this.url + '/review/submit/' + pcId + '/' + review.paperId;
+    // return this.http.post<boolean>(url, {file: review.review}, this.httpFileOptions)
+    //   .pipe(
+    //     map(response => response['success']),
+    //     catchError(this.handleError<boolean>('submitReview'))
+    //   );
+    return of(true);
   }
 
   private handleError<T>(operation = 'operation', result?: T) {
