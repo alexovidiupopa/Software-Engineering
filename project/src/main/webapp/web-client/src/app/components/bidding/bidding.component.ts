@@ -58,8 +58,6 @@ export class BiddingComponent implements OnInit {
     );
   }
 
-
-
   setPaperStatus(id: number, accept: string) {
     this.papersMap.set(id,accept);
   }

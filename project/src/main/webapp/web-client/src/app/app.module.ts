@@ -46,6 +46,7 @@ import { PcReviewComponent } from './components/pc-review/pc-review.component';
 import { RoomsComponent } from './components/rooms/rooms.component';
 import { AssignReviewerComponent } from './components/assign-reviewer/assign-reviewer.component';
 import {MatRadioModule} from "@angular/material/radio";
+import { PaperDetailDecisionComponent } from './components/paper-detail-decision/paper-detail-decision.component';
 
 @NgModule({
     imports: [
@@ -103,6 +104,7 @@ import {MatRadioModule} from "@angular/material/radio";
     PcReviewComponent,
     RoomsComponent,
     AssignReviewerComponent,
+    PaperDetailDecisionComponent,
   ],
   bootstrap: [AppComponent]
 })
