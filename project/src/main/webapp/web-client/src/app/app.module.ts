@@ -36,44 +36,47 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {PaperDetailComponent} from './components/paper-detail/paper-detail.component';
 import {AuthorHomeComponent} from './components/author-home/author-home.component';
 import {HomepageComponent} from './components/homepage/homepage.component';
-import { HeaderComponent } from './components/header/header.component';
-import { AllReviewsComponent } from './components/all-reviews/all-reviews.component';
-import { BiddingComponent } from './components/bidding/bidding.component';
-import { BuyTicketComponent } from './components/buy-ticket/buy-ticket.component';
-import { UpdateConferenceComponent } from './components/update-conference/update-conference.component';
-import { StructureConferenceComponent } from './components/structure-conference/structure-conference.component';
-import { PcReviewComponent } from './components/pc-review/pc-review.component';
-import { RoomsComponent } from './components/rooms/rooms.component';
-import { AssignReviewerComponent } from './components/assign-reviewer/assign-reviewer.component';
+import {HeaderComponent} from './components/header/header.component';
+import {AllReviewsComponent} from './components/all-reviews/all-reviews.component';
+import {BiddingComponent} from './components/bidding/bidding.component';
+import {BuyTicketComponent} from './components/buy-ticket/buy-ticket.component';
+import {UpdateConferenceComponent} from './components/update-conference/update-conference.component';
+import {StructureConferenceComponent} from './components/structure-conference/structure-conference.component';
+import {PcReviewComponent} from './components/pc-review/pc-review.component';
+import {RoomsComponent} from './components/rooms/rooms.component';
+import {AssignReviewerComponent} from './components/assign-reviewer/assign-reviewer.component';
 import {MatRadioModule} from "@angular/material/radio";
-import { PaperDetailDecisionComponent } from './components/paper-detail-decision/paper-detail-decision.component';
+import {PaperDetailDecisionComponent} from './components/paper-detail-decision/paper-detail-decision.component';
+import {CheckoutComponent} from "./components/checkout/checkout.component";
+import {SuccessBuyComponent} from "./components/success-buy/success-buy.component";
+import {PaymentComponent} from "./components/payment/payment.component";
 
 @NgModule({
-    imports: [
-        BrowserModule,
-        FormsModule,
-        HttpClientModule,
-        AppRoutingModule,
-        MatButtonModule,
-        BrowserAnimationsModule,
-        MatInputModule,
-        MatDatepickerModule,
-        MatIconModule,
-        MatListModule,
-        MatSnackBarModule,
-        AmazingTimePickerModule,
-        ReactiveFormsModule,
-        MatCardModule,
-        MatNativeDateModule,
-        NgxMaterialTimepickerModule,
-        MatSliderModule,
-        MatSlideToggleModule,
-        MatCheckboxModule,
-        MatRadioModule,
-        MatFormFieldModule,
-        MatSelectModule,
-        MatProgressBarModule,
-    ],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    HttpClientModule,
+    AppRoutingModule,
+    MatButtonModule,
+    BrowserAnimationsModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatIconModule,
+    MatListModule,
+    MatSnackBarModule,
+    AmazingTimePickerModule,
+    ReactiveFormsModule,
+    MatCardModule,
+    MatNativeDateModule,
+    NgxMaterialTimepickerModule,
+    MatSliderModule,
+    MatSlideToggleModule,
+    MatCheckboxModule,
+    MatRadioModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatProgressBarModule,
+  ],
   providers: [
     {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'fill'}},
     {provide: MAT_DATE_LOCALE, useValue: 'ro-RO'}
@@ -105,6 +108,9 @@ import { PaperDetailDecisionComponent } from './components/paper-detail-decision
     RoomsComponent,
     AssignReviewerComponent,
     PaperDetailDecisionComponent,
+    CheckoutComponent,
+    SuccessBuyComponent,
+    PaymentComponent,
   ],
   bootstrap: [AppComponent]
 })

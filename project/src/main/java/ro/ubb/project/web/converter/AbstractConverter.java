@@ -3,7 +3,7 @@ package ro.ubb.project.web.converter;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-public abstract class AbstractConverter<Model,Dto> implements Converter<Model,Dto>{
+public abstract class AbstractConverter<Model, Dto> implements Converter<Model, Dto> {
 
     public Collection<Dto> convertModelsToDtos(Collection<Model> models) {
         return models.stream()

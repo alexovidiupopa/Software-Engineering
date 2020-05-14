@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { AssignReviewerComponent } from './assign-reviewer.component';
+import {AssignReviewerComponent} from './assign-reviewer.component';
 
 describe('AssignReviewerComponent', () => {
   let component: AssignReviewerComponent;
@@ -8,9 +8,9 @@ describe('AssignReviewerComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AssignReviewerComponent ]
+      declarations: [AssignReviewerComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

@@ -5,7 +5,7 @@ import ro.ubb.project.core.model.Session;
 import ro.ubb.project.web.dto.SessionDto;
 
 @Component
-public class SessionConverter extends AbstractConverter<Session, SessionDto>{
+public class SessionConverter extends AbstractConverter<Session, SessionDto> {
     @Override
     public Session dtoToModel(SessionDto sessionDto) {
         return Session.builder()

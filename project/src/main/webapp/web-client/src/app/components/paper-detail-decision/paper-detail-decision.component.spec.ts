@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { PaperDetailDecisionComponent } from './paper-detail-decision.component';
+import {PaperDetailDecisionComponent} from './paper-detail-decision.component';
 
 describe('PaperDetailDecisionComponent', () => {
   let component: PaperDetailDecisionComponent;
@@ -8,9 +8,9 @@ describe('PaperDetailDecisionComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PaperDetailDecisionComponent ]
+      declarations: [PaperDetailDecisionComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

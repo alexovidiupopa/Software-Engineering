@@ -20,13 +20,13 @@ public class ConferenceRequest {
                 '}';
     }
 
-    @JsonFormat(pattern="MM/DD/YYYY HH:mm:ss")
+    @JsonFormat(pattern = "MM/DD/YYYY HH:mm:ss")
     private String preliminaryPhaseDeadline;
-    @JsonFormat(pattern="MM/DD/YYYY HH:mm:ss")
+    @JsonFormat(pattern = "MM/DD/YYYY HH:mm:ss")
     private String firstPhaseDeadline;
-    @JsonFormat(pattern="MM/DD/YYYY HH:mm:ss")
+    @JsonFormat(pattern = "MM/DD/YYYY HH:mm:ss")
     private String secondPhaseDeadline;
-    @JsonFormat(pattern="MM/DD/YYYY HH:mm:ss")
+    @JsonFormat(pattern = "MM/DD/YYYY HH:mm:ss")
     private String thirdPhaseDeadline;
 
 }

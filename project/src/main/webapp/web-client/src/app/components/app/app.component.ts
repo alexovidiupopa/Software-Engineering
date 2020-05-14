@@ -35,10 +35,10 @@ export class AppComponent {
 
     this.router.navigate([user.get_url()]);
   }
-    navigateToHome()
-    {
-      this.homepage = this.authenticationService.getCurrentUser().getHomepageUrl();
-      this.router.navigateByUrl(this.homepage);
 
-    }
+  navigateToHome() {
+    this.homepage = this.authenticationService.getCurrentUser().getHomepageUrl();
+    this.router.navigateByUrl(this.homepage);
+
+  }
 }

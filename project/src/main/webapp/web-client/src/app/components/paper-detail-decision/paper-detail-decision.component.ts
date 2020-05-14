@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {PaperService} from "../../services/paper/paper.service";
 import {Paper} from "../../model/paper";
 import {AuthenticationService} from "../../services/login";
@@ -21,6 +21,7 @@ export class PaperDetailDecisionComponent implements OnInit {
   id = +this.route.snapshot.paramMap.get('id');
   pcMembers: ProgramCommittee[] = [];
   reviewersMap: Map<number, boolean>;
+
   constructor(
     private route: ActivatedRoute,
     private paperService: PaperService,
@@ -41,20 +42,20 @@ export class PaperDetailDecisionComponent implements OnInit {
 
 
   private getPaper() {
-   //this.paper = new Paper("name1","authors",1,"keywords",null,null,1);
-     this.paperService.getPaperById(this.id)
+    //this.paper = new Paper("name1","authors",1,"keywords",null,null,1);
+    this.paperService.getPaperById(this.id)
       .subscribe(paper => {
         this.paper = paper;
       });
   }
 
-  private getPcs(){
+  private getPcs() {
     //this.pcMembers.push(new ProgramCommittee(null, null, null, "UBB", "alex","popa",null, null, null, 1));
     this.pcService.getProgramCommittees()
-      .subscribe(pcs=>{
+      .subscribe(pcs => {
         this.pcMembers = pcs;
       });
-    this.pcMembers.forEach(pc=>this.reviewersMap.set(pc.id,false));
+    this.pcMembers.forEach(pc => this.reviewersMap.set(pc.id, false));
   }
 
   acceptPaper() {
@@ -67,12 +68,12 @@ export class PaperDetailDecisionComponent implements OnInit {
 
   sendPaperBack() {
     let reviewers = [];
-    this.reviewersMap.forEach((value,key)=>{
-      if (value==true){
+    this.reviewersMap.forEach((value, key) => {
+      if (value == true) {
         reviewers.push(key);
       }
     });
-    if (reviewers.length!=2 && reviewers.length!=3){
+    if (reviewers.length != 2 && reviewers.length != 3) {
       window.alert("please choose 2 or 3 reviewers!");
       return;
     }
@@ -80,6 +81,6 @@ export class PaperDetailDecisionComponent implements OnInit {
   }
 
   selectReviewer(id: number) {
-    this.reviewersMap.set(id,!this.reviewersMap.get(id));
+    this.reviewersMap.set(id, !this.reviewersMap.get(id));
   }
 }

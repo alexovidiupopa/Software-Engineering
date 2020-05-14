@@ -13,7 +13,7 @@ import ro.ubb.project.web.response.MessageResponse;
 public class TicketController {
 
     @RequestMapping(value = "payCart", method = RequestMethod.POST)
-    MessageResponse payCart(@RequestBody PayCartRequest paymentCart){
+    MessageResponse payCart(@RequestBody PayCartRequest paymentCart) {
         EmailSender.send(EmailSender.ORIGIN_EMAIL, paymentCart.getEmail(), "Your Purchase", paymentCart.getTickets().toString());
         return new MessageResponse("success");
     }

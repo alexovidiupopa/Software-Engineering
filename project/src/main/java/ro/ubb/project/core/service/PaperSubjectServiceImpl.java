@@ -35,11 +35,10 @@ public class PaperSubjectServiceImpl implements PaperSubjectService {
                 .stream()
                 .filter(ps -> ps.getPid() == paperSubject.getPid() && ps.getKid() == paperSubject.getKid())
                 .findAny();
-        if(toUpdate.isPresent()) {
+        if (toUpdate.isPresent()) {
             PaperSubject ps = toUpdate.get();
             this.paperSubjectRepository.save(ps);
-        }
-        else{
+        } else {
             throw new RuntimeException("No assignment found");
         }
     }

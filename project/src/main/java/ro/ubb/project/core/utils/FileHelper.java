@@ -16,10 +16,10 @@ public class FileHelper {
 
     public static String storeFile(MultipartFile file, String location) {
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-        Path path = Paths.get(location).toAbsolutePath().normalize();
+        Path path = Paths.get(location.substring(1)).toAbsolutePath().normalize();
         try {
             // Check if the file's name contains invalid characters
-            if(fileName.contains("!@#%^&*()")) {
+            if (fileName.contains("!@#%^&*()")) {
                 throw new RuntimeException("Sorry! Filename contains invalid path sequence " + fileName);
             }
 
@@ -28,6 +28,7 @@ public class FileHelper {
             Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
             return targetLocation.toString();
         } catch (IOException ex) {
+            System.out.println(ex);
             throw new RuntimeException("Could not store file " + fileName + ". Please try again!", ex);
         }
     }
@@ -37,7 +38,7 @@ public class FileHelper {
             Path filePath = Paths.get(path.substring(1)).toAbsolutePath().normalize();
             System.out.println(filePath.toUri());
             Resource resource = new UrlResource(filePath.toUri());
-            if(resource.exists()) {
+            if (resource.exists()) {
                 return resource;
             } else {
                 throw new RuntimeException("File not found " + path);

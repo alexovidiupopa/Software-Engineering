@@ -32,26 +32,30 @@ section {
 }
 
 
- .button {
-   background-color: #4CAF50;
-   border: none;
-   color: white;
-   padding: 15px 32px;
-   text-align: center;
-   text-decoration: none;
-   display: inline-block;
-   font-size: 16px;
-   margin: 4px 2px;
-   cursor: pointer;
- }
-.my_button_class{
-  width: 250px!important;
-  height: 150px!important;
-  min-width: unset!important;
+.button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.my_button_class {
+  width: 250px !important;
+  height: 150px !important;
+  min-width: unset !important;
   font-size: 22px;
 }
-.image{
-  height:40em; background-size:cover; width:auto;
-  background-image:url('src/assets/laptop.jpg');
-  background-position:50% 50%;
+
+.image {
+  height: 40em;
+  background-size: cover;
+  width: auto;
+  background-image: url('src/assets/laptop.jpg');
+  background-position: 50% 50%;
 }

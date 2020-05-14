@@ -35,7 +35,7 @@ public class PersonServiceImpl implements PersonService {
     @Transactional
     public void updatePerson(Person person) {
         Optional<Person> toUpdate = this.personRepository.findById(person.getUid());
-        if(toUpdate.isPresent()) {
+        if (toUpdate.isPresent()) {
             Person p = toUpdate.get();
             p.setUsername(person.getUsername());
             p.setPassword(person.getPassword());
@@ -47,8 +47,7 @@ public class PersonServiceImpl implements PersonService {
             p.setEmail(person.getEmail());
             p.setAcademicrank(person.getAcademicrank());
             this.personRepository.save(p);
-        }
-        else{
+        } else {
             throw new RuntimeException("No person with this name found");
         }
     }
@@ -59,11 +58,10 @@ public class PersonServiceImpl implements PersonService {
                 .stream()
                 .filter(p -> p.getUsername().equals(username))
                 .findAny();
-        if(result.isPresent()) {
+        if (result.isPresent()) {
             System.out.println(result.get().getUid());
             return result.get();
-        }
-        else{
+        } else {
             throw new RuntimeException("No person with this name found");
         }
     }

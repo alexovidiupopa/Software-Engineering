@@ -50,12 +50,11 @@ public class AssignmentServiceImpl implements AssignmentService {
                 .stream()
                 .filter(a -> a.getPcid() == assignment.getPcid() && a.getPid() == assignment.getPid())
                 .findAny();
-        if(toUpdate.isPresent()) {
+        if (toUpdate.isPresent()) {
             Assignment a = toUpdate.get();
             a.setQualifier(assignment.getQualifier());
             this.assignmentRepository.save(a);
-        }
-        else{
+        } else {
             throw new RuntimeException("No assignment found");
         }
     }
@@ -64,7 +63,7 @@ public class AssignmentServiceImpl implements AssignmentService {
     public List<Integer> getReviewersForPaperId(Integer pid) {
         return assignmentRepository.findAll()
                 .stream()
-                .filter(assignment -> assignment.getPid()==pid)
+                .filter(assignment -> assignment.getPid() == pid)
                 .map(assignment -> assignment.getPcid())
                 .collect(Collectors.toList());
     }
@@ -73,7 +72,7 @@ public class AssignmentServiceImpl implements AssignmentService {
     public List<Integer> getPapersForReviewer(Integer pcid) {
         return assignmentRepository.findAll()
                 .stream()
-                .filter(assignment -> assignment.getPcid()==pcid)
+                .filter(assignment -> assignment.getPcid() == pcid)
                 .map(assignment -> assignment.getPid())
                 .collect(Collectors.toList());
     }

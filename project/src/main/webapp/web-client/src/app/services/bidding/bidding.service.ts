@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Paper} from "../../model/paper";
@@ -14,16 +14,18 @@ export class BiddingService {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
 
   };
-  constructor(private http: HttpClient) { }
 
-  getAllPapers(userId:number):Observable<Paper[]> {
-    const url = `${this.url}/paper/getAllExcept/${userId}`;
-    return this.http.get<Paper[]>(url, this.httpOptions).pipe(map(response=>response["papers"]));
+  constructor(private http: HttpClient) {
   }
 
-  acceptPapers(userId:number,accepted: number[]) {
-    for(let paper in accepted){
-      const url=`${this.url}/paper/bid/paper=${paper}-uid=${userId}`;
+  getAllPapers(userId: number): Observable<Paper[]> {
+    const url = `${this.url}/paper/getAllExcept/${userId}`;
+    return this.http.get<Paper[]>(url, this.httpOptions).pipe(map(response => response["papers"]));
+  }
+
+  acceptPapers(userId: number, accepted: number[]) {
+    for (let paper in accepted) {
+      const url = `${this.url}/paper/bid/paper=${paper}-uid=${userId}`;
       this.http.post(url, this.httpOptions);
     }
   }
