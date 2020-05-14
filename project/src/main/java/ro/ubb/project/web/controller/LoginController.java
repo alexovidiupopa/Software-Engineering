@@ -33,6 +33,7 @@ public class LoginController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     MessageResponse login(@RequestBody LoginRequest loginRequest){
+        System.out.println(loginRequest);
         String username = loginRequest.getUsername();
         String password = loginRequest.getPassword();
         Algorithm algorithm = Algorithm.HMAC256("secret");
@@ -76,6 +77,7 @@ public class LoginController {
                     .sign(algorithm));
         }
         catch (RuntimeException e) {
+            System.out.println(e);
             return new MessageResponse(JWT.create()
                     .withIssuer("admin")
                     .withClaim("success", false)
