@@ -61,7 +61,7 @@ export class AuthenticationService {
 
     //s-ar putea sa nu trebuiasca json.stringify dar sunte 99% sigur ca trebuie
 
-    return this.http.post<request>(this.url + '/login',  JSON.stringify(new LoginUserBody(username, password)),{
+    return this.http.post<request>(this.url + '/login', JSON.stringify(new LoginUserBody(username, password)), {
       headers: new HttpHeaders({'Content-Type': 'application/json'})
 
     }).pipe(

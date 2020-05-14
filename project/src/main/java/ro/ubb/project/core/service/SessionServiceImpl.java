@@ -32,12 +32,11 @@ public class SessionServiceImpl implements SessionService {
     @Override
     public void updateSession(Session session) {
         Optional<Session> toUpdate = this.sessionRepository.findById(session.getSid());
-        if(toUpdate.isPresent()) {
+        if (toUpdate.isPresent()) {
             Session s = toUpdate.get();
             s.setTime(session.getTime());
             this.sessionRepository.save(s);
-        }
-        else{
+        } else {
             throw new RuntimeException("No assignment found");
         }
     }

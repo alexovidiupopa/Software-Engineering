@@ -22,20 +22,20 @@ public class AssignmentController {
     private AssignmentConverter assignmentConverter;
 
     @RequestMapping(value = "/review", method = RequestMethod.PUT)
-    public MessageResponse submitReview(@RequestBody AssignmentDto assignmentDto){
+    public MessageResponse submitReview(@RequestBody AssignmentDto assignmentDto) {
         try {
             assignmentService.updateAssignment(assignmentConverter.dtoToModel(assignmentDto));
             return new MessageResponse("success");
-        } catch (RuntimeException e){
+        } catch (RuntimeException e) {
             return new MessageResponse("error");
         }
     }
 
     @RequestMapping(value = "/review/{pcid}/{pid}", method = RequestMethod.GET)
-    public MessageResponse getReviewURL(@PathVariable Integer pcid, @PathVariable Integer pid){
+    public MessageResponse getReviewURL(@PathVariable Integer pcid, @PathVariable Integer pid) {
         try {
             return new MessageResponse(assignmentService.getAssignmentById(pcid, pid).getReviewUrl());
-        } catch (RuntimeException e){
+        } catch (RuntimeException e) {
             return new MessageResponse("error");
         }
     }

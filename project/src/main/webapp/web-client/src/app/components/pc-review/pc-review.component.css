@@ -1,0 +1,42 @@
+.main-div {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+mat-card {
+  min-width: 800px;
+  /*max-width: 700px;*/
+}
+
+.review-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  zoom: .9;
+}
+
+mat-radio-group {
+  padding-left: 1em;
+}
+
+#upload-button {
+  margin-left: 1em;
+}
+
+#submit-button {
+  margin-left: 1em;
+}
+
+.upload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.rad {
+  margin-left: .5em;
+}
+

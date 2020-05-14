@@ -30,19 +30,18 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public void deleteRoomById(int rid){
+    public void deleteRoomById(int rid) {
         this.roomRepository.deleteById(rid);
     }
 
     @Override
     public void updateRoom(Room room) {
         Optional<Room> toUpdate = this.roomRepository.findById(room.getRid());
-        if(toUpdate.isPresent()) {
+        if (toUpdate.isPresent()) {
             Room r = toUpdate.get();
             r.setCapacity(room.getCapacity());
             this.roomRepository.save(r);
-        }
-        else{
+        } else {
             throw new RuntimeException("No assignment found");
         }
     }

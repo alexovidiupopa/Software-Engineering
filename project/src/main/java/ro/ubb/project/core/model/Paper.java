@@ -17,7 +17,7 @@ import java.io.Serializable;
 @EqualsAndHashCode
 public class Paper implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int pid;
     private int aid;
     private int session;

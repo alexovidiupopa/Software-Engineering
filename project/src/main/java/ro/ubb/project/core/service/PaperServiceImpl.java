@@ -35,7 +35,7 @@ public class PaperServiceImpl implements PaperService {
     @Override
     public void updatePaper(Paper paper) {
         Optional<Paper> toUpdate = this.paperRepository.findById(paper.getPid());
-        if(toUpdate.isPresent()) {
+        if (toUpdate.isPresent()) {
             Paper p = toUpdate.get();
             p.setAid(paper.getAid());
             p.setTitle(paper.getTitle());
@@ -45,8 +45,7 @@ public class PaperServiceImpl implements PaperService {
             p.setContenturl(paper.getContenturl());
             p.setPresentationurl(paper.getPresentationurl());
             this.paperRepository.save(p);
-        }
-        else{
+        } else {
             throw new RuntimeException("No assignment found");
         }
     }
@@ -64,7 +63,7 @@ public class PaperServiceImpl implements PaperService {
     public List<Paper> getPapersOfAuthor(Integer id) {
         return this.paperRepository.findAll()
                 .stream()
-                .filter(paper->paper.getAid()==id)
+                .filter(paper -> paper.getAid() == id)
                 .collect(Collectors.toList());
     }
 }

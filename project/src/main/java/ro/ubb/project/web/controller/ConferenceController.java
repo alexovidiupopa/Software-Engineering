@@ -30,15 +30,15 @@ public class ConferenceController {
     private Scheduler scheduler;
 
     @RequestMapping(value = "/exists", method = RequestMethod.GET)
-    Boolean conferenceExists(){
-        return scheduler.getConferenceName()!=null;
+    Boolean conferenceExists() {
+        return scheduler.getConferenceName() != null;
     }
 
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public MessageResponse createConference(@RequestBody ConferenceRequest conference) {
         System.out.println(conference);
-        log.trace("received conference creation request={}",conference);
+        log.trace("received conference creation request={}", conference);
         DateTimeFormatter dtf = DateTimeFormat.forPattern("MM/DD/YYYY HH:mm:ss");
         scheduler.setConferenceName(conference.getConferenceName());
         scheduler.setFirstPhaseDeadline(dtf.parseDateTime(conference.getFirstPhaseDeadline()).toString());
@@ -56,17 +56,17 @@ public class ConferenceController {
             e.printStackTrace();
         }
 
-        log.trace("created scheduler={}",scheduler);
+        log.trace("created scheduler={}", scheduler);
         return new MessageResponse("success");
     }
-    
-    @RequestMapping(value="/getCurrentPhase", method = RequestMethod.GET)
-    public MessageResponse getCurrentPhase(){
+
+    @RequestMapping(value = "/getCurrentPhase", method = RequestMethod.GET)
+    public MessageResponse getCurrentPhase() {
         return new MessageResponse(scheduler.getCurrentPhase());
     }
 
     @RequestMapping(value = "/updateDeadline", method = RequestMethod.POST)
-    public MessageResponse updateDeadline(@RequestBody MessageRequest newDeadline){
+    public MessageResponse updateDeadline(@RequestBody MessageRequest newDeadline) {
         DateTimeFormatter dtf = DateTimeFormat.forPattern("MM/DD/YYYY HH:mm:ss");
         scheduler.updateCurrentDeadline(dtf.parseDateTime(newDeadline.getMessage()));
         return new MessageResponse("success");

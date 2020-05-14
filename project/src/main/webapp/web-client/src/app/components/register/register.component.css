@@ -8,7 +8,7 @@
   height: 80%;
 }
 
-app-author-register{
+app-author-register {
 
 }
 
@@ -22,19 +22,17 @@ app-author-register{
   height: 80%;
 }
 
-body{
+body {
   display: block;
   height: 100%;
   width: 100%;
 }
 
-#loginButton1:hover
-{
+#loginButton1:hover {
   background-color: #3c70b1;
 }
 
-#loginButton2:hover
-{
+#loginButton2:hover {
   background-color: #3c70b1;
 }
 
@@ -53,8 +51,7 @@ body{
   margin-top: 0.3%;
 }
 
-.homeButton:hover
-{
+.homeButton:hover {
   background-color: #e12032;
 }
 

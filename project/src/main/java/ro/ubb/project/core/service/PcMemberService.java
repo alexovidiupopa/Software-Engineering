@@ -8,10 +8,15 @@ import java.util.Optional;
 public interface PcMemberService {
 
     List<PcMember> getAllPcMembers();
+
     void addPcMember(PcMember pcMember);
+
     void deletePcMember(PcMember pcMember);
+
     void updatePcMember(PcMember pcMember);
+
     Optional<PcMember> getPcMemberById(int pcid);
+
     boolean isPcMember(int uid);
 
 }

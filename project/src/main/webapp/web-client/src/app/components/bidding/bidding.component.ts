@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Paper} from "../../model/paper";
 import {BiddingService} from "../../services/bidding/bidding.service";
 import {Router} from "@angular/router";
@@ -19,14 +19,15 @@ export class BiddingComponent implements OnInit {
   userId: number;
   papersMap: Map<number, string>;
   paperContentUrl: SafeResourceUrl;
+
   constructor(private biddingService: BiddingService,
               private router: Router,
               private authenticationService: AuthenticationService,
               private paperService: PaperService,
               private sanitizer: DomSanitizer) {
-      this.papersMap = new Map<number, string>();
-      this.accepted = [];
-      this.userId=this.authenticationService.getCurrentUser().id;
+    this.papersMap = new Map<number, string>();
+    this.accepted = [];
+    this.userId = this.authenticationService.getCurrentUser().id;
   }
 
   ngOnInit(): void {
@@ -34,24 +35,24 @@ export class BiddingComponent implements OnInit {
   }
 
 
-  populatePapers(): void{
+  populatePapers(): void {
     //this.userId = 1;
     this.biddingService.getAllPapers(this.userId)
-      .subscribe(papers=>this.papers=papers);
+      .subscribe(papers => this.papers = papers);
   }
 
 
-  submitChoices(): void{
+  submitChoices(): void {
     this.papersMap.forEach((value: string, key: number) => {
-      if (value==="accept")
+      if (value === "accept")
         this.accepted.push(key);
     });
-    this.biddingService.acceptPapers(this.userId,this.accepted);
+    this.biddingService.acceptPapers(this.userId, this.accepted);
   }
 
   downloadPaper(id: number) {
     this.paperService.getPaperContent(id).subscribe(
-      response=>{
+      response => {
         this.paperContentUrl = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(response));
 
       }
@@ -59,6 +60,6 @@ export class BiddingComponent implements OnInit {
   }
 
   setPaperStatus(id: number, accept: string) {
-    this.papersMap.set(id,accept);
+    this.papersMap.set(id, accept);
   }
 }

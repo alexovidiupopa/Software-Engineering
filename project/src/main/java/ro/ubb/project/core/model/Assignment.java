@@ -3,6 +3,7 @@ package ro.ubb.project.core.model;
 import lombok.*;
 import ro.ubb.project.core.model.pk.BiddingPK;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
@@ -22,5 +23,6 @@ public class Assignment {
     @Id
     private int pid;
     private int qualifier;
+
     private String reviewUrl;
 }
