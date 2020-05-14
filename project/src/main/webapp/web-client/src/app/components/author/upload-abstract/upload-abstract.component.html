@@ -1,0 +1,52 @@
+<app-header></app-header>
+
+<div class="main-div">
+  <mat-card>
+
+    <h1 class="mat-h1">Welcome to the paper upload dialog!</h1>
+    <h3 class="mat-h3">Please fill in some basic information about your paper.</h3>
+    <form class="example-form">
+      <mat-form-field class="example-full-width">
+        <mat-label>Paper title</mat-label>
+        <input #paperTitleInput (change)="paperTitleChanged(paperTitleInput.value)"
+               id="paper-title"
+               matInput placeholder="Ex. The Idea of Delighting in the Divine in St. Augustine's Confessions">
+      </mat-form-field>
+    </form>
+    <form class="example-form">
+      <mat-form-field class="example-full-width">
+        <mat-label>Other contributors (can be left empty if yours alone)</mat-label>
+        <input #paperAuthorsInput (change)="paperAuthorsChanged(paperAuthorsInput.value)"
+               id="paper-authors"
+               matInput placeholder="Ex. Michael Holmes, Andy Greenwich">
+      </mat-form-field>
+    </form>
+    <form class="example-form">
+      <mat-form-field class="example-full-width">
+        <mat-label>Keywords</mat-label>
+        <input #paperKeywordsInput (change)="paperKeywordsChanged(paperKeywordsInput.value)"
+               id="paper-keywords"
+               matInput placeholder="Ex. Augustinian Studies, love, divinity, delight, joy, C. S. Lewis">
+      </mat-form-field>
+    </form>
+    <h3 class="mat-h3">Please upload an abstract (pdf or doc) of your paper (the desirable length is 500 words).</h3>
+
+    <div>
+      <button (click)="uploadAbstractButtonPressed()" class="abstract-button" color="primary" mat-raised-button>
+        <mat-icon>file_upload</mat-icon>
+        Upload
+      </button>
+      <mat-label>{{fileName}}</mat-label>
+      <input #fileUpload accept="application/pdf, application/msword" id="fileUpload" multiple="multiple"
+             name="fileUpload"
+             style="display:none;" type="file"/>
+    </div>
+    <br>
+    <button (click)="createAbstractButtonPressed()" class="abstract-button" color="primary" mat-raised-button>
+      Done
+    </button>
+    <mat-error *ngIf="abstractFailed">Couldn't create abstract. Please check your data</mat-error>
+
+  </mat-card>
+
+</div>
