@@ -1,0 +1,69 @@
+<style>
+  section {
+    display: table;
+    margin: 8px;
+  }
+
+  .example-label {
+    display: table-cell;
+    font-size: 14px;
+    margin-left: 8px;
+    width: 120px;
+  }
+
+  .example-button-row {
+    display: table-cell;
+  }
+
+  .example-button-row button {
+    display: table-cell;
+    margin-right: 8px;
+  }
+
+  .example-flex-container {
+    display: flex;
+    justify-content: space-between;
+    width: 480px;
+  }
+
+  .example-button-container {
+    display: flex;
+    justify-content: center;
+    width: 120px;
+  }
+
+</style>
+
+
+<h2>Login</h2>
+<form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
+  <div class="form-group">
+    <label for="username">Username</label>
+    <input [ngClass]="{ 'is-invalid': submitted && f.username.errors }" class="form-control" formControlName="username"
+           type="text"/>
+    <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+      <div *ngIf="f.username.errors.required">Username is required</div>
+    </div>
+  </div>
+  <div class="form-group">
+
+    <label for="password">Password</label>
+    <input [ngClass]="{ 'is-invalid': submitted && f.password.errors }" class="form-control" formControlName="password"
+           type="password"/>
+    <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+      <div *ngIf="f.password.errors.required">Password is required</div>
+    </div>
+  </div>
+  <div class="form-group">
+    <button [disabled]="loading" class="btn btn-primary" color="warn" mat-raised-button>
+      <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+      Login
+    </button>
+    <button color="warn" mat-raised-button>
+      <a class="btn btn-link" routerLink="/register">Register</a>
+    </button>
+  </div>
+</form>
+
+
+

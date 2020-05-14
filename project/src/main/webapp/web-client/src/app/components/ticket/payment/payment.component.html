@@ -1,0 +1,52 @@
+<div class="main-div">
+  <mat-card>
+
+    <h1 class="mat-h1">Pay safe</h1>
+
+    <mat-label>Total: {{totalPrice}}$</mat-label>
+
+    <form class="example-form">
+      <mat-form-field class="example-full-width">
+        <mat-label>Card number:</mat-label>
+        <input
+          [(ngModel)]="cardNumber"
+          id="card-number-input" matInput
+          name="card-number" placeholder="Ex. 0000 1111 2222 3333">
+      </mat-form-field>
+    </form>
+    <form class="example-form">
+      <mat-form-field class="example-full-width">
+        <mat-label>Name on card:</mat-label>
+        <input
+          [(ngModel)]="name"
+          id="name" matInput
+          name="name" placeholder="Ex. Oliver Cromwell">
+      </mat-form-field>
+    </form>
+    <form class="example-form">
+      <mat-form-field class="example-full-width">
+        <mat-label>Expiring date</mat-label>
+        <input
+          [(ngModel)]="expiringDate"
+          id="date" matInput
+          name="date" placeholder="Ex. 05/21">
+      </mat-form-field>
+    </form>
+    <form class="example-form">
+      <mat-form-field class="example-full-width">
+        <mat-label>CCV</mat-label>
+        <input
+          [(ngModel)]="ccv"
+          id="ccv" matInput
+          name="ccv" placeholder="Ex. 965">
+      </mat-form-field>
+    </form>
+
+    <button (click)="pay()" class="abstract-button" color="warn" mat-raised-button>
+      Pay
+    </button>
+    <mat-error *ngIf="badData">Input data is invalid!</mat-error>
+
+  </mat-card>
+
+</div>
