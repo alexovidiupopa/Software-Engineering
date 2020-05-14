@@ -1,1 +1,21 @@
-<p>bidding works!</p>
+<!--<app-header></app-header>-->
+<div class="main-div">
+  <h2>Papers available for bidding</h2>
+  <mat-list>
+    <mat-list-item *ngFor="let paper of papers">
+      {{paper.id}}
+      {{paper.authorId}}
+      {{paper.title}}
+      <a [href]="paperContentUrl" download="content">
+        <button (click)="downloadPaper(paper.id)">
+          Download paper
+        </button>
+      </a>
+      <mat-radio-group>
+        <mat-radio-button value="accept" (click)="setPaperStatus(paper.id,'accept')">Accept</mat-radio-button>
+        <mat-radio-button value="reject" (click)="setPaperStatus(paper.id,'reject')">Reject</mat-radio-button>
+      </mat-radio-group>
+    </mat-list-item>
+  </mat-list>
+  <button (click)="submitChoices()">Submit</button>
+</div>

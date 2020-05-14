@@ -24,6 +24,7 @@ import {StructureConferenceComponent} from './components/structure-conference/st
 import {PcReviewComponent} from './components/pc-review/pc-review.component';
 import {RoomsComponent} from './components/rooms/rooms.component';
 import {AssignReviewerComponent} from './components/assign-reviewer/assign-reviewer.component';
+import {PaperDetailDecisionComponent} from "./components/paper-detail-decision/paper-detail-decision.component";
 
 
 const routes: Routes = [
@@ -50,6 +51,7 @@ const routes: Routes = [
   {path: 'paper/upload', component: UploadAbstractComponent},
   {path: 'paper/all', component: AuthorPapersComponent},
   {path: 'paper/detail/:id', component: PaperDetailComponent},
+  {path: 'paper/decision/:id', component:PaperDetailDecisionComponent},
   // otherwise redirect to home
   {path: '**', redirectTo: ''}
 ];
