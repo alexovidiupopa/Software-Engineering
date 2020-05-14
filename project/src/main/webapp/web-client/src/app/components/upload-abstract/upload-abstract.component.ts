@@ -17,7 +17,7 @@ export class UploadAbstractComponent implements OnInit {
   file: File = null;
   fileName: string;
 
-  constructor(private paperService: PaperService, private userService: AuthenticationService, private router: Router) {
+  constructor(private paperService: PaperService,  private router: Router) {
   }
 
   ngOnInit(): void {
@@ -40,7 +40,7 @@ export class UploadAbstractComponent implements OnInit {
   createAbstractButtonPressed() {
     if (this.validData()) {
       this.paperService
-        .uploadAbstract(this.userService.getCurrentUser().id, this.paperTitle, this.paperAuthors, this.paperKeywords, this.file)
+        .uploadAbstract(1, this.paperTitle, this.paperAuthors, this.paperKeywords, this.file)
         .subscribe(result => {
           if (result === true) {
             this.abstractFailed = false;

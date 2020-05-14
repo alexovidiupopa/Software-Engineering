@@ -32,15 +32,14 @@ public class TicketServiceImpl implements TicketService {
     @Override
     public void updateTicket(Ticket ticket) {
         Optional<Ticket> toUpdate = this.ticketRepository.findById(ticket.getTid());
-        if(toUpdate.isPresent()) {
+        if (toUpdate.isPresent()) {
             Ticket t = toUpdate.get();
             t.setSeatno(ticket.getSeatno());
             t.setPrice(ticket.getPrice());
             t.setDatepurchased(ticket.getDatepurchased());
             t.setName(ticket.getName());
             this.ticketRepository.save(t);
-        }
-        else{
+        } else {
             throw new RuntimeException("No assignment found");
         }
     }

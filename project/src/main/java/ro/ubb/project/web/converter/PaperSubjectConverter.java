@@ -5,7 +5,7 @@ import ro.ubb.project.core.model.PaperSubject;
 import ro.ubb.project.web.dto.PaperSubjectDto;
 
 @Component
-public class PaperSubjectConverter extends AbstractConverter<PaperSubject, PaperSubjectDto> implements Converter<PaperSubject, PaperSubjectDto>  {
+public class PaperSubjectConverter extends AbstractConverter<PaperSubject, PaperSubjectDto> implements Converter<PaperSubject, PaperSubjectDto> {
 
     @Override
     public PaperSubject dtoToModel(PaperSubjectDto paperSubjectDto) {

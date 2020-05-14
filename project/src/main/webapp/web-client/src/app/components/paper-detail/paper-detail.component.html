@@ -48,7 +48,8 @@
         Update abstract
       </button>
       <mat-label>{{abstractFilename}}</mat-label>
-      <input #abstractFileUpload accept="application/pdf, application/msword" id="abstractFileUpload" multiple="multiple" name="abstractFileUpload"
+      <input #abstractFileUpload accept="application/pdf, application/msword" id="abstractFileUpload"
+             multiple="multiple" name="abstractFileUpload"
              style="display:none;" type="file"/>
     </div>
     <a [href]="paperContentUrl" download="content">
@@ -62,7 +63,8 @@
         {{uploadPaperButtonText}}
       </button>
       <mat-label>{{paperFilename}}</mat-label>
-      <input #paperFileUpload accept="application/pdf, application/msword" id="paperFileUpload" multiple="multiple" name="paperFileUpload"
+      <input #paperFileUpload accept="application/pdf, application/msword" id="paperFileUpload" multiple="multiple"
+             name="paperFileUpload"
              style="display:none;" type="file"/>
     </div>
     <mat-card-actions>

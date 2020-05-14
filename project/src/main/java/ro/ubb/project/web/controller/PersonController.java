@@ -27,7 +27,7 @@ public class PersonController {
     private PersonConverter converter;
 
     @RequestMapping(value = "/users", method = RequestMethod.GET)
-    public Set<PersonDto> getPersons(){
+    public Set<PersonDto> getPersons() {
         List<Person> persons = personService.getAllPersons();
         return (Set<PersonDto>) converter.convertModelsToDtos(persons);
     }

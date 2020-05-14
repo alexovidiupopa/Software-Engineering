@@ -2,12 +2,10 @@ package ro.ubb.project.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import ro.ubb.project.core.model.Paper;
 import ro.ubb.project.core.model.PaperSubject;
 import ro.ubb.project.core.service.KeywordService;
 import ro.ubb.project.core.service.PaperSubjectService;
 import ro.ubb.project.web.converter.PaperSubjectConverter;
-import ro.ubb.project.web.dto.PaperDto;
 import ro.ubb.project.web.dto.PaperSubjectDto;
 import ro.ubb.project.web.response.MessageResponse;
 
@@ -28,20 +26,20 @@ public class KeywordController {
     private KeywordService keywordService;
 
     @RequestMapping(value = "/get-keywords/{id}", method = RequestMethod.GET)
-    Collection<String> getKeywords(@PathVariable Integer id){
+    Collection<String> getKeywords(@PathVariable Integer id) {
         return paperSubjectService.getAllPaperSubjects().stream()
                 .filter(ps -> ps.getPid() == id)
                 .map(ps -> keywordService.getKeywordById(ps.getKid()).getName())
                 .collect(Collectors.toList());
     }
 
-    @RequestMapping(value = "/add-keyword",method = RequestMethod.POST)
-    MessageResponse addPaperAuthor(@RequestBody PaperSubjectDto paperSubjectDto){
+    @RequestMapping(value = "/add-keyword", method = RequestMethod.POST)
+    MessageResponse addPaperAuthor(@RequestBody PaperSubjectDto paperSubjectDto) {
         try {
             PaperSubject ps = converter.dtoToModel(paperSubjectDto);
             paperSubjectService.addPaperSubject(ps);
             return new MessageResponse("success");
-        } catch (RuntimeException e){
+        } catch (RuntimeException e) {
             return new MessageResponse("failed");
         }
     }

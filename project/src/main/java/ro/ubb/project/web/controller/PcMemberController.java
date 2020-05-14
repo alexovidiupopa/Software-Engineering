@@ -11,6 +11,7 @@ import ro.ubb.project.core.model.PcMember;
 import ro.ubb.project.core.service.ChairService;
 import ro.ubb.project.core.service.PcMemberService;
 import ro.ubb.project.core.service.PersonService;
+import ro.ubb.project.core.utils.EmailSender;
 import ro.ubb.project.web.converter.ChairConverter;
 import ro.ubb.project.web.converter.PcMemberConverter;
 import ro.ubb.project.web.converter.PersonConverter;
@@ -23,7 +24,6 @@ import ro.ubb.project.web.request.RegisterRequest;
 import ro.ubb.project.web.response.MessageResponse;
 import ro.ubb.project.web.response.PcMemberResponse;
 import ro.ubb.project.web.response.PcMembersResponse;
-import ro.ubb.project.core.utils.EmailSender;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +54,7 @@ public class PcMemberController {
     private ChairConverter chairConverter;
 
     @RequestMapping(value = "/getAllPcMembers", method = RequestMethod.GET)
-    public PcMembersResponse getAllPcMembers(){
+    public PcMembersResponse getAllPcMembers() {
         List<PcMember> pcMembers = this.pcMemberService.getAllPcMembers();
         ArrayList<PcMemberDto> pcMemberDtos = new ArrayList<>();
         PcMemberConverter pcMemberConverter = new PcMemberConverter();
@@ -63,7 +63,7 @@ public class PcMemberController {
     }
 
     @RequestMapping(value = "/getPcMemberById", method = RequestMethod.GET)
-    public PcMemberResponse getPcMemberById(@RequestBody GetPcMemberByIdRequest getPcMemberByIdRequest){
+    public PcMemberResponse getPcMemberById(@RequestBody GetPcMemberByIdRequest getPcMemberByIdRequest) {
         Optional<PcMember> pcMember = this.pcMemberService.getPcMemberById(getPcMemberByIdRequest.getPcid());
         return pcMember.map(member -> new PcMemberResponse(new PcMemberConverter().modelToDto(member))).orElseGet(PcMemberResponse::new);
     }
@@ -83,7 +83,7 @@ public class PcMemberController {
     }
 
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
-    public MessageResponse register(@RequestBody RegisterRequest registerRequest){
+    public MessageResponse register(@RequestBody RegisterRequest registerRequest) {
         System.out.println(registerRequest);
         personService.addPerson(personConverter.dtoToModel(
                 PersonDto.builder()
@@ -103,7 +103,7 @@ public class PcMemberController {
                         .uid(personService.getPersonByUserName(registerRequest.getUsername()).getUid())
                         .build()
         ));
-        EmailSender.send(EmailSender.ORIGIN_EMAIL, registerRequest.getEmail(),EmailSender.WELCOME_SUBJECT, EmailSender.LOGIN_LINK);
+        EmailSender.send(EmailSender.ORIGIN_EMAIL, registerRequest.getEmail(), EmailSender.WELCOME_SUBJECT, EmailSender.LOGIN_LINK);
         return new MessageResponse("success");
     }
 }

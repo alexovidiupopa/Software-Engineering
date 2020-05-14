@@ -1,1 +1,46 @@
-<p>pc-review works!</p>
+<!--<app-header></app-header>-->
+
+<div *ngIf="isLoaded" class="main-div">
+  <mat-card>
+
+    <h1 class="mat-h1">Welcome to Review Submitting Page!</h1>
+    <h4 class="mat-h4">Please upload the review and your mark<br> for each paper that was assigned to you.</h4>
+
+    <mat-nav-list disableRipple>
+      <h3 matSubheader>Papers to review</h3>
+      <a *ngFor="let paper of papers | async; let i = index" mat-list-item>
+        <div class="review-container">
+          <a [href]="urls[i]" download="{{paperNames[i]}}.pdf">
+            <button (click)="downloadPaper(paper.id)" mat-icon-button>
+              <mat-icon>get_app</mat-icon>
+            </button>
+          </a>
+          {{paper.title}} ({{getAuthor(paper.authorId)}})
+          <mat-radio-group
+            (change)="updateSelectedMark($event, i)"
+            aria-labelledby="example-radio-group-label"
+            class="example-radio-group">
+
+            <mat-radio-button *ngFor="let mark of markValues" [value]="mark.value" class="example-radio-button rad">
+              {{mark.name}}
+            </mat-radio-button>
+          </mat-radio-group>
+          <div class="upload">
+            <button (click)="uploadReview(paper.id)" class="abstract-button" color="warn" id="upload-button"
+                    mat-raised-button>
+              Upload review
+            </button>
+            <mat-label *ngIf="nameOfReviewWithId(paper.id) !== null">{{nameOfReviewWithId(paper.id)}}</mat-label>
+            <input #reviewUpload accept="application/pdf" id="reviewUpload" multiple="multiple" name="reviewUpload"
+                   style="display:none;" type="file"/>
+          </div>
+          <button (click)="submitReview(paper.id, i)" color="primary" id="submit-button" mat-flat-button>Submit
+          </button>
+          <mat-error *ngIf="badData[i]">Couldn't submit</mat-error>
+        </div>
+      </a>
+    </mat-nav-list>
+
+  </mat-card>
+
+</div>

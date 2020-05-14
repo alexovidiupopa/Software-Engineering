@@ -7,7 +7,6 @@ import ro.ubb.project.core.repository.AuthorRepository;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class AuthorServiceImpl implements AuthorService {
@@ -33,11 +32,10 @@ public class AuthorServiceImpl implements AuthorService {
     @Override
     public void updateAuthor(Author author) {
         Optional<Author> toUpdate = this.authorRepository.findById(author.getAid());
-        if(toUpdate.isPresent()) {
+        if (toUpdate.isPresent()) {
             Author a = toUpdate.get();
             this.authorRepository.save(a);
-        }
-        else{
+        } else {
             throw new RuntimeException("No assignment found");
         }
     }
@@ -46,18 +44,17 @@ public class AuthorServiceImpl implements AuthorService {
     public boolean isAuthor(int uid) {
         Optional<Author> author = this.authorRepository.findAll()
                 .stream()
-                .filter(a -> a.getUid()==uid)
+                .filter(a -> a.getUid() == uid)
                 .findAny();
         return author.isPresent();
     }
 
     @Override
-    public Author getAuthorById(int id){
+    public Author getAuthorById(int id) {
         Optional<Author> author = this.authorRepository.findById(id);
-        if(author.isPresent()) {
+        if (author.isPresent()) {
             return author.get();
-        }
-        else{
+        } else {
             throw new RuntimeException("No assignment found");
         }
     }

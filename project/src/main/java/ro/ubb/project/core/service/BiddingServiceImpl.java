@@ -35,11 +35,10 @@ public class BiddingServiceImpl implements BiddingService {
                 .stream()
                 .filter(b -> b.getPcid() == bidding.getPcid() && b.getPid() == bidding.getPid())
                 .findAny();
-        if(toUpdate.isPresent()) {
+        if (toUpdate.isPresent()) {
             Bidding b = toUpdate.get();
             this.biddingRepository.save(b);
-        }
-        else{
+        } else {
             throw new RuntimeException("No assignment found");
         }
     }

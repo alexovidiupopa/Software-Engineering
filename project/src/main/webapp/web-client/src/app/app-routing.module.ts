@@ -3,8 +3,6 @@ import {RouterModule, Routes} from '@angular/router';
 import {ManagePCComponent} from './components/manage-pc/manage-pc.component';
 import {CreateConferenceComponent} from './components/create-conference/create-conference.component';
 import {PcDetailComponent} from './components/pc-detail/pc-detail.component';
-import {AuthGuard} from './helper';
-import {HomeComponent} from './components/home';
 import {PcHomeComponent} from './components/pc-home/pc-home.component';
 import {ChairHomeComponent} from './components/chair-home';
 import {LoginComponent} from './components/login';
@@ -24,22 +22,29 @@ import {StructureConferenceComponent} from './components/structure-conference/st
 import {PcReviewComponent} from './components/pc-review/pc-review.component';
 import {RoomsComponent} from './components/rooms/rooms.component';
 import {AssignReviewerComponent} from './components/assign-reviewer/assign-reviewer.component';
+import {PaperDetailDecisionComponent} from "./components/paper-detail-decision/paper-detail-decision.component";
+import {CheckoutComponent} from "./components/checkout/checkout.component";
+import {SuccessBuyComponent} from "./components/success-buy/success-buy.component";
+import {PaymentComponent} from "./components/payment/payment.component";
 
 
 const routes: Routes = [
   {path: 'pc/detail/:id', component: PcDetailComponent},
   {path: 'create-conference', component: CreateConferenceComponent},
   {path: 'manage-pcs', component: ManagePCComponent},
- // {path: 'home', component: HomeComponent, canActivate: [AuthGuard]}, //fixme AuthGuard should be enabled
+  // {path: 'home', component: HomeComponent, canActivate: [AuthGuard]}, //fixme AuthGuard should be enabled
   {path: 'pc-home', component: PcHomeComponent},
   {path: 'author-home', component: AuthorHomeComponent},
   {path: 'reviews/all', component: AllReviewsComponent},
   {path: 'bid', component: BiddingComponent},
   {path: 'ticket', component: BuyTicketComponent},
+  {path: 'checkout', component: CheckoutComponent},
+  {path: 'pay/safe', component: PaymentComponent},
+  {path: 'pay/end', component: SuccessBuyComponent},
   {path: 'conference/edit', component: UpdateConferenceComponent},
   {path: 'conference/structure', component: StructureConferenceComponent},
+  {path: 'review/pc/:id', component: PcReviewComponent},
   {path: 'review/assign', component: AssignReviewerComponent},
-  {path: 'review/pc', component: PcReviewComponent},
   {path: 'rooms', component: RoomsComponent},
   {path: '', component: HomepageComponent},
   {path: 'chair-home', component: ChairHomeComponent},
@@ -50,6 +55,7 @@ const routes: Routes = [
   {path: 'paper/upload', component: UploadAbstractComponent},
   {path: 'paper/all', component: AuthorPapersComponent},
   {path: 'paper/detail/:id', component: PaperDetailComponent},
+  {path: 'paper/decision/:id', component: PaperDetailDecisionComponent},
   // otherwise redirect to home
   {path: '**', redirectTo: ''}
 ];

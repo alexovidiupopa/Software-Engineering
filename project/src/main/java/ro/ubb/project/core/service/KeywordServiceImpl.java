@@ -32,19 +32,19 @@ public class KeywordServiceImpl implements KeywordService {
     @Override
     public void updateKeyword(Keyword keyword) {
         Optional<Keyword> toUpdate = this.keywordRepository.findById(keyword.getKid());
-        if(toUpdate.isPresent()) {
+        if (toUpdate.isPresent()) {
             Keyword k = toUpdate.get();
             k.setName(keyword.getName());
             this.keywordRepository.save(k);
-        } else{
+        } else {
             throw new RuntimeException("No keyword found");
         }
     }
 
     @Override
-    public Keyword getKeywordById(int id){
+    public Keyword getKeywordById(int id) {
         Optional<Keyword> keyword = this.keywordRepository.findById(id);
-        if(keyword.isPresent()){
+        if (keyword.isPresent()) {
             return keyword.get();
         } else {
             throw new RuntimeException("No keyword found");
@@ -53,7 +53,7 @@ public class KeywordServiceImpl implements KeywordService {
 
     @Override
     public int getIdByName(String keyword) {
-        for(Keyword key: keywordRepository.findAll())
+        for (Keyword key : keywordRepository.findAll())
             if (key.getName().equals(keyword))
                 return key.getKid();
         return -1;

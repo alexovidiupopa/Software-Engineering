@@ -32,55 +32,54 @@ public class LoginController {
     private PcMemberService pcMemberService;
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    MessageResponse login(@RequestBody LoginRequest loginRequest){
+    MessageResponse login(@RequestBody LoginRequest loginRequest) {
         String username = loginRequest.getUsername();
         String password = loginRequest.getPassword();
         Algorithm algorithm = Algorithm.HMAC256("secret");
-        try{
+        try {
             Person person = personService.getPersonByUserName(username);
             if (!person.getPassword().equals(password))
                 return new MessageResponse(JWT.create()
                         .withIssuer("admin")
                         .withClaim("success", false)
-                        .withClaim("type","")
-                        .withClaim("uid",0)
+                        .withClaim("type", "")
+                        .withClaim("uid", 0)
                         .sign(algorithm));
             int uid = person.getUid();
             if (chairService.isChair(uid))
                 return new MessageResponse(JWT.create()
                         .withIssuer("admin")
                         .withClaim("success", true)
-                        .withClaim("type","chair")
-                        .withClaim("uid",uid)
+                        .withClaim("type", "chair")
+                        .withClaim("uid", uid)
                         .sign(algorithm));
 
             if (authorService.isAuthor(uid))
                 return new MessageResponse(JWT.create()
                         .withIssuer("admin")
                         .withClaim("success", true)
-                        .withClaim("type","author")
-                        .withClaim("uid",uid)
+                        .withClaim("type", "author")
+                        .withClaim("uid", uid)
                         .sign(algorithm));
             if (pcMemberService.isPcMember(uid))
                 return new MessageResponse(JWT.create()
                         .withIssuer("admin")
                         .withClaim("success", true)
-                        .withClaim("type","pc")
-                        .withClaim("uid",uid)
+                        .withClaim("type", "pc")
+                        .withClaim("uid", uid)
                         .sign(algorithm));
             return new MessageResponse(JWT.create()
                     .withIssuer("admin")
                     .withClaim("success", false)
-                    .withClaim("type","")
-                    .withClaim("uid",0)
+                    .withClaim("type", "")
+                    .withClaim("uid", 0)
                     .sign(algorithm));
-        }
-        catch (RuntimeException e) {
+        } catch (RuntimeException e) {
             return new MessageResponse(JWT.create()
                     .withIssuer("admin")
                     .withClaim("success", false)
-                    .withClaim("type","")
-                    .withClaim("uid",0)
+                    .withClaim("type", "")
+                    .withClaim("uid", 0)
                     .sign(algorithm));
         }
 

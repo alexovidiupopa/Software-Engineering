@@ -1,0 +1,25 @@
+.main-div {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#buttons-grid {
+  display: flex;
+  flex-direction: row;
+}
+
+.example-form {
+  min-width: 150px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+#pay {
+  transform: scale(0.3);
+}

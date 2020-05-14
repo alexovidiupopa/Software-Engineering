@@ -21,28 +21,26 @@ public class RoomController {
     private RoomConverter converter;
 
     @RequestMapping(value = "/getAllRooms", method = RequestMethod.GET)
-    RoomsResponse getAllRooms(){
+    RoomsResponse getAllRooms() {
         return new RoomsResponse((ArrayList<RoomDto>) converter.convertModelsToDtos(roomService.getAllRooms()));
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
-    MessageResponse addRoom(@RequestBody RoomDto roomDto){
-        try{
+    MessageResponse addRoom(@RequestBody RoomDto roomDto) {
+        try {
             roomService.addRoom(converter.dtoToModel(roomDto));
             return new MessageResponse("success");
-        }
-        catch (RuntimeException e) {
+        } catch (RuntimeException e) {
             return new MessageResponse("error");
         }
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    MessageResponse delete(@PathVariable Integer id){
-        try{
+    MessageResponse delete(@PathVariable Integer id) {
+        try {
             roomService.deleteRoomById(id);
             return new MessageResponse("success");
-        }
-        catch (RuntimeException e) {
+        } catch (RuntimeException e) {
             return new MessageResponse("error");
         }
     }

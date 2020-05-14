@@ -5,7 +5,7 @@ import ro.ubb.project.core.model.PcMember;
 import ro.ubb.project.web.dto.PcMemberDto;
 
 @Component
-public class PcMemberConverter extends AbstractConverter<PcMember, PcMemberDto> implements Converter<PcMember,PcMemberDto>{
+public class PcMemberConverter extends AbstractConverter<PcMember, PcMemberDto> implements Converter<PcMember, PcMemberDto> {
     @Override
     public PcMember dtoToModel(PcMemberDto pcMemberDto) {
         return PcMember.builder()

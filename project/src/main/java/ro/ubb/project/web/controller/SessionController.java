@@ -23,12 +23,12 @@ public class SessionController {
     private SessionConverter converter;
 
     @RequestMapping(value = "/getSessionWithId/{id}", method = RequestMethod.GET)
-    SessionDto getSessionWithId(@PathVariable Integer id){
+    SessionDto getSessionWithId(@PathVariable Integer id) {
         return converter.modelToDto(sessionService.getSessionWithId(id));
     }
 
     @RequestMapping(value = "/getAllSessions", method = RequestMethod.GET)
-    SessionsResponse getAllSessions(){
+    SessionsResponse getAllSessions() {
         return new SessionsResponse((ArrayList<SessionDto>) converter.convertModelsToDtos(sessionService.getAllSessions()));
     }
 }

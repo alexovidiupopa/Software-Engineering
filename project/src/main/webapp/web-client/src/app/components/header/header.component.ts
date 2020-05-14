@@ -23,7 +23,7 @@ export class HeaderComponent implements OnInit {
     private authenticationService: AuthenticationService,
     private conferenceService: ConferenceService
   ) {
-    this.currentUser =  this.authenticationService.getCurrentUser();
+    this.currentUser = this.authenticationService.getCurrentUser();
     this.setUserType();
     this.setConferencePhase();
     this.homepage = this.authenticationService.getCurrentUser().getHomepageUrl();
@@ -83,6 +83,7 @@ export class HeaderComponent implements OnInit {
     });
     // this.currentPhase = ConferencePhase.FIRST;
   }
+
   isPreliminaryPhase() {
     return this.currentPhase === ConferencePhase.PRELIMINARY;
   }
