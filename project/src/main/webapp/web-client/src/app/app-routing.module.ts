@@ -25,6 +25,7 @@ import {AssignReviewerComponent} from './components/chair/assign-reviewer/assign
 import {CheckoutComponent} from './components/ticket/checkout/checkout.component';
 import {PaymentComponent} from './components/ticket/payment/payment.component';
 import {SuccessBuyComponent} from './components/ticket/success-buy/success-buy.component';
+import {PaperDetailDecisionComponent} from "./components/chair/paper-detail-decision/paper-detail-decision.component";
 
 
 const routes: Routes = [
@@ -54,6 +55,7 @@ const routes: Routes = [
   {path: 'paper/upload', component: UploadAbstractComponent},
   {path: 'paper/all', component: AuthorPapersComponent},
   {path: 'paper/detail/:id', component: PaperDetailComponent},
+  {path: 'paper/decision/:id', component:PaperDetailDecisionComponent},
   // otherwise redirect to home
   {path: '**', redirectTo: ''}
 ];

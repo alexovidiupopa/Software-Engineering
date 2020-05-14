@@ -47,9 +47,8 @@ import {AssignReviewerComponent} from './components/chair/assign-reviewer/assign
 import {CheckoutComponent} from './components/ticket/checkout/checkout.component';
 import {SuccessBuyComponent} from './components/ticket/success-buy/success-buy.component';
 import {PaymentComponent} from './components/ticket/payment/payment.component';
-import {NgPaymentCardModule} from 'ng-payment-card';
-import {CreditCardDirectivesModule} from 'angular-cc-library';
 import {MatRadioModule} from '@angular/material/radio';
+import { PaperDetailDecisionComponent } from './components/chair/paper-detail-decision/paper-detail-decision.component';
 
 @NgModule({
   imports: [
@@ -76,8 +75,6 @@ import {MatRadioModule} from '@angular/material/radio';
     MatFormFieldModule,
     MatSelectModule,
     MatProgressBarModule,
-    NgPaymentCardModule,
-    CreditCardDirectivesModule,
     MatRadioModule
   ],
   providers: [
@@ -112,6 +109,7 @@ import {MatRadioModule} from '@angular/material/radio';
     CheckoutComponent,
     SuccessBuyComponent,
     PaymentComponent,
+    PaperDetailDecisionComponent,
   ],
   bootstrap: [AppComponent]
 })

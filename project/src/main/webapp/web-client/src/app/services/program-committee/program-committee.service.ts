@@ -4,9 +4,15 @@ import {Observable, of} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
 import {ProgramCommittee} from '../../model/program-committee';
 
+export class PcDto{
+  pcid: number;
+  uid:number;
+}
+
 @Injectable({
   providedIn: 'root'
 })
+
 export class ProgramCommitteeService {
   httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -17,8 +23,9 @@ export class ProgramCommitteeService {
     private http: HttpClient) {
   }
 
-  getProgramCommittees(): Observable<ProgramCommittee[]> {
-    return this.http.get<ProgramCommittee[]>(this.url + '/getAllPcMembers', this.httpOptions)
+
+  getProgramCommittees(): Observable<PcDto[]> {
+    return this.http.get<PcDto[]>(this.url + '/getAllPcMembers', this.httpOptions)
       .pipe(
         map(result => result['pcMember']), // todo fix plural typo
         catchError(this.handleError<ProgramCommittee[]>('getProgramCommittees', []))
