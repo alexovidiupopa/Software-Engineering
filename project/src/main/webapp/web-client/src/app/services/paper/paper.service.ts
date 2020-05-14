@@ -228,4 +228,21 @@ export class PaperService {
       return of(result as T);
     };
   }
+
+  accept(id: number) {
+    const url = `${this.url}/accept/${id}`;
+    console.log(id);
+    this.http.put<boolean>(url,this.httpOptions);
+  }
+
+  reject(id: number) {
+    const url = `${this.url}/reject/${id}`;
+    console.log(id);
+    this.http.put<boolean>(url,this.httpOptions);
+  }
+
+  reassign(id: number, reviewers: number[]) {
+    const url=`${this.url}/reassign/paper=${id}`;
+    this.http.put<boolean>(url,{"reviewers":reviewers},this.httpOptions);
+  }
 }
