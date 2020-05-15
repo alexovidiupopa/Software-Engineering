@@ -22,6 +22,7 @@ import ro.ubb.project.web.request.ReviewersRequest;
 import ro.ubb.project.web.response.MessageResponse;
 import ro.ubb.project.web.response.PapersResponse;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -223,24 +224,25 @@ public class PaperController {
         return new MessageResponse(paperService.getPaperById(id).getPresentationurl());
     }
 
-    @RequestMapping(value = "/getAbstract/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/abstract/{id}", method = RequestMethod.GET)
     ResponseEntity<Resource> getAbstract(@PathVariable Integer id) {
         Paper paper = paperService.getPaperById(id);
         String url = paper.getAbstracturl();
         Resource file = FileHelper.loadFileAsResource(url);
         return ResponseEntity.ok()
-                .contentType(MediaType.TEXT_PLAIN)
+                .contentType(MediaType.APPLICATION_PDF)
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"")
                 .body(file);
     }
 
-    @RequestMapping(value = "/getContent/{id}", method = RequestMethod.GET)
-    ResponseEntity<Resource> getContent(@PathVariable Integer id) {
+    @RequestMapping(value = "/content/{id}", method = RequestMethod.GET)
+    ResponseEntity<Resource> getContent(@PathVariable Integer id) throws IOException {
         Paper paper = paperService.getPaperById(id);
+        System.out.println(paper);
         String url = paper.getContenturl();
         Resource file = FileHelper.loadFileAsResource(url);
         return ResponseEntity.ok()
-                .contentType(MediaType.TEXT_PLAIN)
+                .contentType(MediaType.APPLICATION_PDF)
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"")
                 .body(file);
     }

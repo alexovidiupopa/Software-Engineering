@@ -14,6 +14,9 @@ export class PaperService {
   };
   httpFileOptions = {headers: new HttpHeaders({'Content-Type': 'multipart/form-data'})};
   private url = 'http://localhost:8080/api/paper';
+  private responseOptions={
+    headers: new HttpHeaders({ 'Content-Type':'application/pdf'})
+  };
 
   constructor(
     private http: HttpClient) {
@@ -170,20 +173,33 @@ export class PaperService {
       );
   }
 
-  getAbstract(paperId: number): Observable<File> {
-    // return this.http.get<File>(this.url + '/abstract/' + paperId, this.httpOptions)
-    //   .pipe(
-    //     catchError(this.handleError<File>('getPapersForAuthor'))
-    //   );
-    return of(new File(['abstract blob'], 'abstractTestFile'));
+  getAbstract(paperId: number): Observable<any> {
+
+    return this.http.get<any>(this.url + '/abstract/' + paperId,this.httpOptions) //fixme maybe we need options
+       .pipe(
+         /*map(response => {
+           return new File([new Blob([response.blob()], {type: "application/pdf"})], 'name');
+         }),*/
+        catchError(this.handleError<File>('getPapersForAuthor'))
+      );
+   // return of(new File(['abstract blob'], 'abstractTestFile'));
   }
 
-  getPaperContent(paperId: number): Observable<File> {
-    // return this.http.get<File>(this.url + '/content/' + paperId, this.httpOptions)
-    //   .pipe(
-    //     catchError(this.handleError<File>('getPapersForAuthor'))
-    //   );
-    return of(new File(['paper blob'], 'paperTestFile'));
+  getPaperContent(paperId: number): Observable<any> {
+
+    return this.http.get<any>(this.url + '/content/' + paperId, this.httpOptions) //fixme maybe we need options
+      .pipe(
+        tap(response=> {
+          console.log("service ");
+          console.log(response);
+        }),
+        /*map(response => {
+          return new File([new Blob([response.blob()], {type: "application/pdf"})], 'name');
+        }),*/
+        map(response =>response['text']),
+        catchError(this.handleError<any>('getPaperContent '))
+      );
+    //return of(new File(['paper blob'], 'paperTestFile'));
   }
 
   getAllPapersForReviewer(pcId: number): Observable<Paper[]> {
@@ -193,8 +209,14 @@ export class PaperService {
         map(result => {
           let papers: Paper[] = result['papers'];
           for (let paper of papers) {
-            paper.abstract = new File(['abstract blob ' + paper.title], 'abstract test ' + paper.title);
-            paper.paperContent = new File(['paper blob' + paper.title], 'paper test' + paper.title); // fixme this should be the real file
+           /* paper.abstract = new File(['abstract blob ' + paper.title], 'abstract test ' + paper.title);
+            paper.paperContent = new File(['paper blob' + paper.title], 'paper test' + paper.title); // fixme this should be the real file*/
+            this.getAbstract(2).subscribe(
+              result=>paper.abstract=result
+            );
+            this.getPaperContent(2).subscribe(
+              result=>paper.paperContent=result
+            );
           }
           return papers;
         }),
