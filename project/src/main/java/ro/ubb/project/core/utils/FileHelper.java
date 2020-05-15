@@ -1,10 +1,12 @@
 package ro.ubb.project.core.utils;
 
+
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
@@ -36,7 +38,6 @@ public class FileHelper {
     public static Resource loadFileAsResource(String path) {
         try {
             Path filePath = Paths.get(path.substring(1)).toAbsolutePath().normalize();
-            System.out.println(filePath.toUri());
             Resource resource = new UrlResource(filePath.toUri());
             if (resource.exists()) {
                 return resource;
@@ -46,5 +47,10 @@ public class FileHelper {
         } catch (MalformedURLException ex) {
             throw new RuntimeException("File not found " + path, ex);
         }
+    }
+
+    public static File loadAsFile(String path) {
+        Path filePath = Paths.get(path.substring(1)).toAbsolutePath().normalize();
+        return filePath.toFile();
     }
 }

@@ -42,18 +42,14 @@ export class HeaderComponent implements OnInit {
 
   isAuthor() {
     return this.currentUserType === UserType.AUTHOR;
-    return true;
   }
 
   isChair() {
     return this.currentUserType === UserType.CHAIR;
-    return true;
-
   }
 
   isPC() {
     return this.currentUserType === UserType.PC;
-    return true;
 
   }
 
@@ -90,19 +86,13 @@ export class HeaderComponent implements OnInit {
 
   isFirstPhase() {
     return this.currentPhase === ConferencePhase.FIRST;
-    return true;
-
   }
 
   isSecondPhase() {
     return this.currentPhase === ConferencePhase.SECOND;
-    return true;
-
   }
 
   isThirdPhase() {
     return this.currentPhase === ConferencePhase.THIRD;
-    return true;
-
   }
 }

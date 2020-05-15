@@ -11,10 +11,11 @@
       <a *ngFor="let paper of papers | async; let i = index" mat-list-item>
         <div class="review-container">
           <a [href]="urls[i]" download="{{paperNames[i]}}.pdf">
-            <button (click)="downloadPaper(paper.id)" mat-icon-button>
+            <button mat-icon-button>
               <mat-icon>get_app</mat-icon>
             </button>
           </a>
+
           {{paper.title}} ({{getAuthor(paper.authorId)}})
           <mat-radio-group
             (change)="updateSelectedMark($event, i)"

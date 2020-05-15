@@ -3,7 +3,7 @@ import {Paper} from '../../model/paper';
 import {PaperService} from '../../services/paper/paper.service';
 import {ActivatedRoute} from '@angular/router';
 import {ReviewMark} from '../../model/review-mark';
-import {Observable} from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {DomSanitizer} from '@angular/platform-browser';
 import {AuthenticationService} from '../../services/login';
 import {Review} from '../../model/review';
@@ -31,7 +31,8 @@ export class PcReviewComponent implements OnInit {
   badData: boolean[] = [];
   @ViewChild('reviewUpload', {static: false}) reviewUpload: ElementRef;
   reviews: ReviewData[] = [];
-
+  abstractUrl: any;
+  contentUrl: any;
 
   constructor(private paperService: PaperService, private route: ActivatedRoute, private authorService: AuthorService,
               private sanitizer: DomSanitizer, private authenticationService: AuthenticationService
@@ -39,14 +40,15 @@ export class PcReviewComponent implements OnInit {
     this.papers = this.paperService.getAllPapersForReviewer(+this.route.snapshot.paramMap.get('id'));
     this.papers.subscribe(result => {
       for (let i = 0; i < result.length; i++) {
-        this.urls.push(this.sanitizer.bypassSecurityTrustResourceUrl(
-          window.URL.createObjectURL(
-            result[i].paperContent)));
+        this.urls.push(this.sanitizer.bypassSecurityTrustResourceUrl("http://localhost:8080/api/paper/content/" + result[i].id));
         this.paperNames.push(result[i].title);
         this.marks.push(null);
         this.badData[i] = false;
       }
     });
+    //this.downloadPaper(2);
+    console.log("pc-review constructor");
+    console.log(this.contentUrl);
     this.isLoaded = true;
   }
 
@@ -60,6 +62,17 @@ export class PcReviewComponent implements OnInit {
   }
 
   downloadPaper(id: number) {
+    /*this.paperService.getAbstract(id).subscribe(
+      response => {
+        this.abstractUrl = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(response));
+        console.log(this.abstractUrl);
+      });*/
+    this.paperService.getPaperContent(id).subscribe(
+      response => {
+        console.log(response);
+        this.contentUrl = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(response));
+        console.log(this.contentUrl);
+      });
   }
 
   uploadReview(id: number) {
