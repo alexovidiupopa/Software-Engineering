@@ -39,7 +39,7 @@ export class AuthenticationService {
 
   public getCurrentUser() {
     console.log(this.user);
-    return this.user;
+    return this.currentUserSubject.value;
   }
 
   public assignAnIdentificationTokenToUser(user: User) {
@@ -72,7 +72,7 @@ export class AuthenticationService {
 
         if (this.response.success === true) {
           this.response.type = decodedToken['type']; //s-ar putea sa trebuiasca .type
-          this.user = new User('firstname', 'lastname', 'username', 'password', this.response.type, 'idk', 1);
+          this.user = new User('firstname', 'lastname', 'username', 'password', this.response.type, 'idk', decodedToken['uid']);
           if (this.user.type === 'chair') {
             this.user.url = '/chair-home';
           } else if (this.user.type === 'pc') {
