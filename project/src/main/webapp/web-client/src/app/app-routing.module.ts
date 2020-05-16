@@ -26,6 +26,7 @@ import {PaperDetailDecisionComponent} from "./components/paper-detail-decision/p
 import {CheckoutComponent} from "./components/checkout/checkout.component";
 import {SuccessBuyComponent} from "./components/success-buy/success-buy.component";
 import {PaymentComponent} from "./components/payment/payment.component";
+import {HomeComponent} from "./components/home";
 
 
 const routes: Routes = [
@@ -46,7 +47,7 @@ const routes: Routes = [
   {path: 'review/pc/:id', component: PcReviewComponent},
   {path: 'review/assign', component: AssignReviewerComponent},
   {path: 'rooms', component: RoomsComponent},
-  {path: '', component: HomepageComponent},
+  {path: '', component: HomepageComponent}, //HomeComponent
   {path: 'chair-home', component: ChairHomeComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
