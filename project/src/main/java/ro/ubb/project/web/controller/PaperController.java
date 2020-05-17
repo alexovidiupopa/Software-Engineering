@@ -7,10 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import ro.ubb.project.core.model.Assignment;
-import ro.ubb.project.core.model.Bidding;
-import ro.ubb.project.core.model.Paper;
-import ro.ubb.project.core.model.PaperSubject;
+import ro.ubb.project.core.model.*;
 import ro.ubb.project.core.service.*;
 import ro.ubb.project.core.utils.FileHelper;
 import ro.ubb.project.web.converter.PaperConverter;
@@ -26,6 +23,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -49,6 +47,12 @@ public class PaperController {
 
     @Autowired
     private AssignmentService assignmentService;
+
+    @Autowired
+    private AuthorService authorService;
+
+    @Autowired
+    private PcMemberService pcMemberService;
 
 
     @RequestMapping(value = "/upload-abstract/meta", method = RequestMethod.POST)
@@ -102,9 +106,16 @@ public class PaperController {
         return new MessageResponse("true");
     }
 
-    @RequestMapping(value = "/review/submit/{pcid}/{pid}/{qualifier}", method = RequestMethod.POST  )
+    @RequestMapping(value = "/review/submit/{pcid}/{pid}/{qualifier}", method = RequestMethod.POST)
     MessageResponse uploadReview(@RequestParam("file") MultipartFile content, @PathVariable java.lang.Integer pid, @PathVariable java.lang.Integer pcid, @PathVariable java.lang.Integer qualifier) {
         this.assignmentService.addAssignment(new Assignment(pcid, pid, qualifier,"/src/main/resources/review" + content.getName()));
+        String reviewUrl = FileHelper.storeFile(content, "/src/main/resources/review");
+        return new MessageResponse("true");
+    }
+
+    @RequestMapping(value = "/review/submit/{pcid}/{pid}", method = RequestMethod.POST)
+    MessageResponse submitReview(@RequestParam("file") MultipartFile content, @PathVariable java.lang.Integer pid, @PathVariable java.lang.Integer pcid) {
+        this.assignmentService.addAssignment(new Assignment(pcid, pid, -1,"/src/main/resources/review" + content.getName()));
         String reviewUrl = FileHelper.storeFile(content, "/src/main/resources/review");
         return new MessageResponse("true");
     }
@@ -279,5 +290,85 @@ public class PaperController {
     @RequestMapping(value = "/papersForReviewer/{pcid}", method = RequestMethod.GET)
     ArrayList<Integer> getPapersForReviewer(@PathVariable Integer pcid) {
         return (ArrayList<Integer>) assignmentService.getPapersForReviewer(pcid);
+    }
+
+    @RequestMapping(value = "/getAllExcept/{uid}", method = RequestMethod.GET)
+    PapersResponse getAllExceptPcMember(@PathVariable Integer uid) {
+        Optional<Author> optionalAuthor = this.authorService.getAllAuthors()
+                .stream()
+                .filter(a -> a.getUid() == uid)
+                .findAny();
+        if(optionalAuthor.isEmpty()) {
+            return new PapersResponse();
+        }
+        else {
+            return new PapersResponse((ArrayList<PaperDto>) converter.convertModelsToDtos(
+                    paperService.getAllPapers()
+                            .stream()
+                            .filter(paper -> paper.getAid() == optionalAuthor.get().getAid())
+                            .collect(Collectors.toList())
+            ));
+        }
+    }
+
+    @RequestMapping(value = "/bid/paper={pid}-uid={uid}", method = RequestMethod.POST)
+    MessageResponse addBidding(@PathVariable Integer pid, @PathVariable Integer uid) {
+        Optional<PcMember> optionalPcMember = this.pcMemberService.getAllPcMembers()
+                .stream()
+                .filter(pc -> pc.getUid() == uid)
+                .findAny();
+        if(optionalPcMember.isEmpty()) {
+            return new MessageResponse("error");
+        }
+        else {
+            biddingService.addBidding(Bidding.builder()
+                    .pcid(optionalPcMember.get().getPcid())
+                    .pid(pid)
+                    .build());
+            return new MessageResponse("success");
+        }
+    }
+
+    @RequestMapping(value = "/accept/:{id}", method = RequestMethod.PUT)
+    MessageResponse acceptPaper(@PathVariable int id) {
+        try {
+            paperService.getPaperById(id).setAccepted("accepted");
+            return new MessageResponse("true");
+        } catch (RuntimeException e) {
+            return new MessageResponse("false");
+        }
+    }
+
+    @RequestMapping(value = "/reject/:{id}", method = RequestMethod.PUT)
+    MessageResponse rejectPaper(@PathVariable int id) {
+        try {
+            paperService.getPaperById(id).setAccepted("rejected");
+            return new MessageResponse("true");
+        } catch (RuntimeException e) {
+            return new MessageResponse("false");
+        }
+    }
+
+    @RequestMapping(value = "/reassign/paper={pid}", method = RequestMethod.PUT)
+    MessageResponse reassignPaper(@PathVariable int pid, @RequestBody ReviewersRequest reviewersRequest) {
+        try {
+            Paper paper = paperService.getPaperById(pid);
+            List<Assignment> assignments = this.assignmentService.getAllAssignments()
+                    .stream()
+                    .filter(a -> a.getPid() == pid)
+                    .collect(Collectors.toList());
+            assignments.forEach(a -> this.assignmentService.deleteAssignment(a));
+
+            reviewersRequest.getReviewers().forEach(reviewer -> {
+                        assignmentService.addAssignment(Assignment.builder()
+                                .pid(pid)
+                                .pcid(reviewer)
+                                .qualifier(-1)
+                                .build());});
+
+            return new MessageResponse("success");
+        } catch (RuntimeException e) {
+            return new MessageResponse("error");
+        }
     }
 }
