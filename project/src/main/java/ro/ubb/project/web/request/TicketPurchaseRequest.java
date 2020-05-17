@@ -2,7 +2,7 @@ package ro.ubb.project.web.request;
 
 import lombok.*;
 import ro.ubb.project.web.dto.PaymentDataDto;
-import ro.ubb.project.web.dto.TicketDto;
+import ro.ubb.project.web.dto.TicketsDto;
 
 import java.util.List;
 
@@ -15,6 +15,7 @@ import java.util.List;
 @Data
 public class TicketPurchaseRequest {
 
-    private List<TicketDto> tickets;
+    private List<TicketsDto> tickets;
     private PaymentDataDto paymentData;
+    private String email;
 }
