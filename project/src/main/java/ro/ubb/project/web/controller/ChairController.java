@@ -14,6 +14,6 @@ public class ChairController {
     @RequestMapping(value = "/invitePc", method = RequestMethod.POST)
     MessageResponse invitePc(@RequestBody MessageRequest emailRequest) {
         EmailSender.send(EmailSender.ORIGIN_EMAIL, emailRequest.getMessage(), EmailSender.JOIN_SUBJECT, EmailSender.REGISTER_LINK);
-        return new MessageResponse("success");
+        return new MessageResponse("true");
     }
 }

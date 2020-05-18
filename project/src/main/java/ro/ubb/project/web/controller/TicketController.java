@@ -28,7 +28,7 @@ public class TicketController {
     @RequestMapping(value = "/payCart", method = RequestMethod.POST)
     MessageResponse payCart(@RequestBody PayCartRequest paymentCart) {
         EmailSender.send(EmailSender.ORIGIN_EMAIL, paymentCart.getEmail(), "Your Purchase", paymentCart.getTickets().toString());
-        return new MessageResponse("success");
+        return new MessageResponse("true");
     }
 
     @RequestMapping(value = "/buy", method = RequestMethod.POST)
@@ -39,10 +39,10 @@ public class TicketController {
                         tickets.forEach(t -> this.ticketService.addTicket(t));
             });
             EmailSender.send(EmailSender.ORIGIN_EMAIL, ticketPurchaseRequest.getEmail(), "Your Purchase", ticketPurchaseRequest.getTickets().toString());
-            return new MessageResponse("success");
+            return new MessageResponse("true");
         }
         catch (RuntimeException e){
-            return new MessageResponse("error");
+            return new MessageResponse("false");
         }
     }
 }

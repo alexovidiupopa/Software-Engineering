@@ -5,7 +5,7 @@ import com.sendgrid.*;
 import java.io.IOException;
 
 public class EmailSender {
-    public static final String ORIGIN_EMAIL = "";
+    public static final String ORIGIN_EMAIL = "pdie2597@cs.ubbcluj.ro";
     public static final String WELCOME_SUBJECT = "Welcome to CMS!";
     public static final String JOIN_SUBJECT = "Conference Invitation";
     public static final String REGISTER_LINK = "http://localhost:4200/api/pc/signup";

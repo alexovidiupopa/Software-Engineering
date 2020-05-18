@@ -38,9 +38,9 @@ public class KeywordController {
         try {
             PaperSubject ps = converter.dtoToModel(paperSubjectDto);
             paperSubjectService.addPaperSubject(ps);
-            return new MessageResponse("success");
+            return new MessageResponse("true");
         } catch (RuntimeException e) {
-            return new MessageResponse("failed");
+            return new MessageResponse("false");
         }
     }
 }
