@@ -39,6 +39,12 @@ section {
   background-color: #3b5998;
 }
 
+.my_button_class:hover
+{
+  background-color: #4578c1;
+}
+
+
 .image {
   height: 40em;
   background-size: cover;
