@@ -15,4 +15,6 @@ public interface SessionService {
     void updateSession(Session session);
 
     Session getSessionWithId(Integer id);
+
+    int noAvailableSeats(Integer id);
 }
