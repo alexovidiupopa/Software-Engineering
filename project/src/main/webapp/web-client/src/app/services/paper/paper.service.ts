@@ -4,6 +4,8 @@ import {Observable, of} from 'rxjs';
 import {catchError, map, tap} from 'rxjs/operators';
 import {Paper} from '../../model/paper';
 import {Review} from "../../model/review";
+import {consoleTestResultHandler} from 'tslint/lib/test';
+import { Paperr } from 'src/app/model/paperr';
 import {Reviewer} from "../../model/Reviewer";
 
 @Injectable({
@@ -185,6 +187,11 @@ export class PaperService {
       );
    // return of(new File(['abstract blob'], 'abstractTestFile'));
   }
+
+  getAllPapers(): Observable<Paper[]>{
+    return this.http.get<any>(this.url, this.httpOptions).pipe( map (result => result['papers']));
+  }
+
 
   getPaperContent(paperId: number): Observable<any> {
 

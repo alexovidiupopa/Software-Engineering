@@ -1,11 +1,59 @@
-<button class="nav-item nav-link" mat-flat-button routerLink="/login">Login</button>
-<button class="nav-item nav-link" mat-flat-button routerLink="/ticket">Buy Ticket</button>
+<style>
+  #loginButton
+  {
+    margin-left: 30px;
+    margin-top: 1%;
+    z-index: 2000;
+    background-color: #3b5998;
+    color: white;
+    width: 10%
+  }
+
+  #buyTicketButton
+  {
+    position: absolute;
+    right: 30px;
+    margin-top: 1%;
+    z-index: 2000;
+    background-color: #e43d00;
+    color: white;
+    width: 10%
+  }
+
+  #registerButton
+  {
+    margin-left: 30px;
+    margin-top: 1%;
+    z-index: 2000;
+    background-color: #3b5998;
+    color: white;
+    width: 10%
+  }
+
+  #loginButton:hover
+  {
+    background-color: #4c7bcb;
+  }
+
+  #buyTicketButton:hover
+  {
+    background-color: #ff5100;
+  }
+
+  #registerButton:hover
+  {
+    background-color: #4c7bcb;
+  }
+
+</style>
+
+
+<button id="loginButton" routerLink="/login" mat-flat-button>Login</button>
+<button id="registerButton" mat-flat-button routerLink="/register">Register</button>
+<button id="buyTicketButton" mat-flat-button routerLink="/ticket">Buy Tickets</button>
+
 
 <div class="wrapper">
-  <!--  <button mat-raised-button color="warn">-->
-  <!--    <a routerLink="/login" class="btn btn-link">Login</a>-->
-  <!--  </button>-->
-
   <div class="bg1 ">
     <div class="filter"></div>
     <div class="content-center">
@@ -19,7 +67,7 @@
           <div class="fog-low">
             <div class="bg4"></div>
           </div>
-          <div class="fog-low right">
+          <div class="fog-low2">
             <div class="bg4"></div>
           </div>
         </div>
@@ -40,16 +88,6 @@
   </div>
 
 </div>
-
-<!--<button mat-raised-button color="warn">-->
-<!--  <a routerLink="/login" class="btn btn-link">Login</a>-->
-<!--</button>-->
-
-<!--<button mat-raised-button color="warn">-->
-<!--  <a routerLink="/ticket" class="btn btn-link">Buy tickets</a>-->
-<!--</button>-->
-<br>
-<br>
 
 
 
