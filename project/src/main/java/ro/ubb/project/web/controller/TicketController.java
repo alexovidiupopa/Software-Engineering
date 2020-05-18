@@ -27,7 +27,7 @@ public class TicketController {
 
     @RequestMapping(value = "/payCart", method = RequestMethod.POST)
     MessageResponse payCart(@RequestBody PayCartRequest paymentCart) {
-        EmailSender.send(EmailSender.ORIGIN_EMAIL, paymentCart.getEmail(), "Your Purchase", paymentCart.getTickets().toString());
+        EmailSender.send(EmailSender.ORIGIN_EMAIL, paymentCart.getEmail(), EmailSender.PURCHASE_SUBJECT, paymentCart.getTickets().toString());
         return new MessageResponse("true");
     }
 
@@ -38,7 +38,7 @@ public class TicketController {
                         List<Ticket> tickets = converter.dtoToModel(ticketsDto);
                         tickets.forEach(t -> this.ticketService.addTicket(t));
             });
-            EmailSender.send(EmailSender.ORIGIN_EMAIL, ticketPurchaseRequest.getEmail(), "Your Purchase", ticketPurchaseRequest.getTickets().toString());
+            EmailSender.send(EmailSender.ORIGIN_EMAIL, ticketPurchaseRequest.getEmail(), EmailSender.PURCHASE_SUBJECT, ticketPurchaseRequest.getTickets().toString());
             return new MessageResponse("true");
         }
         catch (RuntimeException e){
