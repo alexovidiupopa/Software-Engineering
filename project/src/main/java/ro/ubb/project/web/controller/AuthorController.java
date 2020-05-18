@@ -63,7 +63,7 @@ public class AuthorController {
                         .build()
         ));
         EmailSender.send(EmailSender.ORIGIN_EMAIL, registerRequest.getEmail(), EmailSender.WELCOME_SUBJECT, EmailSender.LOGIN_LINK);
-        return new MessageResponse("success");
+        return new MessageResponse("true");
     }
 
     @RequestMapping(value = "/get-for-session/{id}", method = RequestMethod.GET)
@@ -78,7 +78,8 @@ public class AuthorController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     AuthorDto getAuthor(@PathVariable Integer id) {
-        Author author = authorService.getAuthorById(id);
+        Author author = authorService.getAuthorByUid(id);
+        //Author author = authorService.getAuthorById(id);
         return authorConverter.modelToDto(author);
     }
 }

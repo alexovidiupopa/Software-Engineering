@@ -64,8 +64,9 @@ public class PcMemberController {
 
     @RequestMapping(value = "/getPcMemberById", method = RequestMethod.GET)
     public PcMemberResponse getPcMemberById(@RequestBody GetPcMemberByIdRequest getPcMemberByIdRequest) {
-        Optional<PcMember> pcMember = this.pcMemberService.getPcMemberById(getPcMemberByIdRequest.getPcid());
-        return pcMember.map(member -> new PcMemberResponse(new PcMemberConverter().modelToDto(member))).orElseGet(PcMemberResponse::new);
+        int pcId = this.pcMemberService.getPcIdByUid(getPcMemberByIdRequest.getPcid());
+        //Optional<PcMember> pcMember = this.pcMemberService.getPcMemberById(pcId);
+        return new PcMemberResponse(new PcMemberDto(pcId, getPcMemberByIdRequest.getPcid()));
     }
 
     @RequestMapping(value = "/pcToChair", method = RequestMethod.PUT)
@@ -76,9 +77,9 @@ public class PcMemberController {
                     ChairDto.builder()
                             .uid(pcMember.get().getUid())
                             .build()));
-            return new MessageResponse("success");
+            return new MessageResponse("true");
         } else {
-            return new MessageResponse("error");
+            return new MessageResponse("false");
         }
     }
 
@@ -104,6 +105,6 @@ public class PcMemberController {
                         .build()
         ));
         EmailSender.send(EmailSender.ORIGIN_EMAIL, registerRequest.getEmail(), EmailSender.WELCOME_SUBJECT, EmailSender.LOGIN_LINK);
-        return new MessageResponse("success");
+        return new MessageResponse("true");
     }
 }

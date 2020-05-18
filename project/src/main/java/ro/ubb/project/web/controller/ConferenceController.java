@@ -57,7 +57,7 @@ public class ConferenceController {
         }
 
         log.trace("created scheduler={}", scheduler);
-        return new MessageResponse("success");
+        return new MessageResponse("true");
     }
 
     @RequestMapping(value = "/getCurrentPhase", method = RequestMethod.GET)
@@ -69,6 +69,6 @@ public class ConferenceController {
     public MessageResponse updateDeadline(@RequestBody MessageRequest newDeadline) {
         DateTimeFormatter dtf = DateTimeFormat.forPattern("MM/DD/YYYY HH:mm:ss");
         scheduler.updateCurrentDeadline(dtf.parseDateTime(newDeadline.getMessage()));
-        return new MessageResponse("success");
+        return new MessageResponse("true");
     }
 }

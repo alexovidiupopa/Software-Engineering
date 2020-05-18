@@ -10,10 +10,13 @@ import org.springframework.web.multipart.MultipartFile;
 import ro.ubb.project.core.model.*;
 import ro.ubb.project.core.service.*;
 import ro.ubb.project.core.utils.FileHelper;
+import ro.ubb.project.web.converter.AssignmentConverter;
 import ro.ubb.project.web.converter.PaperConverter;
+import ro.ubb.project.web.dto.AssignmentDto;
 import ro.ubb.project.web.dto.PaperDecisionDto;
 import ro.ubb.project.web.dto.PaperDto;
 import ro.ubb.project.web.request.AbstractRequest;
+import ro.ubb.project.web.request.BiddingRequest;
 import ro.ubb.project.web.request.PaperRequest;
 import ro.ubb.project.web.request.ReviewersRequest;
 import ro.ubb.project.web.response.MessageResponse;
@@ -141,7 +144,7 @@ public class PaperController {
         try {
             paperService.getPaperById(paperDecisionDto.getPid())
                     .setAccepted(paperDecisionDto.getDecision());
-            return new MessageResponse("success");
+            return new MessageResponse("true");
         } catch (RuntimeException e) {
             e.printStackTrace();
             return new MessageResponse("failed");
@@ -216,6 +219,13 @@ public class PaperController {
         return new MessageResponse(paperService.getPaperById(id).getContenturl());
     }
 
+    @RequestMapping(value = "/has-content/{id}",method = RequestMethod.GET)
+    MessageResponse hasContent(@PathVariable Integer id){
+        if (paperService.getPaperById(id).getContenturl()==null)
+            return new MessageResponse("false");
+        return new MessageResponse("true");
+    }
+
     @RequestMapping(value = "/get-presentation/{id}", method = RequestMethod.GET)
     MessageResponse getPresentation(@PathVariable Integer id) {
         return new MessageResponse(paperService.getPaperById(id).getPresentationurl());
@@ -244,13 +254,22 @@ public class PaperController {
                 .body(file);
     }
 
-    @RequestMapping(value = "/bid/paper={pid}-pc={pcid}", method = RequestMethod.POST)
-    MessageResponse bid(@PathVariable Integer pid, @PathVariable Integer pcid) {
-        biddingService.addBidding(Bidding.builder()
-                .pcid(pcid)
-                .pid(pid)
-                .build());
-        return new MessageResponse("success");
+    @RequestMapping(value = "/bid", method = RequestMethod.POST)
+    MessageResponse bid(@RequestBody BiddingRequest biddingRequest) {
+        int userId = biddingRequest.getUserId();
+        int pcid = pcMemberService.getPcIdByUid(userId);
+        for (int pid : biddingRequest.getAccepted()){
+            try{
+                biddingService.addBidding(Bidding.builder()
+                        .pcid(pcid)
+                        .pid(pid)
+                        .build());
+            }
+            catch (RuntimeException e){
+                return new MessageResponse("false");
+            }
+        }
+        return new MessageResponse("true");
     }
 
     @RequestMapping(value = "/assignToReview", method = RequestMethod.POST)
@@ -265,7 +284,7 @@ public class PaperController {
                             .build());
                 }
         );
-        return new MessageResponse("success");
+        return new MessageResponse("true");
     }
 
     @RequestMapping(value = "/reviewersForPaper/{pid}", method = RequestMethod.GET)
@@ -297,25 +316,8 @@ public class PaperController {
         }
     }
 
-    @RequestMapping(value = "/bid/paper={pid}-uid={uid}", method = RequestMethod.POST)
-    MessageResponse addBidding(@PathVariable Integer pid, @PathVariable Integer uid) {
-        Optional<PcMember> optionalPcMember = this.pcMemberService.getAllPcMembers()
-                .stream()
-                .filter(pc -> pc.getUid() == uid)
-                .findAny();
-        if(optionalPcMember.isEmpty()) {
-            return new MessageResponse("error");
-        }
-        else {
-            biddingService.addBidding(Bidding.builder()
-                    .pcid(optionalPcMember.get().getPcid())
-                    .pid(pid)
-                    .build());
-            return new MessageResponse("success");
-        }
-    }
 
-    @RequestMapping(value = "/accept/:{id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/accept/{id}", method = RequestMethod.PUT)
     MessageResponse acceptPaper(@PathVariable int id) {
         try {
             paperService.getPaperById(id).setAccepted("accepted");
@@ -325,7 +327,7 @@ public class PaperController {
         }
     }
 
-    @RequestMapping(value = "/reject/:{id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/reject/{id}", method = RequestMethod.PUT)
     MessageResponse rejectPaper(@PathVariable int id) {
         try {
             paperService.getPaperById(id).setAccepted("rejected");
@@ -352,9 +354,15 @@ public class PaperController {
                                 .qualifier(-1)
                                 .build());});
 
-            return new MessageResponse("success");
+            return new MessageResponse("true");
         } catch (RuntimeException e) {
-            return new MessageResponse("error");
+            return new MessageResponse("false");
         }
+    }
+
+    @RequestMapping(value = "/reviews", method = RequestMethod.GET)
+    ArrayList<AssignmentDto> getAllReviews(){
+        AssignmentConverter converter = new AssignmentConverter();
+        return (ArrayList<AssignmentDto>) converter.convertModelsToDtos(assignmentService.getAllAssignments());
     }
 }

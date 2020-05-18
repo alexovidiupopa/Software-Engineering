@@ -17,4 +17,6 @@ public interface AuthorService {
     Author getAuthorById(int id);
 
     boolean isAuthor(int uid);
+
+    Author getAuthorByUid(Integer id);
 }
