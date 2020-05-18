@@ -22,10 +22,11 @@ import {StructureConferenceComponent} from './components/structure-conference/st
 import {PcReviewComponent} from './components/pc-review/pc-review.component';
 import {RoomsComponent} from './components/rooms/rooms.component';
 import {AssignReviewerComponent} from './components/assign-reviewer/assign-reviewer.component';
-import {PaperDetailDecisionComponent} from "./components/paper-detail-decision/paper-detail-decision.component";
-import {CheckoutComponent} from "./components/checkout/checkout.component";
-import {SuccessBuyComponent} from "./components/success-buy/success-buy.component";
-import {PaymentComponent} from "./components/payment/payment.component";
+import {PaperDetailDecisionComponent} from './components/paper-detail-decision/paper-detail-decision.component';
+import {CheckoutComponent} from './components/checkout/checkout.component';
+import {SuccessBuyComponent} from './components/success-buy/success-buy.component';
+import {PaymentComponent} from './components/payment/payment.component';
+import {ManageSessionComponent} from './components/manage-session/manage-session.component';
 
 
 const routes: Routes = [
@@ -56,6 +57,7 @@ const routes: Routes = [
   {path: 'paper/all', component: AuthorPapersComponent},
   {path: 'paper/detail/:id', component: PaperDetailComponent},
   {path: 'paper/decision/:id', component: PaperDetailDecisionComponent},
+  {path: 'session/manage/:id', component: ManageSessionComponent},
   // otherwise redirect to home
   {path: '**', redirectTo: ''}
 ];

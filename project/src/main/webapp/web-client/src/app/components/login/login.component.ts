@@ -1,10 +1,11 @@
+/* tslint:disable:no-string-literal */
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {first} from 'rxjs/operators';
 import {AuthenticationService} from '../../services/login';
 
-@Component({templateUrl: 'login.component.html'})
+@Component({templateUrl: 'login.component.html', styleUrls: ['./login.component.css']})
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   loading = false;

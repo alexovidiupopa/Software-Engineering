@@ -1,32 +1,29 @@
-<app-header></app-header>
+<div class="header">
+  <button id="logoutButton"  routerLink="/" mat-flat-button><mat-icon>logout</mat-icon></button>
+  <h1 id = "title" >Chair Homepage</h1>
+</div>
 
 
-<button mat-raised-button color="warn">
-  <a routerLink="/home" class="btn btn-link">Home</a>
-</button>
-<p>Congrats, you are a chair</p>
-
-
-<button mat-raised-button color="warn" class="my_button_class" style="position:absolute; left:40%;bottom:35%">
-  <a routerLink="/create-conference" class="btn btn-link">Create conference</a>
+<button mat-raised-button color="warn" class="my_button_class" routerLink="/create-conference"  style="position:absolute; left:40%;bottom:35%">
+Create conference
   <!-- fixme create conference should only show if there are no conferences-->
 </button>
 
-<button mat-raised-button color="warn" class="my_button_class" style="position:absolute; left:40%;bottom:59%">
+<button mat-raised-button color="warn" class="my_button_class" routerLink="/manage-pcs" style="position:absolute; left:40%;bottom:59%">
   <!--fixme those should show only if there is a conference-->
-  <a routerLink="/manage-pcs" class="btn btn-link">Manage PCs</a>
+Manage PCs
 </button>
 
-<button mat-raised-button color="warn" class="my_button_class" style="position:absolute; left:23%; bottom: 35%">
-  <a routerLink="/conference/edit" class="btn btn-link">Conference/edit</a>
+<button mat-raised-button color="warn" routerLink="/conference/edit" class="my_button_class" style="position:absolute; left:23%; bottom: 35%">
+Conference/edit
 </button>
 
-<button mat-raised-button color="warn" class="my_button_class" style="position:absolute; left:57%; bottom: 35%">
-  <a routerLink="/conference/structure" class="btn btn-link">Conference structure</a>
+<button mat-raised-button color="warn" class="my_button_class" routerLink="/conference/structure" style="position:absolute; left:57%; bottom: 35%">
+Conference structure
 </button>
 
-<button mat-raised-button color="warn" class="my_button_class" style="position:absolute; left:40%; bottom: 11%">
-  <a routerLink="/review/pc" class="btn btn-link">Review PC</a>
+<button mat-raised-button color="warn" class="my_button_class" routerLink="/review/pc" style="position:absolute; left:40%; bottom: 11%">
+Review PC
 </button>
 
 

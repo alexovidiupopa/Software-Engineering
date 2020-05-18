@@ -50,6 +50,7 @@ import {PaperDetailDecisionComponent} from './components/paper-detail-decision/p
 import {CheckoutComponent} from "./components/checkout/checkout.component";
 import {SuccessBuyComponent} from "./components/success-buy/success-buy.component";
 import {PaymentComponent} from "./components/payment/payment.component";
+import { ManageSessionComponent } from './components/manage-session/manage-session.component';
 
 @NgModule({
   imports: [
@@ -111,6 +112,7 @@ import {PaymentComponent} from "./components/payment/payment.component";
     CheckoutComponent,
     SuccessBuyComponent,
     PaymentComponent,
+    ManageSessionComponent,
   ],
   bootstrap: [AppComponent]
 })
