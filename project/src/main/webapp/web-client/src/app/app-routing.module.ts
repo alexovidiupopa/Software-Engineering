@@ -27,39 +27,37 @@ import {CheckoutComponent} from './components/checkout/checkout.component';
 import {SuccessBuyComponent} from './components/success-buy/success-buy.component';
 import {PaymentComponent} from './components/payment/payment.component';
 import {ManageSessionComponent} from './components/manage-session/manage-session.component';
-//import {HomeComponent} from "./components/home";
-
+import {AuthGuard} from './helper';
 
 
 const routes: Routes = [
-  {path: 'pc/detail/:id', component: PcDetailComponent},
-  {path: 'create-conference', component: CreateConferenceComponent},
-  {path: 'manage-pcs', component: ManagePCComponent},
-  // {path: 'home', component: HomeComponent, canActivate: [AuthGuard]}, //fixme AuthGuard should be enabled
-  {path: 'pc-home', component: PcHomeComponent},
-  {path: 'author-home', component: AuthorHomeComponent},
-  {path: 'reviews/all', component: AllReviewsComponent},
-  {path: 'bid', component: BiddingComponent},
+  {path: 'pc/detail/:id', component: PcDetailComponent, canActivate: [AuthGuard]},
+  {path: 'create-conference', component: CreateConferenceComponent, canActivate: [AuthGuard]},
+  {path: 'manage-pcs', component: ManagePCComponent, canActivate: [AuthGuard]},
+  {path: 'pc-home', component: PcHomeComponent, canActivate: [AuthGuard]},
+  {path: 'author-home', component: AuthorHomeComponent, canActivate: [AuthGuard]},
+  {path: 'reviews/all', component: AllReviewsComponent, canActivate: [AuthGuard]},
+  {path: 'bid', component: BiddingComponent, canActivate: [AuthGuard]},
   {path: 'ticket', component: BuyTicketComponent},
   {path: 'checkout', component: CheckoutComponent},
   {path: 'pay/safe', component: PaymentComponent},
   {path: 'pay/end', component: SuccessBuyComponent},
-  {path: 'conference/edit', component: UpdateConferenceComponent},
-  {path: 'conference/structure', component: StructureConferenceComponent},
-  {path: 'review/pc/:id', component: PcReviewComponent},
-  {path: 'review/assign', component: AssignReviewerComponent},
-  {path: 'rooms', component: RoomsComponent},
-  {path: '', component: HomepageComponent}, //HomeComponent
-  {path: 'chair-home', component: ChairHomeComponent},
+  {path: 'conference/edit', component: UpdateConferenceComponent, canActivate: [AuthGuard]},
+  {path: 'conference/structure', component: StructureConferenceComponent, canActivate: [AuthGuard]},
+  {path: 'review/pc/:id', component: PcReviewComponent, canActivate: [AuthGuard]},
+  {path: 'review/assign', component: AssignReviewerComponent, canActivate: [AuthGuard]},
+  {path: 'rooms', component: RoomsComponent, canActivate: [AuthGuard]},
+  {path: '', component: HomepageComponent},
+  {path: 'chair-home', component: ChairHomeComponent, canActivate: [AuthGuard]},
   {path: 'login', component: LoginComponent},
-  {path: 'register', component: RegisterComponent},
+  // {path: 'register', component: RegisterComponent},
   {path: 'author-register', component: AuthorRegisterComponent},
   {path: 'pc-register', component: PcRegisterComponent},
-  {path: 'paper/upload', component: UploadAbstractComponent},
-  {path: 'paper/all', component: AuthorPapersComponent},
-  {path: 'paper/detail/:id', component: PaperDetailComponent},
-  {path: 'paper/decision/:id', component: PaperDetailDecisionComponent},
-  {path: 'session/manage/:id', component: ManageSessionComponent},
+  {path: 'paper/upload', component: UploadAbstractComponent, canActivate: [AuthGuard]},
+  {path: 'paper/all', component: AuthorPapersComponent, canActivate: [AuthGuard]},
+  {path: 'paper/detail/:id', component: PaperDetailComponent, canActivate: [AuthGuard]},
+  {path: 'paper/decision/:id', component: PaperDetailDecisionComponent, canActivate: [AuthGuard]},
+  {path: 'session/manage/:id', component: ManageSessionComponent, canActivate: [AuthGuard]},
   // otherwise redirect to home
   {path: '**', redirectTo: ''}
 ];

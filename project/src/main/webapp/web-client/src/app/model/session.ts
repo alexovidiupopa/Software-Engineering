@@ -1,4 +1,4 @@
-export class Session {
+export class Session { // remove this, merging into Cristi's
   name: string;
   price: number;
   id: number;

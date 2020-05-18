@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Sesssion} from '../../model/sesssion';
@@ -16,9 +16,10 @@ export class SessionService {
   private url = 'http://localhost:8080/api/session';
 
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+  }
 
   getSessions(): Observable<Sesssion[]> {
-      return this.http.get<any>(this.url, this.httpOptions).pipe( map(result => result["papers"]) );
+    return this.http.get<any>(this.url, this.httpOptions).pipe(map(result => result['papers']));
   }
 }

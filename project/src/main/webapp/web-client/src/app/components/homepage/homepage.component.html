@@ -1,6 +1,5 @@
 <style>
-  #loginButton
-  {
+  #loginButton {
     margin-left: 30px;
     margin-top: 1%;
     z-index: 2000;
@@ -9,8 +8,7 @@
     width: 10%
   }
 
-  #buyTicketButton
-  {
+  #buyTicketButton {
     position: absolute;
     right: 30px;
     margin-top: 1%;
@@ -20,8 +18,7 @@
     width: 10%
   }
 
-  #registerButton
-  {
+  #registerButton {
     margin-left: 30px;
     margin-top: 1%;
     z-index: 2000;
@@ -30,26 +27,23 @@
     width: 10%
   }
 
-  #loginButton:hover
-  {
+  #loginButton:hover {
     background-color: #4c7bcb;
   }
 
-  #buyTicketButton:hover
-  {
+  #buyTicketButton:hover {
     background-color: #ff5100;
   }
 
-  #registerButton:hover
-  {
+  #registerButton:hover {
     background-color: #4c7bcb;
   }
 
 </style>
 
 
-<button id="loginButton" routerLink="/login" mat-flat-button>Login</button>
-<button id="registerButton" mat-flat-button routerLink="/register">Register</button>
+<button id="loginButton" mat-flat-button routerLink="/login">Login</button>
+<button id="registerButton" mat-flat-button routerLink="/author-register">Register</button>
 <button id="buyTicketButton" mat-flat-button routerLink="/ticket">Buy Tickets</button>
 
 

@@ -3,7 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {User} from '../../model/user';
-import {LoginUserBody} from "../../model/LoginUserBody";
+import {LoginUserBody} from '../../model/LoginUserBody';
 import * as jwt_decode from 'jwt-decode';
 
 // tslint:disable-next-line:class-name
@@ -43,27 +43,16 @@ export class AuthenticationService {
   }
 
   public assignAnIdentificationTokenToUser(user: User) {
-    let token: string = user.makeid();
+    let token: string = user.makeId();
     while (localStorage.getItem(token)) {
-      token = user.makeid();
+      token = user.makeId();
     }
     user.setToken(token);
   }
 
-
-  private decode_JWT_token(token: any) {
-    const decodedToken = jwt_decode(token);
-    return decodedToken;
-  }
-
   login(username, password) {
-
-
-    //s-ar putea sa nu trebuiasca json.stringify dar sunte 99% sigur ca trebuie
-
     return this.http.post<request>(this.url + '/login', JSON.stringify(new LoginUserBody(username, password)), {
       headers: new HttpHeaders({'Content-Type': 'application/json'})
-
     }).pipe(
       map(response => {
         const decodedToken = this.decode_JWT_token(response['message']);
@@ -71,7 +60,7 @@ export class AuthenticationService {
         this.response.success = decodedToken['success'];
 
         if (this.response.success === true) {
-          this.response.type = decodedToken['type']; //s-ar putea sa trebuiasca .type
+          this.response.type = decodedToken['type'];
           this.user = new User('firstname', 'lastname', 'username', 'password', this.response.type, 'idk', decodedToken['uid']);
           if (this.user.type === 'chair') {
             this.user.url = '/chair-home';
@@ -95,6 +84,11 @@ export class AuthenticationService {
   logout() {
     localStorage.removeItem(this.user.getToken());
     this.currentUserSubject.next(null);
+  }
+
+  private decode_JWT_token(token: any) {
+    const decodedToken = jwt_decode(token);
+    return decodedToken;
   }
 }
 

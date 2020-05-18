@@ -1,15 +1,14 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {Observable} from "rxjs";
-import {Paper} from "../../model/paper";
-import {map} from "rxjs/operators";
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Observable, of} from 'rxjs';
+import {Paper} from '../../model/paper';
+import {catchError, map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BiddingService {
-  //private url = 'http://localhost:8080/api';  // URL to web api
-  private url = 'http://demo5157520.mockable.io/api'
+  private url = 'http://localhost:8080/api';  // URL to web api
   private httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
 
@@ -20,13 +19,25 @@ export class BiddingService {
 
   getAllPapers(userId: number): Observable<Paper[]> {
     const url = `${this.url}/paper/getAllExcept/${userId}`;
-    return this.http.get<Paper[]>(url, this.httpOptions).pipe(map(response => response["papers"]));
+    return this.http.get<Paper[]>(url, this.httpOptions).pipe(map(response => response['papers']));
   }
 
-  acceptPapers(userId: number, accepted: number[]) {
-    for (let paper in accepted) {
-      const url = `${this.url}/paper/bid/paper=${paper}-uid=${userId}`;
-      this.http.post(url, this.httpOptions);
-    }
+  acceptPapers(userId: number, accepted: number[]): Observable<boolean> {
+    return this.http.post<boolean>(this.url + '/paper/bid', {userId, accepted}, this.httpOptions)
+      .pipe(
+        map(result => result['success']),
+        catchError(this.handleError<boolean>('acceptPapers'))
+      );
+  }
+
+  private handleError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+
+      // TODO: send the error to remote logging infrastructure
+      console.error(error); // log to console instead
+
+      // Let the app keep running by returning an empty result.
+      return of(result as T);
+    };
   }
 }

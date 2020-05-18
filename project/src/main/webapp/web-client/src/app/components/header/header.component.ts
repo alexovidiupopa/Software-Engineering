@@ -29,17 +29,6 @@ export class HeaderComponent implements OnInit {
     this.homepage = this.authenticationService.getCurrentUser().getHomepageUrl();
   }
 
-  private setUserType() {
-    if (this.currentUser.type === 'chair') {
-      this.currentUserType = UserType.CHAIR;
-    } else if (this.currentUser.type === 'author') {
-      this.currentUserType = UserType.AUTHOR;
-    } else {
-      this.currentUserType = UserType.PC;
-    }
-    // this.currentUserType = UserType.AUTHOR;
-  }
-
   isAuthor() {
     return this.currentUserType === UserType.AUTHOR;
   }
@@ -65,21 +54,6 @@ export class HeaderComponent implements OnInit {
     this.router.navigateByUrl(this.homepage);
   }
 
-  private setConferencePhase() {
-    this.conferenceService.getCurrentPhase().subscribe(result => {
-      if (result === 'preliminary') {
-        this.currentPhase = ConferencePhase.PRELIMINARY;
-      } else if (result === 'first') {
-        this.currentPhase = ConferencePhase.FIRST;
-      } else if (result === 'second') {
-        this.currentPhase = ConferencePhase.SECOND;
-      } else {
-        this.currentPhase = ConferencePhase.THIRD;
-      }
-    });
-    // this.currentPhase = ConferencePhase.FIRST;
-  }
-
   isPreliminaryPhase() {
     return this.currentPhase === ConferencePhase.PRELIMINARY;
   }
@@ -94,5 +68,29 @@ export class HeaderComponent implements OnInit {
 
   isThirdPhase() {
     return this.currentPhase === ConferencePhase.THIRD;
+  }
+
+  private setUserType() {
+    if (this.currentUser.type === 'chair') {
+      this.currentUserType = UserType.CHAIR;
+    } else if (this.currentUser.type === 'author') {
+      this.currentUserType = UserType.AUTHOR;
+    } else {
+      this.currentUserType = UserType.PC;
+    }
+  }
+
+  private setConferencePhase() {
+    this.conferenceService.getCurrentPhase().subscribe(result => {
+      if (result === 'preliminary') {
+        this.currentPhase = ConferencePhase.PRELIMINARY;
+      } else if (result === 'first') {
+        this.currentPhase = ConferencePhase.FIRST;
+      } else if (result === 'second') {
+        this.currentPhase = ConferencePhase.SECOND;
+      } else {
+        this.currentPhase = ConferencePhase.THIRD;
+      }
+    });
   }
 }

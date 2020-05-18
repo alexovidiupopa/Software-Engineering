@@ -26,11 +26,11 @@ export class CreateConferenceComponent implements OnInit {
   secondPhaseDeadline: moment.Moment;
   thirdPhaseDeadline: moment.Moment;
   validData: boolean;
-  conferenceFailed: boolean = false;
+  conferenceFailed = false;
   private conferenceName: string;
 
   constructor(private atp: AmazingTimePickerService, private conferenceService: ConferenceService, private router: Router) {
-    // Set the minimum to January 1st 20 years in the past and December 31st a year in the future.
+    // Set the minimum to January 1st 20 years in the past and December 31st a year in the future. // fixme who's this?
     const currentYear = new Date().getFullYear();
     this.minDate = moment().toDate();
     this.validData = true;

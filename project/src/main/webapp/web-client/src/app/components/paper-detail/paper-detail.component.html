@@ -36,13 +36,12 @@
         </form>
       </section>
     </mat-card-content>
-    <a [href]="abstractUrl" download="abstract">
-      <button (click)="downloadAbstract()" class="abstract-button" color="primary" mat-raised-button>
-
-
+    <a [href]="abstractUrl" download="{{abstractFilename}}">
+      <button class="abstract-button" color="primary" mat-raised-button>
         See uploaded abstract
       </button>
     </a>
+
     <div>
       <button (click)="uploadAbstract()" class="abstract-button" color="warn" mat-raised-button>
         Update abstract
@@ -52,9 +51,8 @@
              multiple="multiple" name="abstractFileUpload"
              style="display:none;" type="file"/>
     </div>
-    <a [href]="paperContentUrl" download="content">
-      <button (click)="downloadPaperContent()" *ngIf="paperUploaded" class="abstract-button" color="primary"
-              mat-raised-button>
+    <a [href]="paperContentUrl" download="{{paperFilename}}">
+      <button class="abstract-button" color="primary" mat-raised-button>
         See uploaded paper
       </button>
     </a>

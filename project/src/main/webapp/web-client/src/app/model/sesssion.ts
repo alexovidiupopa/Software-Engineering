@@ -1,10 +1,9 @@
-import {Time} from '@angular/common';
-
 export class Sesssion {
   id: number;
   time: number;
   room: number;
   supervisor: number;
+
   constructor(id: number, time: number, room: number, supervisor: number) {
     this.time = time;
     this.room = room;
