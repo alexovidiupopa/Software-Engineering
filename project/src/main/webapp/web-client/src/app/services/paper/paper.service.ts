@@ -3,10 +3,9 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
 import {catchError, map, tap} from 'rxjs/operators';
 import {Paper} from '../../model/paper';
-import {Review} from "../../model/review";
-import {consoleTestResultHandler} from 'tslint/lib/test';
-import { Paperr } from 'src/app/model/paperr';
-import {Reviewer} from "../../model/Reviewer";
+import {Review} from '../../model/review';
+import {Reviewer} from '../../model/Reviewer';
+import {PaperReviewerPair} from '../../model/PaperReviewerPair';
 
 @Injectable({
   providedIn: 'root'
@@ -17,21 +16,18 @@ export class PaperService {
   };
   httpFileOptions = {headers: new HttpHeaders({'Content-Type': 'multipart/form-data'})};
   private url = 'http://localhost:8080/api/paper';
-  private responseOptions={
-    headers: new HttpHeaders({ 'Content-Type':'application/pdf'})
-  };
 
   constructor(
     private http: HttpClient) {
   }
 
-  uploadAbstractProper(abstract: File): Observable<boolean> {
-    const formData = new FormData();
-    formData.append('file', abstract);
-    return this.http.put<boolean>(this.url + '/upload-abstract/abstract', formData)
+
+  private getAllReviews(): Observable<Review[]> {
+    const url = this.url + '/all-reviews';
+    return this.http.get<Review[]>(url, this.httpOptions)
       .pipe(
-        map(result => Boolean(result['message'])),
-        catchError(this.handleError<boolean>('uploadAbstractProper'))
+        map(result => result['reviews']),
+        catchError(this.handleError<Review[]>('getAllReviews', []))
       );
   }
 
@@ -41,7 +37,7 @@ export class PaperService {
       authorId, paperName, paperAuthors, paperKeywords, filename
     }, this.httpOptions)
       .pipe(
-        map(result =>Boolean(result['message'])),
+        map(result => Boolean(result['message'])),
         catchError(this.handleError<boolean>('uploadAbstractMetadata'))
       );
   }
@@ -66,29 +62,10 @@ export class PaperService {
         }
       });
     return of(false);
-    // return this.http.post<boolean>(this.url + '/upload-abstract', {
-    //   authorId, paperName, paperAuthors, paperKeywords, abstract
-    // }, this.httpOptions)
-    //   .pipe(
-    //     map(result => result['message']),
-    //     catchError(this.handleError<boolean>('uploadAbstract'))
-    //   );
   }
 
-
-  // uploadCompletePaper(paperId: number, paper: File): Observable<boolean> {
-  //   return this.http.put<boolean>(this.url + '/upload-paper', {
-  //     paperId, paper
-  //   }, this.httpOptions)
-  //     .pipe(
-  //       map(result => result['message']),
-  //       catchError(this.handleError<boolean>('uploadCompletePaper'))
-  //     );
-  // }
-
   getPapersForAuthor(authorId: number): Observable<Paper[]> {
-    const tempUrl = 'http://demo4608640.mockable.io/api/paper/getPapers/1';
-    return this.http.get<Paper[]>(tempUrl, this.httpOptions) // fixme temp url
+    return this.http.get<Paper[]>(this.url + '/getPapers/' + authorId, this.httpOptions)
       .pipe(
         map(result => result['papers']),
         tap(result => console.log(result)),
@@ -106,6 +83,162 @@ export class PaperService {
         catchError(this.handleError<boolean>('updatePaperMetadata'))
       );
   }
+
+  // todo test me potentially dangerous
+  updatePaper(paperId: number, paperName: string, paperAuthors: string,
+              paperKeywords: string, abstract: File, paper: File): Observable<boolean> {
+
+    // this.updatePaperMetadata(paperId, paperName, paperAuthors, paperKeywords)
+    //   .subscribe(metaResult => {
+    //     if (metaResult === true) {
+    //       this.updatePaperAbstract(abstract)
+    //         .subscribe(abstractResult => {
+    //           if (abstractResult === true) {
+    //             this.updatePaperContent(paper)
+    //               .subscribe(contentResult => {
+    //                 if (contentResult === true) {
+    //                   return of(true);
+    //                 } else {
+    //                   return of(false);
+    //                 }
+    //               });
+    //           } else {
+    //             return of(false);
+    //           }
+    //         });
+    //     } else {
+    //       return of(false);
+    //     }
+    //   });
+    // return of(false);
+    this.updatePaperMetadata(paperId, paperName, paperAuthors, paperKeywords)
+      .subscribe(metaResult => {
+        if (metaResult === true) {
+          if (abstract !== null && paper !== null) {
+            this.updatePaperAbstract(abstract)
+              .subscribe(abstractResult => {
+                if (abstractResult === true) {
+                  this.updatePaperContent(paper)
+                    .subscribe(contentResult => {
+                      if (contentResult === true) {
+                        return of(true);
+                      } else {
+                        return of(false);
+                      }
+                    });
+                } else {
+                  return of(false);
+                }
+              });
+          } else if (abstract !== null && paper == null) {
+            this.updatePaperAbstract(abstract)
+              .subscribe(abstractResult => {
+                if (abstractResult === true) {
+                  return of(true);
+                } else {
+                  return of(false);
+                }
+              });
+          } else if (abstract == null && paper !== null) {
+            this.updatePaperContent(paper)
+              .subscribe(contentResult => {
+                if (contentResult === true) {
+                  return of(true);
+                } else {
+                  return of(false);
+                }
+              });
+          } else {
+            return of(true);
+          }
+        } else {
+          return of(false);
+        }
+      });
+    return of(false);
+  }
+
+  getPaperById(id: number): Observable<Paper> {
+    return this.http.get<Paper>(this.url + '/' + id, this.httpOptions)
+      .pipe(
+        tap(result => console.log(result)),
+        catchError(this.handleError<Paper>('getPapersForAuthor'))
+      );
+  }
+
+  getAbstract(paperId: number): Observable<any> {
+    return this.http.get<any>(this.url + '/abstract/' + paperId, this.httpOptions)
+      .pipe(
+        catchError(this.handleError<File>('getPapersForAuthor'))
+      );
+  }
+
+
+  getPaperContent(paperId: number): Observable<any> {
+    return this.http.get<any>(this.url + '/content/' + paperId, this.httpOptions)
+      .pipe(
+        catchError(this.handleError<any>('getPaperContent '))
+      );
+  }
+
+  getAllPapers(): Observable<Paper[]> {
+    const url = this.url + '/papers';
+    return this.http.get<Paper[]>(url, this.httpOptions).pipe(
+      map(result => result['papers']),
+      catchError(this.handleError<Paper[]>('getAllPapers', []))
+    );
+
+  }
+
+  getAllReviewersForPaper(paperId: number): Observable<Reviewer[]> {
+    const url = this.url + '/for-paper/' + paperId;
+    return this.http.get<Reviewer[]>(url, this.httpFileOptions).pipe(
+      map(result => result['reviewers']),
+      catchError(this.handleError<Reviewer[]>('getAllReviewersForPaper', []))
+    );
+
+  }
+
+  assignReviewersToPaper(paperReviewerPair: PaperReviewerPair): Observable<boolean> {
+    // fixme URL potentially unsafe. maybe change to other, could be overwritten
+    return this.http.post(this.url + '/review', paperReviewerPair, this.httpOptions).pipe(
+      map(result => result['success']),
+      catchError(this.handleError<boolean>('assignReviewersToPaper'))
+    );
+  }
+
+  getAllPapersForReviewer(pcId: number): Observable<Paper[]> {
+    const url = this.url + '/for-review/' + pcId;
+    return this.http.get<Paper[]>(url, this.httpOptions)
+      .pipe(
+        map(result => {
+          let papers: Paper[] = result['papers'];
+          // todo check if there is any leaking point, which needs the files no longer given here
+          // for (let paper of papers) {
+          //   this.getAbstract(paper.id).subscribe(
+          //     result => paper.abstract = result
+          //   );
+          //   this.getPaperContent(paper.id).subscribe(
+          //     result => paper.paperContent = result
+          //   );
+          // }
+          return papers;
+        }),
+        catchError(this.handleError<Paper[]>('getAllPapersForReviewer', []))
+      );
+  }
+
+  submitReview(pcId: number, review: Review): Observable<boolean> {
+    const url = this.url + '/review/submit/' + pcId + '/' + review.paperId + '/5';
+    const formData = new FormData();
+    formData.append('file', review.review);
+    return this.http.post<boolean>(url, formData)
+      .pipe(
+        map(response => Boolean(response['message'])),
+        catchError(this.handleError<boolean>('submitReview'))
+      );
+  }
+
 
   updatePaperAbstract(abstract: File): Observable<boolean> {
     const formData = new FormData();
@@ -131,148 +264,31 @@ export class PaperService {
       );
   }
 
-  updatePaper(paperId: number, paperName: string, paperAuthors: string,
-              paperKeywords: string, abstract: File, paper: File): Observable<boolean> {
-
-    console.log(paperId, paperName, paperAuthors, paperKeywords, abstract, paper);
-    this.updatePaperMetadata(paperId, paperName, paperAuthors, paperKeywords)
-      .subscribe(metaResult => {
-        if (metaResult === true) {
-          this.updatePaperAbstract(abstract)
-            .subscribe(abstractResult => {
-              if (abstractResult === true) {
-                this.updatePaperContent(paper)
-                  .subscribe(contentResult => {
-                    if (contentResult === true) {
-                      return of(true);
-                    } else {
-                      return of(false);
-                    }
-                  });
-              } else {
-                return of(false);
-              }
-            });
-        } else {
-          return of(false);
-        }
-      });
-    return of(false);
-    // return this.http.put<boolean>(this.url + '/update', {
-    //   paperId, paperName, paperAuthors, paperKeywords, abstract, paper
-    // }, this.httpOptions)
-    //   .pipe(
-    //     map(result => result['message']),
-    //     catchError(this.handleError<boolean>('updatePaper'))
-    //   );
-  }
-
-  getPaperById(id: number): Observable<Paper> {
-    const tempUrl = 'http://demo4608640.mockable.io/api/paper/:id';
-    return this.http.get<Paper>(tempUrl, this.httpOptions) // fixme this is a temp mocking link
-      .pipe(
-        tap(result => console.log(result)),
-        catchError(this.handleError<Paper>('getPapersForAuthor'))
-      );
-  }
-
-  getAbstract(paperId: number): Observable<any> {
-
-    return this.http.get<any>(this.url + '/abstract/' + paperId,this.httpOptions) //fixme maybe we need options
-       .pipe(
-         /*map(response => {
-           return new File([new Blob([response.blob()], {type: "application/pdf"})], 'name');
-         }),*/
-        catchError(this.handleError<File>('getPapersForAuthor'))
-      );
-   // return of(new File(['abstract blob'], 'abstractTestFile'));
-  }
-
-/*
-  getAllPapers(): Observable<Paper[]>{
-    return this.http.get<any>(this.url, this.httpOptions).pipe( map (result => result['papers']));
-  }
-*/
-
-
-  getPaperContent(paperId: number): Observable<any> {
-
-    return this.http.get<any>(this.url + '/content/' + paperId, this.httpOptions) //fixme maybe we need options
-      .pipe(
-        tap(response=> {
-          console.log("service ");
-          console.log(response);
-        }),
-        /*map(response => {
-          return new File([new Blob([response.blob()], {type: "application/pdf"})], 'name');
-        }),*/
-        map(response =>response['text']),
-        catchError(this.handleError<any>('getPaperContent '))
-      );
-    //return of(new File(['paper blob'], 'paperTestFile'));
-  }
-
-
-  //function that returns all papers in the db
-  getAllPapers():Observable<Paper[]>{
-    const url = this.url + '/papers';
-    return this.http.get(url,this.httpOptions).pipe(map(result=>{
-      let papers:Paper[] = result["papers"];
-      return papers;
-    }))
-
-  }
-
-  //function that returns all possible reviewers for a specific paper
-  getAllReviewersForPaper(paperId:number):Observable<Reviewer[]>{
-
-    const url = this.url + '/for-paper/' + paperId.toString();
-    return this.http.get<Reviewer[]>(url, this.httpFileOptions).pipe(map(result => {
-      const reviwers : Reviewer[] = result['reviewers'];
-      return reviwers;
-      }
-
-    ));
-
-  }
-
-
-  getAllPapersForReviewer(pcId: number): Observable<Paper[]> {
-    const url = this.url + '/for-review/' + pcId;
-    return this.http.get<Paper[]>('http://demo4608640.mockable.io/api/paper/for-review/1', this.httpOptions)
-      .pipe(
-        map(result => {
-          let papers: Paper[] = result['papers'];
-          for (let paper of papers) {
-           /* paper.abstract = new File(['abstract blob ' + paper.title], 'abstract test ' + paper.title);
-            paper.paperContent = new File(['paper blob' + paper.title], 'paper test' + paper.title); // fixme this should be the real file*/
-            this.getAbstract(2).subscribe(
-              result=>paper.abstract=result
-            );
-            this.getPaperContent(2).subscribe(
-              result=>paper.paperContent=result
-            );
-          }
-          return papers;
-        }),
-        catchError(this.handleError<Paper[]>('getAllPapersForReviewer', []))
-      );
-  }
-
-  submitReview(pcId: number, review: Review): Observable<boolean> {
-    console.log('submitting review');
-    console.log(pcId);
-    console.log(review);
-    console.log(review.review.name);
-    const url = this.url + '/review/submit/' + pcId + '/' + review.paperId + '/5';
+  uploadAbstractProper(abstract: File): Observable<boolean> {
     const formData = new FormData();
-    formData.append('file',review.review);
-    return this.http.post<boolean>(url, formData)
+    formData.append('file', abstract);
+    return this.http.put<boolean>(this.url + '/upload-abstract/abstract', formData)
       .pipe(
-        map(response => Boolean(response['message'])),
-        catchError(this.handleError<boolean>('submitReview'))
+        map(result => Boolean(result['message'])),
+        catchError(this.handleError<boolean>('uploadAbstractProper'))
       );
-    return of(true);
+  }
+
+  acceptPaper(id: number) {
+    const url = `${this.url}/accept/${id}`;
+    console.log(id);
+    this.http.put<boolean>(url, this.httpOptions);
+  }
+
+  rejectPaper(id: number) {
+    const url = `${this.url}/reject/${id}`;
+    console.log(id);
+    this.http.put<boolean>(url, this.httpOptions);
+  }
+
+  reassignPaper(id: number, reviewers: number[]) {
+    const url = `${this.url}/reassign/paper=${id}`;
+    this.http.put<boolean>(url, {reviewers}, this.httpOptions);
   }
 
   private handleError<T>(operation = 'operation', result?: T) {
@@ -286,20 +302,7 @@ export class PaperService {
     };
   }
 
-  accept(id: number) {
-    const url = `${this.url}/accept/${id}`;
-    console.log(id);
-    this.http.put<boolean>(url, this.httpOptions);
-  }
-
-  reject(id: number) {
-    const url = `${this.url}/reject/${id}`;
-    console.log(id);
-    this.http.put<boolean>(url, this.httpOptions);
-  }
-
-  reassign(id: number, reviewers: number[]) {
-    const url = `${this.url}/reassign/paper=${id}`;
-    this.http.put<boolean>(url, {"reviewers": reviewers}, this.httpOptions);
+  paperHasContentUploaded(id: number): Observable<boolean> {
+    return this.http.get(this.url + '/has-content/' + id, this.httpOptions).pipe(map(result => result['hasContent']));
   }
 }

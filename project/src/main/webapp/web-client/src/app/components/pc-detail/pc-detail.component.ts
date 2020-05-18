@@ -18,7 +18,7 @@ export class PcDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private pcService: ProgramCommitteeService,
     private location: Location,
-    private _snackBar: MatSnackBar
+    private snackBar: MatSnackBar
   ) {
   }
 
@@ -39,7 +39,7 @@ export class PcDetailComponent implements OnInit {
   makeChair(id: number) {
     this.pcService.updatePCToChair(id).subscribe(success => {
       this.successfulUpdate = success;
-      if (this.successfulUpdate == true) {
+      if (this.successfulUpdate === true) {
         this.openSnackBar('Made chair :)', null);
       }
     });
@@ -47,7 +47,7 @@ export class PcDetailComponent implements OnInit {
   }
 
   openSnackBar(message: string, action: string) {
-    this._snackBar.open(message, action, {
+    this.snackBar.open(message, action, {
       duration: 1000,
     });
   }

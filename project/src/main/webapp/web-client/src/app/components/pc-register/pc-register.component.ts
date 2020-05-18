@@ -61,7 +61,7 @@ export class PcRegisterComponent implements OnInit {
   }
 
   goHome() {
-    this.router.navigate(['register']);
+    this.router.navigate(['']);
   }
 
   assignId(): number {

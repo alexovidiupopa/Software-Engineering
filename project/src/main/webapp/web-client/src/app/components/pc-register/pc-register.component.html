@@ -1,13 +1,13 @@
-<!--<button (click)="goHome()" class="homeButton" color="accent" mat-raised-button>-->
-<!--  Back to register page-->
-<!--</button>-->
+<button (click)="goHome()" class="homeButton" color="primary" mat-raised-button>
+  Back to site
+</button>
 <h2 [hidden]="!success" class="decorationText"> Thank you for the Program Comittee registration!</h2>
 <h1 [hidden]="success">Register as PC Member</h1>
 <div [hidden]="success">
   <form [formGroup]="myForm">
     <mat-form-field>
       <mat-label>Username:</mat-label>
-      <input matInput formControlName="username">
+      <input formControlName="username" matInput>
     </mat-form-field>
     <mat-form-field>
       <mat-label>Email:</mat-label>
@@ -33,19 +33,19 @@
     </mat-form-field>
     <mat-form-field>
       <mat-label>Affiliation:</mat-label>
-      <input formControlName="affiliation" matInput >
+      <input formControlName="affiliation" matInput>
     </mat-form-field>
     <mat-form-field>
       <mat-label>First Name:</mat-label>
-      <input formControlName="firstName" matInput >
+      <input formControlName="firstName" matInput>
     </mat-form-field>
     <mat-form-field>
       <mat-label>Last Name:</mat-label>
-      <input formControlName="lastName" matInput >
+      <input formControlName="lastName" matInput>
     </mat-form-field>
     <mat-form-field>
       <mat-label>Phone number:</mat-label>
-      <input formControlName="phoneNumber" matInput >
+      <input formControlName="phoneNumber" matInput>
     </mat-form-field>
   </form>
   <button (click)="registerPCMember()" [disabled]="myForm.invalid" class="registerButton" mat-raised-button>

@@ -2,55 +2,55 @@
 
 
 <nav *ngIf="currentUser" class="navbar navbar-expand navbar-dark bg-dark">
-<!--<nav class="navbar navbar-expand navbar-dark bg-dark">-->
+  <!--<nav class="navbar navbar-expand navbar-dark bg-dark">-->
   <div class="navbar-nav">
 
     <div class="example-button-row">
-      <button id="homeButton" (click)="navigateToHome()" mat-icon-button>
+      <button (click)="navigateToHome()" id="homeButton" mat-icon-button>
         <mat-icon>home</mat-icon>
       </button>
 
       <!--      <button class="nav-item nav-link" *ngIf="isChair()" routerLink="/create-conference" mat-flat-button>Create Conference</button>-->
-      <button class="nav-item nav-link" *ngIf="isChair()" routerLink="/manage-pcs" mat-flat-button>Manage Program
+      <button *ngIf="isChair()" class="nav-item nav-link" mat-flat-button routerLink="/manage-pcs">Manage Program
         Committees
       </button>
-      <button class="nav-item nav-link" *ngIf="(isPC() || isAuthor()) && isFirstPhase()" routerLink="/paper/upload"
-              mat-flat-button>Upload a new paper
+      <button *ngIf="(isPC() || isAuthor()) && isFirstPhase()" class="nav-item nav-link" mat-flat-button
+              routerLink="/paper/upload">Upload a new paper
       </button>
-      <button class="nav-item nav-link" *ngIf="(isPC() || isAuthor())" routerLink="/paper/all" mat-flat-button>My
+      <button *ngIf="(isPC() || isAuthor())" class="nav-item nav-link" mat-flat-button routerLink="/paper/all">My
         papers
       </button>
-      <button class="nav-item nav-link" *ngIf="isChair() && isSecondPhase()" routerLink="/reviews/all" mat-flat-button>
+      <button *ngIf="isChair() && isSecondPhase()" class="nav-item nav-link" mat-flat-button routerLink="/reviews/all">
         Reviews
       </button>
-      <button class="nav-item nav-link" *ngIf="isPC() && isSecondPhase()" routerLink="/bid" mat-flat-button>Bid papers
+      <button *ngIf="isPC() && isSecondPhase()" class="nav-item nav-link" mat-flat-button routerLink="/bid">Bid papers
       </button>
-      <button class="nav-item nav-link" *ngIf="isChair()" routerLink="/conference/edit" mat-flat-button>Conference
+      <button *ngIf="isChair()" class="nav-item nav-link" mat-flat-button routerLink="/conference/edit">Conference
         settings
       </button>
-      <button class="nav-item nav-link" *ngIf="isChair() && isThirdPhase()" routerLink="/conference/structure"
-              mat-flat-button>Conference schedule
+      <button *ngIf="isChair() && isThirdPhase()" class="nav-item nav-link" mat-flat-button
+              routerLink="/conference/structure">Conference schedule
       </button>
-      <button class="nav-item nav-link" *ngIf="isChair() && isSecondPhase()" routerLink="/review/assign"
-              mat-flat-button>Reviews
+      <button *ngIf="isChair() && isSecondPhase()" class="nav-item nav-link" mat-flat-button
+              routerLink="/review/assign">Reviews
       </button>
-      <button class="nav-item nav-link" *ngIf="isPC() && isSecondPhase()" routerLink="/review/pc" mat-flat-button>Review
+      <button *ngIf="isPC() && isSecondPhase()" class="nav-item nav-link" mat-flat-button routerLink="/review/pc">Review
         papers
       </button>
-      <button id="logoutButton" (click)="logout()" class="nav-item nav-link" routerLink="/" mat-flat-button>
+      <button (click)="logout()" class="nav-item nav-link" id="logoutButton" mat-flat-button routerLink="/">
         <mat-icon>logout</mat-icon>
       </button>
     </div>
   </div>
 
 
-<!-- main content container -->
-<div class="jumbotron">
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-8 offset-sm-2">
-        <router-outlet></router-outlet>
+  <!-- main content container -->
+  <div class="jumbotron">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8 offset-sm-2">
+          <router-outlet></router-outlet>
+        </div>
       </div>
     </div>
   </div>
-</div>

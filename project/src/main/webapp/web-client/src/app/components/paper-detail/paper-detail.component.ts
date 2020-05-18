@@ -13,7 +13,6 @@ import {AuthenticationService} from '../../services/login';
   styleUrls: ['./paper-detail.component.css']
 })
 export class PaperDetailComponent implements OnInit {
-  successfulUpdate = true;
   paper: Paper;
   paperUploaded: boolean;
   uploadPaperButtonText: string;
@@ -51,13 +50,19 @@ export class PaperDetailComponent implements OnInit {
     this.paperService.getPaperById(this.id)
       .subscribe(paper => {
         this.paper = paper;
-        this.paperUploaded = this.paper.paperContent != null;
-        if (this.paperUploaded) {
-          this.uploadPaperButtonText = 'Update paper content';
-        } else {
-          this.uploadPaperButtonText = 'Upload paper';
-        }
-
+        this.paperService.paperHasContentUploaded(paper.id).subscribe(result => {
+            this.paperUploaded = result;
+            if (this.paperUploaded) {
+              this.paperContentUrl = this.sanitizer.bypassSecurityTrustResourceUrl('http://localhost:8080/api/paper/content/' + paper.id);
+              this.uploadPaperButtonText = 'Update paper content';
+              this.paperFilename = paper.paperContent.name;
+            } else {
+              this.uploadPaperButtonText = 'Upload paper';
+            }
+          }
+        );
+        this.abstractUrl = this.sanitizer.bypassSecurityTrustResourceUrl('http://localhost:8080/api/paper/abstract/' + paper.id);
+        this.abstractFilename = paper.abstract.name;
       });
   }
 
@@ -72,11 +77,10 @@ export class PaperDetailComponent implements OnInit {
       this.paperTitle = $('#paper-title').val();
       this.paperAuthors = $('#paper-authors').val();
       this.paperKeywords = $('#paper-keywords').val();
-      const abstract = this.abstractFile != null ? this.abstractFile : this.paper.abstract;
-      const content = this.paperFile != null ? this.paperFile : this.paper.paperContent;
-      this.paperService.updatePaper(this.id, this.paperTitle, this.paperAuthors, this.paperKeywords, abstract, content)
+      // fixme this would probably crash due to lack of null-checking on files
+      this.paperService.updatePaper(this.id, this.paperTitle, this.paperAuthors, this.paperKeywords, this.abstractFile, this.paperFile)
         .subscribe(response => {
-          if (response == true) {
+          if (response === true) {
             this.router.navigateByUrl(this.authenticationService.getCurrentUser().getHomepageUrl());
             this.updateFailed = false;
           } else {
@@ -98,14 +102,6 @@ export class PaperDetailComponent implements OnInit {
     this.paperKeywords = value;
   }
 
-  downloadAbstract() {
-    this.paperService.getAbstract(this.id).subscribe(
-      response => {
-        this.abstractUrl = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(response));
-        console.log(this.abstractUrl);
-      });
-  }
-
   uploadAbstract() {
     const fileUpload = this.abstractFileUpload.nativeElement;
     fileUpload.onchange = () => {
@@ -114,14 +110,6 @@ export class PaperDetailComponent implements OnInit {
       this.abstractFileUpload.nativeElement.value = '';
     };
     fileUpload.click();
-  }
-
-  downloadPaperContent() {
-    this.paperService.getPaperContent(this.id).subscribe(
-      response => {
-        this.paperContentUrl = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(response));
-        console.log(this.paperContentUrl);
-      });
   }
 
   uploadPaper() {

@@ -1,20 +1,25 @@
 export class Paper {
-  title: string;
-  authors: string;
-  authorId: number;
-  keywords: string;
-  abstract: File;
-  paperContent: File;
   id: number;
+  authorId: number;
+  sessionId: number;
+  title: string;
+  topic: string;
+  accepted: string;
+  abstractUrl: string;
+  contentUrl: string;
+  presentationUrl: string; // fixme probably should delete this
 
 
-  constructor(title: string, authors: string, authorId: number, keywords: string, abstract?: File, paperContent?: File, id?: number) {
+  constructor(pid: number, aid: number, session: number, title: string, topic: string, accepted: string, abstractUrl: string, contentUrl: string, presentationUrl: string) {
+    this.id = pid;
+    this.authorId = aid;
+    this.sessionId = session;
     this.title = title;
-    this.authors = authors;
-    this.authorId = authorId;
-    this.keywords = keywords;
-    this.abstract = abstract;
-    this.paperContent = paperContent;
-    this.id = id;
+    this.topic = topic;
+    this.accepted = accepted;
+    this.abstractUrl = abstractUrl;
+    this.contentUrl = contentUrl;
+    this.presentationUrl = presentationUrl;
   }
+
 }
