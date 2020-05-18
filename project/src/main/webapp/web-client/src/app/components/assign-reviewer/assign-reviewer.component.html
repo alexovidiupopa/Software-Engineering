@@ -1,1 +1,22 @@
 <p>assign-reviewer works!</p>
+<mat-grid-list cols="2" class="grid-box-row" rowHeight="100px"  >
+<ng-container *ngFor="let paper of papers">
+  <mat-grid-tile [class.fullWidth]="breakpoint == 1" class="g1" (click)="showReviewrs(paper)">{{paper.title}} </mat-grid-tile>
+</ng-container>
+</mat-grid-list>
+
+
+
+<div *ngIf="reviewrs.length > 0">
+  <ng-container *ngFor="let reviewer of reviewrs">
+    <br>
+    <mat-checkbox #checkbox (change)='add_remove_reviewer($event,checkbox)' value='{{reviewer.id}}'>{{reviewer.firstName}} {{reviewer.lastName}} <br></mat-checkbox>
+  </ng-container>
+<br>
+  <button (click)="assign_reviwers_to_paper()">Assign those reviwers to the paper</button>
+
+</div>
+
+<div *ngIf="canShow == true">
+  check the console!
+</div>

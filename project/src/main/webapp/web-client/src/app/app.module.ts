@@ -50,7 +50,9 @@ import {PaperDetailDecisionComponent} from './components/paper-detail-decision/p
 import {CheckoutComponent} from "./components/checkout/checkout.component";
 import {SuccessBuyComponent} from "./components/success-buy/success-buy.component";
 import {PaymentComponent} from "./components/payment/payment.component";
-
+import {MatGridListModule, MatGridTile} from "@angular/material/grid-list";
+import {MatTabsModule} from "@angular/material/tabs";
+//import {MatTabsModule} from "@angular/material/tabs";
 @NgModule({
   imports: [
     BrowserModule,
@@ -76,6 +78,9 @@ import {PaymentComponent} from "./components/payment/payment.component";
     MatFormFieldModule,
     MatSelectModule,
     MatProgressBarModule,
+    MatGridListModule,
+    MatTabsModule,
+    // MatTabsModule,
   ],
   providers: [
     {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'fill'}},

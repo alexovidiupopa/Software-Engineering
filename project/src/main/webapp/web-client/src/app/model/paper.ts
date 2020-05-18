@@ -8,7 +8,7 @@ export class Paper {
   id: number;
 
 
-  constructor(title: string, authors: string, authorId: number, keywords: string, abstract: File, paperContent: File, id: number) {
+  constructor(title: string, authors: string, authorId: number, keywords: string, abstract?: File, paperContent?: File, id?: number) {
     this.title = title;
     this.authors = authors;
     this.authorId = authorId;
