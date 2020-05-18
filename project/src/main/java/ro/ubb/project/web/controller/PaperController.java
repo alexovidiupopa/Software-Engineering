@@ -219,6 +219,13 @@ public class PaperController {
         return new MessageResponse(paperService.getPaperById(id).getContenturl());
     }
 
+    @RequestMapping(value = "/has-content/{id}",method = RequestMethod.GET)
+    MessageResponse hasContent(@PathVariable Integer id){
+        if (paperService.getPaperById(id).getContenturl()==null)
+            return new MessageResponse("false");
+        return new MessageResponse("true");
+    }
+
     @RequestMapping(value = "/get-presentation/{id}", method = RequestMethod.GET)
     MessageResponse getPresentation(@PathVariable Integer id) {
         return new MessageResponse(paperService.getPaperById(id).getPresentationurl());
