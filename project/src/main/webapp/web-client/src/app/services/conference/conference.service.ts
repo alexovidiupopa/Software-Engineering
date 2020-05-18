@@ -10,7 +10,7 @@ import {Conference} from '../../model/conference';
 @Injectable({providedIn: 'root'})
 export class ConferenceService {
 
-  private url = 'http://localhost:8080/api';  // URL to web api
+  private url = 'http://localhost:8080/api/conference';  // URL to web api
   private httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
 
@@ -30,10 +30,10 @@ export class ConferenceService {
   addConference(conference: Conference): Observable<boolean> {
     const conferenceFormatted = {
       conferenceName: conference.conferenceName,
-      /*preliminaryPhaseDeadline: conference.preliminaryPhaseDeadline.format('MM/DD/YYYY HH:mm:ss'),
+      preliminaryPhaseDeadline: conference.preliminaryPhaseDeadline.format('MM/DD/YYYY HH:mm:ss'),
       firstPhaseDeadline: conference.firstPhaseDeadline.format('MM/DD/YYYY HH:mm:ss'),
       secondPhaseDeadline: conference.secondPhaseDeadline.format('MM/DD/YYYY HH:mm:ss'),
-      thirdPhaseDeadline: conference.thirdPhaseDeadline.format('MM/DD/YYYY HH:mm:ss')*/
+      thirdPhaseDeadline: conference.thirdPhaseDeadline.format('MM/DD/YYYY HH:mm:ss')
     };
     console.log(conferenceFormatted);
 

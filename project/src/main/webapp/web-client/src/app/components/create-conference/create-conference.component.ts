@@ -107,7 +107,7 @@ export class CreateConferenceComponent implements OnInit {
         .subscribe(success => {
           if (success) {
             this.conferenceFailed = false;
-            this.router.navigateByUrl('/');
+            this.router.navigateByUrl('/chair-home');
           } else {
             this.conferenceFailed = true;
           }

@@ -55,14 +55,14 @@ export class PaperDetailComponent implements OnInit {
             if (this.paperUploaded) {
               this.paperContentUrl = this.sanitizer.bypassSecurityTrustResourceUrl('http://localhost:8080/api/paper/content/' + paper.id);
               this.uploadPaperButtonText = 'Update paper content';
-              this.paperFilename = paper.paperContent.name;
+              this.paperFilename = paper.contentUrl;
             } else {
               this.uploadPaperButtonText = 'Upload paper';
             }
           }
         );
         this.abstractUrl = this.sanitizer.bypassSecurityTrustResourceUrl('http://localhost:8080/api/paper/abstract/' + paper.id);
-        this.abstractFilename = paper.abstract.name;
+        this.abstractFilename = paper.abstractUrl;
       });
   }
 
@@ -78,7 +78,7 @@ export class PaperDetailComponent implements OnInit {
       this.paperAuthors = $('#paper-authors').val();
       this.paperKeywords = $('#paper-keywords').val();
       // fixme this would probably crash due to lack of null-checking on files
-      this.paperService.updatePaper(this.id, this.paperTitle, this.paperAuthors, this.paperKeywords, this.abstractFile, this.paperFile)
+      this.paperService.updatePaper(this.id, this.paperTitle, this.paperKeywords, this.abstractFile, this.paperFile)
         .subscribe(response => {
           if (response === true) {
             this.router.navigateByUrl(this.authenticationService.getCurrentUser().getHomepageUrl());

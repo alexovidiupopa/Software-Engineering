@@ -88,8 +88,11 @@ export class HeaderComponent implements OnInit {
         this.currentPhase = ConferencePhase.FIRST;
       } else if (result === 'second') {
         this.currentPhase = ConferencePhase.SECOND;
-      } else {
+      } else if (result === 'third') {
         this.currentPhase = ConferencePhase.THIRD;
+      }
+        else {
+          this.currentPhase = ConferencePhase.FINISHED;
       }
     });
   }

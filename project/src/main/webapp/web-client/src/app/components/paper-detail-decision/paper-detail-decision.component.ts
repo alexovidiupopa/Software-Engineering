@@ -8,6 +8,7 @@ import {Location} from '@angular/common';
 import {DomSanitizer} from '@angular/platform-browser';
 import {ProgramCommitteeService} from '../../services/program-committee/program-committee.service';
 import {ProgramCommittee} from '../../model/program-committee';
+import {PcDto} from "../../model/pcdto";
 
 @Component({
   selector: 'app-paper-detail-decision',
@@ -18,7 +19,7 @@ export class PaperDetailDecisionComponent implements OnInit {
 
   paper: Paper;
   id = +this.route.snapshot.paramMap.get('id');
-  pcMembers: ProgramCommittee[] = [];
+  pcMembers: PcDto[] = [];
   reviewersMap: Map<number, boolean>;
 
   constructor(
@@ -75,6 +76,6 @@ export class PaperDetailDecisionComponent implements OnInit {
       .subscribe(pcs => {
         this.pcMembers = pcs;
       });
-    this.pcMembers.forEach(pc => this.reviewersMap.set(pc.id, false));
+    this.pcMembers.forEach(pc => this.reviewersMap.set(pc.pcid, false));
   }
 }

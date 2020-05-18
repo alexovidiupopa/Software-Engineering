@@ -73,10 +73,10 @@ export class PaperService {
       );
   }
 
-  updatePaperMetadata(paperId: number, paperName: string, paperAuthors: string,
+  updatePaperMetadata(paperId: number, paperName: string,
                       paperKeywords: string): Observable<boolean> {
     return this.http.post<boolean>(this.url + '/update/meta', {
-      paperId, paperName, paperAuthors, paperKeywords
+      paperId, paperName, paperKeywords
     }, this.httpOptions)
       .pipe(
         map(result => result['message']),
@@ -85,7 +85,7 @@ export class PaperService {
   }
 
   // todo test me potentially dangerous
-  updatePaper(paperId: number, paperName: string, paperAuthors: string,
+  updatePaper(paperId: number, paperName: string,
               paperKeywords: string, abstract: File, paper: File): Observable<boolean> {
 
     // this.updatePaperMetadata(paperId, paperName, paperAuthors, paperKeywords)
@@ -111,7 +111,7 @@ export class PaperService {
     //     }
     //   });
     // return of(false);
-    this.updatePaperMetadata(paperId, paperName, paperAuthors, paperKeywords)
+    this.updatePaperMetadata(paperId, paperName, paperKeywords)
       .subscribe(metaResult => {
         if (metaResult === true) {
           if (abstract !== null && paper !== null) {
