@@ -5,7 +5,7 @@ export class Review {
   id: number;
 
 
-  constructor(paperId: number, review: File, qualifier: string) {
+  constructor(paperId: number, review?: File, qualifier?: string) {
     this.paperId = paperId;
     this.review = review;
     this.qualifier = qualifier;
