@@ -188,9 +188,11 @@ export class PaperService {
    // return of(new File(['abstract blob'], 'abstractTestFile'));
   }
 
+/*
   getAllPapers(): Observable<Paper[]>{
     return this.http.get<any>(this.url, this.httpOptions).pipe( map (result => result['papers']));
   }
+*/
 
 
   getPaperContent(paperId: number): Observable<any> {

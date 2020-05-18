@@ -68,7 +68,7 @@ public class PcMemberController {
         return pcMember.map(member -> new PcMemberResponse(new PcMemberConverter().modelToDto(member))).orElseGet(PcMemberResponse::new);
     }
 
-    @RequestMapping(value = "/pcToChair", method = RequestMethod.GET)
+    @RequestMapping(value = "/pcToChair", method = RequestMethod.PUT)
     public MessageResponse pcToChair(@RequestBody PcToChairRequest pcToChairRequest) {
         Optional<PcMember> pcMember = this.pcMemberService.getPcMemberById(pcToChairRequest.getPcid());
         if (pcMember.isPresent()) {

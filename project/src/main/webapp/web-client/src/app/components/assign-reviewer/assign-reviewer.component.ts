@@ -59,7 +59,7 @@ export class AssignReviewerComponent implements OnInit {
       alert("you need to have at least 2 reviwers");
     }
     else {
-      const url = this.url + '/assignReviewrs';
+      const url = this.url + '/assignReviewers';
      // this.http.post(url, JSON.stringify(this.paperReviewerPair), this.httpOptions); fixme : to be uncommented when backend is implemented
       console.log(this.paperReviewerPair);
       this.canShow = true;

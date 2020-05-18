@@ -26,7 +26,7 @@ export class ProgramCommitteeService {
   }
 
   updatePCToChair(id: number): Observable<boolean> {
-    return this.http.put<boolean>(this.url + '/to-chair', {pcid: id}, this.httpOptions).pipe(
+    return this.http.put<boolean>(this.url + '/pcToChair', {pcid: id}, this.httpOptions).pipe(
       map(response => response['message']),
       catchError(this.handleError<ProgramCommittee>('makePCIntoChair'))
     );

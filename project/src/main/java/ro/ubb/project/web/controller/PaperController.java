@@ -125,21 +125,7 @@ public class PaperController {
         return new PapersResponse((ArrayList<PaperDto>) converter.convertModelsToDtos(paperService.getAllPapers()));
     }
 
-    /*
-    @RequestMapping(value = "/getAbstractUrl/{id}", method = RequestMethod.GET)
-    MessageResponse getAbstractUrl(@PathVariable Integer id){
-        return new MessageResponse(
-                paperService.getPaperById(id).getAbstracturl()
-        );
-    }
 
-    @RequestMapping(value = "/getContentUrl/{id}", method = RequestMethod.GET)
-    MessageResponse getContentUrl(@PathVariable Integer id){
-        return new MessageResponse(
-                paperService.getPaperById(id).getContenturl()
-        );
-    }
-  */
     @RequestMapping(value = "/getPapersForAuthor/{id}", method = RequestMethod.GET)
     PapersResponse getPapersForAuthor(@PathVariable Integer id) {
         return new PapersResponse((ArrayList<PaperDto>) converter.convertModelsToDtos(paperService.getPapersOfAuthor(id)));
