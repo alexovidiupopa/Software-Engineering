@@ -16,7 +16,7 @@
             </button>
           </a>
 
-          {{paper.title}} ({{getAuthor(paper.authorId)}})
+          {{paper.title}} ({{authors[i]}})
           <mat-radio-group
             (change)="updateSelectedMark($event, i)"
             aria-labelledby="example-radio-group-label"

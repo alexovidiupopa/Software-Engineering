@@ -167,7 +167,7 @@ export class PaperService {
   }
 
   submitReview(pcId: number, review: Review): Observable<boolean> {
-    const url = this.url + '/review/submit/' + pcId + '/' + review.paperId + '/5';
+    const url = this.url + '/review/submit/' + pcId + '/' + review.paperId + '/' + review.qualifier + '/' + review.review.name;
     const formData = new FormData();
     formData.append('file', review.review);
     return this.http.post<boolean>(url, formData)

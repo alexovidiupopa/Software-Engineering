@@ -126,9 +126,9 @@ public class PaperController {
         return new MessageResponse("true");
     }
 
-    @RequestMapping(value = "/review/submit/{pcid}/{pid}/{qualifier}", method = RequestMethod.POST)
-    MessageResponse uploadReview(@RequestParam("file") MultipartFile content, @PathVariable java.lang.Integer pid, @PathVariable java.lang.Integer pcid, @PathVariable java.lang.Integer qualifier) {
-        this.assignmentService.addAssignment(new Assignment(pcid, pid, qualifier, "/src/main/resources/review" + content.getName()));
+    @RequestMapping(value = "/review/submit/{pcid}/{pid}/{qualifier}/{filename}", method = RequestMethod.POST)
+    MessageResponse uploadReview(@RequestParam("file") MultipartFile content, @PathVariable java.lang.Integer pid, @PathVariable java.lang.Integer pcid, @PathVariable java.lang.Integer qualifier, @PathVariable String filename) {
+        this.assignmentService.addAssignment(new Assignment(pcid, pid, qualifier, "/src/main/resources/review/" + filename));
         String reviewUrl = FileHelper.storeFile(content, "/src/main/resources/review");
         return new MessageResponse("true");
     }

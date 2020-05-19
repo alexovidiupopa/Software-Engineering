@@ -33,7 +33,7 @@ export class PcReviewComponent implements OnInit {
   reviews: ReviewData[] = [];
   abstractUrl: any;
   contentUrl: any;
-
+  authors: string[] = [];
   constructor(private paperService: PaperService, private route: ActivatedRoute, private authorService: AuthorService,
               private sanitizer: DomSanitizer, private authenticationService: AuthenticationService
   ) {
@@ -44,6 +44,7 @@ export class PcReviewComponent implements OnInit {
         this.paperNames.push(result[i].title);
         this.marks.push(null);
         this.badData[i] = false;
+        this.authorService.getAuthorById(result[i].authorId).subscribe(response => this.authors.push(response.firstname + ' ' + response.lastname));
       }
     });
     console.log('pc-review constructor');
@@ -115,9 +116,9 @@ export class PcReviewComponent implements OnInit {
     return file !== null && qualifier != null;
   }
 
-  private getQualifierForPaper(id: number): string {
+  private getQualifierForPaper(id: number): number {
     if (this.marks[id] !== null) {
-      return this.marks[id].name;
+      return this.marks[id].value;
     } else {
       return null;
     }
