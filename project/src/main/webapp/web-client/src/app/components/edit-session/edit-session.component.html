@@ -1,0 +1,54 @@
+<app-header></app-header>
+<div id = "main">
+  <form [formGroup]="myForm" (ngSubmit)="submit()">
+    <mat-form-field>
+    <mat-label>  Room </mat-label>
+    <mat-select formControlName="rooms" id="rooms">
+      <mat-option *ngFor="let room of rooms" [value]="room.id">
+        {{room.id}}
+      </mat-option>
+    </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>   Chair </mat-label>
+      <mat-select formControlName="chairs" id="chairs">
+        <mat-option *ngFor="let chair of chairs" [value]="chair.cid">
+          {{chair.cid}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Choose a date</mat-label>
+      <input matInput (dateChange)="setDate($event)" (dateInput)="setDate($event)"
+             [matDatepicker]="picker" formControlName="date">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <button mat-raised-button (click)="submit()">Create conference</button>
+    <br>
+    <a> Papers: </a>
+    <mat-list>
+      <mat-list-item *ngFor="let paper of getPapersForSessionId()">
+        <button (click)="removePaper(paper.pid)" mat-raised-button><mat-icon>delete</mat-icon></button>
+        {{"  " + paper.title}}
+      </mat-list-item>
+    </mat-list>
+
+
+    <div id = "addPaper">
+      <button (click)="addPaper()" mat-raised-button ><mat-icon>input</mat-icon></button>
+      <mat-form-field>
+        <mat-label>Available papers: </mat-label>
+        <mat-select formControlName="paperAdd" id="paperAdd">
+<!--          <mat-option *ngFor="let paper of getAvailablePapers()" [value]="paper">-->
+          <mat-option *ngFor="let paper of papers" [value]="paper">
+            {{paper.title}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+  </form>
+</div>

@@ -1,0 +1,28 @@
+#chairSelect
+{
+  position: absolute;
+  width: 10%;
+  height: 5%;
+  margin-left: 45%;
+}
+
+
+
+#roomSelect{
+  position: absolute;
+  width: 10%;
+  height: 5%;
+  margin-left: 45%;
+}
+
+mat-select
+{
+  display: flex;
+  flex-direction: row;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  width: 20%;
+}

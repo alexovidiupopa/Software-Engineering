@@ -17,5 +17,4 @@ public class PaperDto {
     private String abstracturl;
     private String contenturl;
     private String presentationurl;
-
 }

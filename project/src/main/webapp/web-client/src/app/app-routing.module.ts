@@ -27,7 +27,7 @@ import {CheckoutComponent} from './components/checkout/checkout.component';
 import {SuccessBuyComponent} from './components/success-buy/success-buy.component';
 import {PaymentComponent} from './components/payment/payment.component';
 import {ManageSessionComponent} from './components/manage-session/manage-session.component';
-
+import {EditSessionComponent} from './components/edit-session/edit-session.component';
 
 const routes: Routes = [
   {path: 'pc/detail/:id', component: PcDetailComponent},
@@ -57,7 +57,8 @@ const routes: Routes = [
   {path: 'paper/all', component: AuthorPapersComponent},
   {path: 'paper/detail/:id', component: PaperDetailComponent},
   {path: 'paper/decision/:id', component: PaperDetailDecisionComponent},
-  {path: 'session/manage/:id', component: ManageSessionComponent},
+  {path: 'session/manage', component: ManageSessionComponent},
+  {path: 'session/edit/:id', component: EditSessionComponent},
   // otherwise redirect to home
   {path: '**', redirectTo: ''}
 ];

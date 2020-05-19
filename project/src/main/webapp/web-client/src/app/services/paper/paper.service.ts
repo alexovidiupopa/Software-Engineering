@@ -11,6 +11,10 @@ import { Paperr } from 'src/app/model/paperr';
   providedIn: 'root'
 })
 export class PaperService {
+    addPaper(paper: any) {
+        throw new Error("Method not implemented.");
+    }
+
   httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
   };
@@ -43,6 +47,10 @@ export class PaperService {
         map(result =>Boolean(result['message'])),
         catchError(this.handleError<boolean>('uploadAbstractMetadata'))
       );
+  }
+
+  deletePaperById(id: number) {
+    this.http.delete(this.url + "/delete/" + id)
   }
 
   uploadAbstract(authorId: number, paperName: string, paperAuthors: string,
@@ -187,8 +195,8 @@ export class PaperService {
    // return of(new File(['abstract blob'], 'abstractTestFile'));
   }
 
-  getAllPapers(): Observable<Paper[]>{
-    return this.http.get<any>(this.url, this.httpOptions).pipe( map (result => result['papers']));
+  getAllPapers(): Observable<Paperr[]>{
+    return this.http.get<Paperr[]>(this.url + '/getAllPapers', this.httpOptions).pipe( map (result => result["papers"]));
   }
 
 

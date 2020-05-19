@@ -1,24 +1,25 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {Sesssion} from '../../model/sesssion';
+import {Room} from '../../model/room';
 import {map} from 'rxjs/operators';
-
+import { Chair } from 'src/app/model/chair';
 
 @Injectable({
   providedIn: 'root'
 })
-export class SessionService {
-
+export class ChairService {
   httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
   };
-  private url = 'http://localhost:8080/api/session';
-
+  private url = 'http://localhost:8080/api/chair';
 
   constructor(private http: HttpClient) {}
 
-  getSessions(): Observable<Sesssion[]> {
-      return this.http.get<Sesssion[]>(this.url + '/getAllSessions', this.httpOptions).pipe( map(result => result["sessions"]) );
+  getAllChairs(): Observable<Chair[]>
+  {
+    return this.http.get<Chair[]>(this.url + '/getAllChairs', this.httpOptions).pipe( map(result => result["chairs"]) );
   }
+
+
 }
