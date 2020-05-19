@@ -20,4 +20,5 @@ public class TicketDto implements Serializable {
     private Integer seatno;
     private Date datepurchased;
     private String name;
+    private int sid;
 }

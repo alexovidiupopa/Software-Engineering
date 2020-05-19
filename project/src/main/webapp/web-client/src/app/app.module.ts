@@ -52,6 +52,9 @@ import {SuccessBuyComponent} from "./components/success-buy/success-buy.componen
 import {PaymentComponent} from "./components/payment/payment.component";
 import { ManageSessionComponent } from './components/manage-session/manage-session.component';
 import { EditSessionComponent } from './components/edit-session/edit-session.component';
+import {MatGridListModule, MatGridTile} from "@angular/material/grid-list";
+import {MatTabsModule} from "@angular/material/tabs";
+//import {MatTabsModule} from "@angular/material/tabs";
 
 @NgModule({
   imports: [
@@ -78,6 +81,9 @@ import { EditSessionComponent } from './components/edit-session/edit-session.com
     MatFormFieldModule,
     MatSelectModule,
     MatProgressBarModule,
+    MatGridListModule,
+    MatTabsModule,
+    // MatTabsModule,
   ],
   providers: [
     {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'fill'}},

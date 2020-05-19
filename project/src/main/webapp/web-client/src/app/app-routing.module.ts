@@ -29,6 +29,7 @@ import {PaymentComponent} from './components/payment/payment.component';
 import {ManageSessionComponent} from './components/manage-session/manage-session.component';
 import {EditSessionComponent} from './components/edit-session/edit-session.component';
 
+
 const routes: Routes = [
   {path: 'pc/detail/:id', component: PcDetailComponent},
   {path: 'create-conference', component: CreateConferenceComponent},
@@ -47,7 +48,7 @@ const routes: Routes = [
   {path: 'review/pc/:id', component: PcReviewComponent},
   {path: 'review/assign', component: AssignReviewerComponent},
   {path: 'rooms', component: RoomsComponent},
-  {path: '', component: HomepageComponent},
+  {path: '', component: HomepageComponent}, //HomeComponent
   {path: 'chair-home', component: ChairHomeComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},

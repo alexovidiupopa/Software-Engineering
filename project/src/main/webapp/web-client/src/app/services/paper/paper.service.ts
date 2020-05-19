@@ -6,6 +6,7 @@ import {Paper} from '../../model/paper';
 import {Review} from "../../model/review";
 import {consoleTestResultHandler} from 'tslint/lib/test';
 import { Paperr } from 'src/app/model/paperr';
+import {Reviewer} from "../../model/Reviewer";
 
 @Injectable({
   providedIn: 'root'
@@ -216,6 +217,31 @@ export class PaperService {
       );
     //return of(new File(['paper blob'], 'paperTestFile'));
   }
+
+
+  //function that returns all papers in the db
+  getAllPapers():Observable<Paper[]>{
+    const url = this.url + '/papers';
+    return this.http.get(url,this.httpOptions).pipe(map(result=>{
+      let papers:Paper[] = result["papers"];
+      return papers;
+    }))
+
+  }
+
+  //function that returns all possible reviewers for a specific paper
+  getAllReviewersForPaper(paperId:number):Observable<Reviewer[]>{
+
+    const url = this.url + '/for-paper/' + paperId.toString();
+    return this.http.get<Reviewer[]>(url, this.httpFileOptions).pipe(map(result => {
+      const reviwers : Reviewer[] = result['reviewers'];
+      return reviwers;
+      }
+
+    ));
+
+  }
+
 
   getAllPapersForReviewer(pcId: number): Observable<Paper[]> {
     const url = this.url + '/for-review/' + pcId;

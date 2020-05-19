@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ro.ubb.project.core.model.Author;
+import ro.ubb.project.core.model.Paper;
 import ro.ubb.project.core.service.AuthorService;
 import ro.ubb.project.core.service.PaperService;
 import ro.ubb.project.core.service.PersonService;
@@ -69,9 +70,15 @@ public class AuthorController {
     Collection<AuthorDto> getAuthors(@PathVariable Integer id) {
         List<Author> authors = paperService.getAllPapers().stream()
                 .filter(p -> p.getSession() == id)
-                .map(p -> p.getAid())
+                .map(Paper::getAid)
                 .map(aid -> authorService.getAuthorById(aid))
                 .collect(Collectors.toList());
         return authorConverter.convertModelsToDtos(authors);
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    AuthorDto getAuthor(@PathVariable Integer id) {
+        Author author = authorService.getAuthorById(id);
+        return authorConverter.modelToDto(author);
     }
 }

@@ -15,6 +15,7 @@ public class TicketConverter extends AbstractConverter<Ticket, TicketDto> implem
                 .seatno(ticketDto.getSeatno())
                 .datepurchased(ticketDto.getDatepurchased())
                 .name(ticketDto.getName())
+                .sid(ticketDto.getSid())
                 .build();
     }
 
@@ -26,6 +27,7 @@ public class TicketConverter extends AbstractConverter<Ticket, TicketDto> implem
                 .seatno(ticket.getSeatno())
                 .datepurchased(ticket.getDatepurchased())
                 .name(ticket.getName())
+                .sid(ticket.getSid())
                 .build();
     }
 }
