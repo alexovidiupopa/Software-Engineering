@@ -74,7 +74,7 @@ export class PaperService {
   updatePaperMetadata(paperId: number, authorId:number, paperName: string,
                       paperKeywords: string, fileName: string): Observable<boolean> {
     return this.http.put<boolean>(this.url + '/update/meta', {
-      paperId, authorId, paperName, 'keywords':paperKeywords, fileName
+      paperId, authorId, paperName, 'keywords':paperKeywords, 'fileName':fileName
     }, this.httpOptions)
       .pipe(
         map(result => Boolean(result['message'])),
@@ -84,12 +84,11 @@ export class PaperService {
 
   // todo test me potentially dangerous
   updatePaper(paperId: number, authorId: number, paperName: string,
-              paperKeywords: string, abstract: File, paper: File): Observable<boolean> {
-
-    this.updatePaperMetadata(paperId, authorId, paperName, paperKeywords, paper.name)
+              paperKeywords: string, abstract: File, paper: File, contentUrl: string): Observable<boolean> {
+    var success = true;
+    this.updatePaperMetadata(paperId, authorId, paperName, paperKeywords, contentUrl)
       .subscribe(metaResult => {
         if (metaResult === true) {
-            var success = true;
             if (abstract!==null) {
               this.uploadAbstractProper(abstract)
                 .subscribe(result=>success=success && result);
@@ -98,14 +97,13 @@ export class PaperService {
               this.updatePaperContent(paper)
                 .subscribe(result=>success = success && result);
             }
-            return of(true);
+            success=true;
         } else {
-          return of(false);
+          success=false;
         }
 
       });
-
-    return of(false);
+    return of(success);
   }
 
   getPaperById(id: number): Observable<Paper> {
@@ -132,7 +130,7 @@ export class PaperService {
   }
 
   getAllPapers(): Observable<Paper[]> {
-    const url = this.url + '/papers';
+    const url = this.url + '/getAllPapers';
     return this.http.get<Paper[]>(url, this.httpOptions).pipe(
       map(result => result['papers']),
       catchError(this.handleError<Paper[]>('getAllPapers', []))
@@ -141,8 +139,8 @@ export class PaperService {
   }
 
   getAllReviewersForPaper(paperId: number): Observable<Reviewer[]> {
-    const url = this.url + '/for-paper/' + paperId;
-    return this.http.get<Reviewer[]>(url, this.httpFileOptions).pipe(
+    const url = this.url + '/reviewersForPaper/' + paperId;
+    return this.http.get<Reviewer[]>(url, this.httpOptions).pipe(
       map(result => result['reviewers']),
       catchError(this.handleError<Reviewer[]>('getAllReviewersForPaper', []))
     );
@@ -150,28 +148,18 @@ export class PaperService {
   }
 
   assignReviewersToPaper(paperReviewerPair: PaperReviewerPair): Observable<boolean> {
-    // fixme URL potentially unsafe. maybe change to other, could be overwritten
-    return this.http.post(this.url + '/review', paperReviewerPair, this.httpOptions).pipe(
+    return this.http.post(this.url + '/assignToReview', paperReviewerPair, this.httpOptions).pipe(
       map(result => result['success']),
       catchError(this.handleError<boolean>('assignReviewersToPaper'))
     );
   }
 
   getAllPapersForReviewer(pcId: number): Observable<Paper[]> {
-    const url = this.url + '/for-review/' + pcId;
+    const url = this.url + '/papersForReviewer/' + pcId;
     return this.http.get<Paper[]>(url, this.httpOptions)
       .pipe(
         map(result => {
           let papers: Paper[] = result['papers'];
-          // todo check if there is any leaking point, which needs the files no longer given here
-          // for (let paper of papers) {
-          //   this.getAbstract(paper.pid).subscribe(
-          //     result => paper.abstract = result
-          //   );
-          //   this.getPaperContent(paper.pid).subscribe(
-          //     result => paper.paperContent = result
-          //   );
-          // }
           return papers;
         }),
         catchError(this.handleError<Paper[]>('getAllPapersForReviewer', []))

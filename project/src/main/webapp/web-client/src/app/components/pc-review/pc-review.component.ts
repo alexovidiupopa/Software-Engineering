@@ -56,7 +56,7 @@ export class PcReviewComponent implements OnInit {
 
   getAuthor(authorId: number) {
     let name: string = null;
-    this.authorService.getAuthorById(authorId).subscribe(response => name = response.firstName + ' ' + response.lastName);
+    this.authorService.getAuthorById(authorId).subscribe(response => name = response.firstname + ' ' + response.lastname);
     return name;
   }
 

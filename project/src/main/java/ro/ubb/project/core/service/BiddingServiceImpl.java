@@ -7,6 +7,7 @@ import ro.ubb.project.core.repository.BiddingRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class BiddingServiceImpl implements BiddingService {
@@ -41,5 +42,14 @@ public class BiddingServiceImpl implements BiddingService {
         } else {
             throw new RuntimeException("No assignment found");
         }
+    }
+
+    @Override
+    public List<Integer> getReviewersForPaperId(Integer pid) {
+        return biddingRepository.findAll()
+                .stream()
+                .filter(bid -> bid.getPid() == pid)
+                .map(Bidding::getPcid)
+                .collect(Collectors.toList());
     }
 }

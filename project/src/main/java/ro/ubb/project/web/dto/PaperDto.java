@@ -10,6 +10,7 @@ import lombok.*;
 @Setter
 public class PaperDto {
     private int pid;
+    private int authorId;
     private int session;
     private String title;
     private String accepted;

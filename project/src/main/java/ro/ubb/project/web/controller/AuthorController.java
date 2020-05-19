@@ -77,9 +77,9 @@ public class AuthorController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    AuthorDto getAuthor(@PathVariable Integer id) {
-        Author author = authorService.getAuthorByUid(id);
-        //Author author = authorService.getAuthorById(id);
-        return authorConverter.modelToDto(author);
+    PersonDto getAuthor(@PathVariable Integer id) {
+        return personConverter.modelToDto(
+                personService.getPersonById((authorService.getAuthorById(id)).getUid())
+        );
     }
 }

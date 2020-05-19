@@ -11,7 +11,7 @@ import lombok.*;
 public class PaperRequest {
     private int paperId;
     private int authorId;
-    private String paperTitle;
+    private String paperName;
     private String keywords;
     private String fileName;
 }

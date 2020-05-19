@@ -54,7 +54,14 @@ export class BiddingComponent implements OnInit {
         this.accepted.push(key);
       }
     });
-    this.biddingService.acceptPapers(this.userId, this.accepted);
+
+    this.biddingService.acceptPapers(this.userId, this.accepted)
+      .subscribe(
+        result=> {
+          if (result === true)
+            this.router.navigateByUrl('/pc-home');
+        }
+      );
   }
 
   setPaperStatus(id: number, accept: string) {

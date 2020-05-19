@@ -10,6 +10,7 @@ public class PaperConverter extends AbstractConverter<Paper, PaperDto> {
     public Paper dtoToModel(PaperDto paperDto) {
         return Paper.builder()
                 .pid(paperDto.getPid())
+                .aid(paperDto.getAuthorId())
                 .session(paperDto.getSession())
                 .title(paperDto.getTitle())
                 .accepted(paperDto.getAccepted())
@@ -22,6 +23,7 @@ public class PaperConverter extends AbstractConverter<Paper, PaperDto> {
     public PaperDto modelToDto(Paper paper) {
         return PaperDto.builder()
                 .pid(paper.getPid())
+                .authorId(paper.getAid())
                 .session(paper.getSession())
                 .title(paper.getTitle())
                 .accepted(paper.getAccepted())

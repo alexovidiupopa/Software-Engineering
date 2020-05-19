@@ -19,13 +19,14 @@ export class BiddingService {
 
   getAllPapers(userId: number): Observable<Paper[]> {
     const url = `${this.url}/paper/getAllExcept/${userId}`;
-    return this.http.get<Paper[]>(url, this.httpOptions).pipe(map(response => response['papers']));
+    return this.http.get<Paper[]>(url, this.httpOptions)
+      .pipe(map(response => response['papers']));
   }
 
   acceptPapers(userId: number, accepted: number[]): Observable<boolean> {
     return this.http.post<boolean>(this.url + '/paper/bid', {userId, accepted}, this.httpOptions)
       .pipe(
-        map(result => result['success']),
+        map(result => Boolean(result['message'])),
         catchError(this.handleError<boolean>('acceptPapers'))
       );
   }

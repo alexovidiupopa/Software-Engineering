@@ -15,12 +15,14 @@ import ro.ubb.project.web.converter.PaperConverter;
 import ro.ubb.project.web.dto.AssignmentDto;
 import ro.ubb.project.web.dto.PaperDecisionDto;
 import ro.ubb.project.web.dto.PaperDto;
+import ro.ubb.project.web.dto.ReviewerDto;
 import ro.ubb.project.web.request.AbstractRequest;
 import ro.ubb.project.web.request.BiddingRequest;
 import ro.ubb.project.web.request.PaperRequest;
 import ro.ubb.project.web.request.ReviewersRequest;
 import ro.ubb.project.web.response.MessageResponse;
 import ro.ubb.project.web.response.PapersResponse;
+import ro.ubb.project.web.response.ReviewersResponse;
 
 import java.io.IOException;
 import java.util.*;
@@ -53,6 +55,9 @@ public class PaperController {
 
     @Autowired
     private PcMemberService pcMemberService;
+
+    @Autowired
+    private PersonService personService;
 
 
     @RequestMapping(value = "/upload-abstract/meta", method = RequestMethod.POST)
@@ -90,7 +95,7 @@ public class PaperController {
         int aid = authorService.getAuthorByUid(paperRequest.getAuthorId()).getAid();
 
         paper.setAid(aid);
-        paper.setTitle(paperRequest.getPaperTitle());
+        paper.setTitle(paperRequest.getPaperName());
         paper.setContentUrl("/src/main/resources/content/" + paperRequest.getFileName());
 
         this.paperService.updatePaper(paper);
@@ -123,14 +128,14 @@ public class PaperController {
 
     @RequestMapping(value = "/review/submit/{pcid}/{pid}/{qualifier}", method = RequestMethod.POST)
     MessageResponse uploadReview(@RequestParam("file") MultipartFile content, @PathVariable java.lang.Integer pid, @PathVariable java.lang.Integer pcid, @PathVariable java.lang.Integer qualifier) {
-        this.assignmentService.addAssignment(new Assignment(pcid, pid, qualifier,"/src/main/resources/review" + content.getName()));
+        this.assignmentService.addAssignment(new Assignment(pcid, pid, qualifier, "/src/main/resources/review" + content.getName()));
         String reviewUrl = FileHelper.storeFile(content, "/src/main/resources/review");
         return new MessageResponse("true");
     }
 
     @RequestMapping(value = "/review/submit/{pcid}/{pid}", method = RequestMethod.POST)
     MessageResponse submitReview(@RequestParam("file") MultipartFile content, @PathVariable java.lang.Integer pid, @PathVariable java.lang.Integer pcid) {
-        this.assignmentService.addAssignment(new Assignment(pcid, pid, -1,"/src/main/resources/review" + content.getName()));
+        this.assignmentService.addAssignment(new Assignment(pcid, pid, -1, "/src/main/resources/review" + content.getName()));
         String reviewUrl = FileHelper.storeFile(content, "/src/main/resources/review");
         return new MessageResponse("true");
     }
@@ -153,13 +158,13 @@ public class PaperController {
         PaperDto dto = converter.modelToDto(paper);
         List<Integer> keywordIds = paperSubjectService.getAllPaperSubjects()
                 .stream()
-                .filter(p-> p.getPid()==dto.getPid())
-                .map(p->p.getKid())
+                .filter(p -> p.getPid() == dto.getPid())
+                .map(p -> p.getKid())
                 .collect(Collectors.toList());
 
         String keyword = keywordIds.stream()
-                .map(kid->keywordService.getKeywordById(kid).getName())
-                .reduce("",(a,b)->a+ " " + b);
+                .map(kid -> keywordService.getKeywordById(kid).getName())
+                .reduce("", (a, b) -> a + " " + b);
 
         dto.setTopic(
                 keyword
@@ -231,9 +236,9 @@ public class PaperController {
         return new MessageResponse(paperService.getPaperById(id).getContentUrl());
     }
 
-    @RequestMapping(value = "/has-content/{id}",method = RequestMethod.GET)
-    MessageResponse hasContent(@PathVariable Integer id){
-        if (paperService.getPaperById(id).getContentUrl()==null)
+    @RequestMapping(value = "/has-content/{id}", method = RequestMethod.GET)
+    MessageResponse hasContent(@PathVariable Integer id) {
+        if (paperService.getPaperById(id).getContentUrl() == null)
             return new MessageResponse("false");
         return new MessageResponse("true");
     }
@@ -265,14 +270,13 @@ public class PaperController {
     MessageResponse bid(@RequestBody BiddingRequest biddingRequest) {
         int userId = biddingRequest.getUserId();
         int pcid = pcMemberService.getPcIdByUid(userId);
-        for (int pid : biddingRequest.getAccepted()){
-            try{
+        for (int pid : biddingRequest.getAccepted()) {
+            try {
                 biddingService.addBidding(Bidding.builder()
                         .pcid(pcid)
                         .pid(pid)
                         .build());
-            }
-            catch (RuntimeException e){
+            } catch (RuntimeException e) {
                 return new MessageResponse("false");
             }
         }
@@ -283,25 +287,46 @@ public class PaperController {
     MessageResponse assignToReview(@RequestBody ReviewersRequest reviewersRequest) {
         int paperId = reviewersRequest.getPid();
         reviewersRequest.getReviewers().forEach(
-                reviewer -> {
-                    assignmentService.addAssignment(Assignment.builder()
-                            .pid(paperId)
-                            .pcid(reviewer)
-                            .qualifier(-1)
-                            .build());
-                }
+                reviewer -> assignmentService.addAssignment(Assignment.builder()
+                        .pid(paperId)
+                        .pcid(pcMemberService.getPcIdByUid(reviewer))
+                        .qualifier(-1)
+                        .reviewUrl(null)
+                        .build())
         );
         return new MessageResponse("true");
     }
 
     @RequestMapping(value = "/reviewersForPaper/{pid}", method = RequestMethod.GET)
-    ArrayList<Integer> getReviewersForPaper(@PathVariable Integer pid) {
-        return (ArrayList<Integer>) assignmentService.getReviewersForPaperId(pid);
+    ReviewersResponse getReviewersForPaper(@PathVariable Integer pid) {
+        List<Integer> pcIds = biddingService.getReviewersForPaperId(pid);
+        return new ReviewersResponse(
+                (ArrayList<ReviewerDto>)
+                        pcIds
+                                .stream()
+                                .map(pcId -> {
+                                    int uid = pcMemberService.getPcMemberById(pcId).get().getUid();
+                                    Person person = personService.getPersonById(uid);
+                                    return new ReviewerDto(
+                                            uid,
+                                            person.getFirstname(),
+                                            person.getLastname()
+                                    );
+                                })
+                                .collect(Collectors.toList())
+        );
     }
 
     @RequestMapping(value = "/papersForReviewer/{pcid}", method = RequestMethod.GET)
-    ArrayList<Integer> getPapersForReviewer(@PathVariable Integer pcid) {
-        return (ArrayList<Integer>) assignmentService.getPapersForReviewer(pcid);
+    PapersResponse getPapersForReviewer(@PathVariable Integer pcid) {
+        List<Integer> paperIds = assignmentService.getPapersForReviewer(pcid);
+        return new PapersResponse(
+                (ArrayList<PaperDto>) converter.convertModelsToDtos(
+                        paperIds
+                                .stream()
+                                .map(pid -> paperService.getPaperById(pid))
+                                .collect(Collectors.toList()))
+        );
     }
 
     @RequestMapping(value = "/getAllExcept/{uid}", method = RequestMethod.GET)
@@ -310,10 +335,13 @@ public class PaperController {
                 .stream()
                 .filter(a -> a.getUid() == uid)
                 .findAny();
-        if(optionalAuthor.isEmpty()) {
-            return new PapersResponse();
-        }
-        else {
+        if (optionalAuthor.isEmpty()) {
+            return new PapersResponse(
+                    (ArrayList<PaperDto>) converter.convertModelsToDtos(
+                            paperService.getAllPapers()
+                    )
+            );
+        } else {
             return new PapersResponse((ArrayList<PaperDto>) converter.convertModelsToDtos(
                     paperService.getAllPapers()
                             .stream()
@@ -355,11 +383,12 @@ public class PaperController {
             assignments.forEach(a -> this.assignmentService.deleteAssignment(a));
 
             reviewersRequest.getReviewers().forEach(reviewer -> {
-                        assignmentService.addAssignment(Assignment.builder()
-                                .pid(pid)
-                                .pcid(reviewer)
-                                .qualifier(-1)
-                                .build());});
+                assignmentService.addAssignment(Assignment.builder()
+                        .pid(pid)
+                        .pcid(reviewer)
+                        .qualifier(-1)
+                        .build());
+            });
 
             return new MessageResponse("true");
         } catch (RuntimeException e) {
@@ -368,8 +397,10 @@ public class PaperController {
     }
 
     @RequestMapping(value = "/reviews", method = RequestMethod.GET)
-    ArrayList<AssignmentDto> getAllReviews(){
+    ArrayList<AssignmentDto> getAllReviews() {
         AssignmentConverter converter = new AssignmentConverter();
         return (ArrayList<AssignmentDto>) converter.convertModelsToDtos(assignmentService.getAllAssignments());
     }
+
+
 }
