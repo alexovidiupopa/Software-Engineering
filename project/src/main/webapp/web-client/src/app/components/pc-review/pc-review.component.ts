@@ -40,7 +40,7 @@ export class PcReviewComponent implements OnInit {
     this.papers = this.paperService.getAllPapersForReviewer(+this.route.snapshot.paramMap.get('id'));
     this.papers.subscribe(result => {
       for (let i = 0; i < result.length; i++) {
-        this.urls.push(this.sanitizer.bypassSecurityTrustResourceUrl('http://localhost:8080/api/paper/content/' + result[i].id));
+        this.urls.push(this.sanitizer.bypassSecurityTrustResourceUrl('http://localhost:8080/api/paper/content/' + result[i].pid));
         this.paperNames.push(result[i].title);
         this.marks.push(null);
         this.badData[i] = false;

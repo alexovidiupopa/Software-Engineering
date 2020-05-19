@@ -2,10 +2,7 @@ package ro.ubb.project.core.model;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
@@ -22,9 +19,9 @@ public class Paper implements Serializable {
     private int aid;
     private int session;
     private String title;
-    private String topic;
     private String accepted;
-    private String abstracturl;
-    private String contenturl;
-    private String presentationurl;
+    @Column(name="abstracturl")
+    private String abstractUrl;
+    @Column(name="contenturl")
+    private String contentUrl;
 }

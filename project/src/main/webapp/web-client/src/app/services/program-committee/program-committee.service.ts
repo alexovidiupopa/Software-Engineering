@@ -28,8 +28,8 @@ export class ProgramCommitteeService {
 
   updatePCToChair(id: number): Observable<boolean> {
     return this.http.put<boolean>(this.url + '/pcToChair/' + id, {}, this.httpOptions).pipe(
-      map(response => response['message']),
-      catchError(this.handleError<ProgramCommittee>('makePCIntoChair'))
+      map(response => Boolean(response['message'])),
+      catchError(this.handleError<boolean>('makePCIntoChair'))
     );
   }
 

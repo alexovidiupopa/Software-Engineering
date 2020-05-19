@@ -23,10 +23,7 @@ import ro.ubb.project.web.response.MessageResponse;
 import ro.ubb.project.web.response.PapersResponse;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
@@ -62,39 +59,54 @@ public class PaperController {
     MessageResponse upload(@RequestBody AbstractRequest abstractRequest) {
         //update paper title and author
         Paper paper = new Paper();
-        paper.setAid(abstractRequest.getAuthorId());
+        int aid = authorService.getAuthorByUid(abstractRequest.getAuthorId()).getAid();
+        paper.setAid(aid);
         paper.setTitle(abstractRequest.getPaperName());
         paper.setSession(1);
-        paper.setAbstracturl("/src/main/resources/abstract/" + abstractRequest.getFilename());
+        paper.setAbstractUrl("/src/main/resources/abstract/" + abstractRequest.getFilename());
         System.out.println(paper);
+
         this.paperService.addPaper(paper);
 
-        //bind paper to new keywords
-        return new MessageResponse("true");
-    }
-
-    @RequestMapping(value = "/update", method = RequestMethod.PUT)
-    Boolean update(@RequestBody PaperRequest paperRequest) {
-        //update paper title and author
-        int paperId = paperRequest.getPaperId();
-        Paper paper = this.paperService.getPaperById(paperId);
-        paper.setAid(paperRequest.getAuthorId());
-        paper.setTitle(paperRequest.getPaperTitle());
-
-        this.paperService.updatePaper(paper);
-
-        //bind paper to new keywords
-        paperRequest.getKeywords().forEach(
+        Arrays.asList(abstractRequest.getKeywords().split(" ")).forEach(
                 keyword -> {
                     int keywordId = keywordService.getIdByName(keyword);
                     paperSubjectService.addPaperSubject(PaperSubject.builder()
                             .kid(keywordId)
-                            .pid(paperId)
+                            .pid(paper.getPid())
+                            .build());
+                }
+        );
+        //bind paper to new keywords
+        return new MessageResponse("true");
+    }
+
+    @RequestMapping(value = "/update/meta", method = RequestMethod.PUT)
+    MessageResponse update(@RequestBody PaperRequest paperRequest) {
+        //update paper title and author
+        int paperId = paperRequest.getPaperId();
+        Paper paper = this.paperService.getPaperById(paperId);
+
+        int aid = authorService.getAuthorByUid(paperRequest.getAuthorId()).getAid();
+
+        paper.setAid(aid);
+        paper.setTitle(paperRequest.getPaperTitle());
+        paper.setContentUrl("/src/main/resources/content/" + paperRequest.getFileName());
+
+        this.paperService.updatePaper(paper);
+
+        //bind paper to new keywords
+        Arrays.asList(paperRequest.getKeywords().split(" ")).forEach(
+                keyword -> {
+                    int keywordId = keywordService.getIdByName(keyword);
+                    paperSubjectService.addPaperSubject(PaperSubject.builder()
+                            .kid(keywordId)
+                            .pid(paper.getPid())
                             .build());
                 }
         );
 
-        return true;
+        return new MessageResponse("true");
     }
 
     @RequestMapping(value = "/upload-content/content", method = RequestMethod.PUT)
@@ -131,12 +143,28 @@ public class PaperController {
 
     @RequestMapping(value = "/getPapersForAuthor/{id}", method = RequestMethod.GET)
     PapersResponse getPapersForAuthor(@PathVariable Integer id) {
-        return new PapersResponse((ArrayList<PaperDto>) converter.convertModelsToDtos(paperService.getPapersOfAuthor(id)));
+        int aid = authorService.getAuthorByUid(id).getAid();
+        return new PapersResponse((ArrayList<PaperDto>) converter.convertModelsToDtos(paperService.getPapersOfAuthor(aid)));
     }
 
     @RequestMapping(value = "/getPaper/{id}", method = RequestMethod.GET)
     PaperDto getPaperWithId(@PathVariable Integer id) {
-        return converter.modelToDto(paperService.getPaperById(id));
+        Paper paper = paperService.getPaperById(id);
+        PaperDto dto = converter.modelToDto(paper);
+        List<Integer> keywordIds = paperSubjectService.getAllPaperSubjects()
+                .stream()
+                .filter(p-> p.getPid()==dto.getPid())
+                .map(p->p.getKid())
+                .collect(Collectors.toList());
+
+        String keyword = keywordIds.stream()
+                .map(kid->keywordService.getKeywordById(kid).getName())
+                .reduce("",(a,b)->a+ " " + b);
+
+        dto.setTopic(
+                keyword
+        );
+        return dto;
     }
 
     @RequestMapping(value = "/decision", method = RequestMethod.PUT)
@@ -193,48 +221,27 @@ public class PaperController {
         }
     }
 
-    @RequestMapping(value = "/update-topic", method = RequestMethod.PUT)
-    MessageResponse updatePaperTopic(@RequestBody PaperDto paperDto) {
-        try {
-            Paper paper = converter.dtoToModel(paperDto);
-            paperService.getPaperById(paper.getPid()).setTopic(paper.getTopic());
-            return new MessageResponse("true");
-        } catch (RuntimeException e) {
-            return new MessageResponse("false");
-        }
-    }
-
-    @RequestMapping(value = "/get-topic/{id}", method = RequestMethod.GET)
-    MessageResponse getTopic(@PathVariable Integer id) {
-        return new MessageResponse(paperService.getPaperById(id).getTopic());
-    }
-
     @RequestMapping(value = "/get-abstract/{id}", method = RequestMethod.GET)
     MessageResponse getAbstractUrl(@PathVariable Integer id) {
-        return new MessageResponse(paperService.getPaperById(id).getAbstracturl());
+        return new MessageResponse(paperService.getPaperById(id).getAbstractUrl());
     }
 
     @RequestMapping(value = "/get-content/{id}", method = RequestMethod.GET)
     MessageResponse getContentUrl(@PathVariable Integer id) {
-        return new MessageResponse(paperService.getPaperById(id).getContenturl());
+        return new MessageResponse(paperService.getPaperById(id).getContentUrl());
     }
 
     @RequestMapping(value = "/has-content/{id}",method = RequestMethod.GET)
     MessageResponse hasContent(@PathVariable Integer id){
-        if (paperService.getPaperById(id).getContenturl()==null)
+        if (paperService.getPaperById(id).getContentUrl()==null)
             return new MessageResponse("false");
         return new MessageResponse("true");
-    }
-
-    @RequestMapping(value = "/get-presentation/{id}", method = RequestMethod.GET)
-    MessageResponse getPresentation(@PathVariable Integer id) {
-        return new MessageResponse(paperService.getPaperById(id).getPresentationurl());
     }
 
     @RequestMapping(value = "/abstract/{id}", method = RequestMethod.GET)
     ResponseEntity<Resource> getAbstract(@PathVariable Integer id) {
         Paper paper = paperService.getPaperById(id);
-        String url = paper.getAbstracturl();
+        String url = paper.getAbstractUrl();
         Resource file = FileHelper.loadFileAsResource(url);
         return ResponseEntity.ok()
                 .contentType(MediaType.APPLICATION_PDF)
@@ -246,7 +253,7 @@ public class PaperController {
     ResponseEntity<Resource> getContent(@PathVariable Integer id) throws IOException {
         Paper paper = paperService.getPaperById(id);
         System.out.println(paper);
-        String url = paper.getContenturl();
+        String url = paper.getContentUrl();
         Resource file = FileHelper.loadFileAsResource(url);
         return ResponseEntity.ok()
                 .contentType(MediaType.APPLICATION_PDF)

@@ -56,7 +56,7 @@ const routes: Routes = [
   {path: 'pc-register', component: PcRegisterComponent},
   {path: 'paper/upload', component: UploadAbstractComponent, canActivate: [AuthGuard]},
   {path: 'paper/all', component: AuthorPapersComponent, canActivate: [AuthGuard]},
-  {path: 'paper/detail/id', component: PaperDetailComponent, canActivate: [AuthGuard] },
+  {path: 'paper/detail/:id', component: PaperDetailComponent, canActivate: [AuthGuard] },
   {path: 'paper/decision/:id', component: PaperDetailDecisionComponent, canActivate: [AuthGuard]},
   {path: 'session/manage/:id', component: ManageSessionComponent, canActivate: [AuthGuard]},
   // otherwise redirect to home

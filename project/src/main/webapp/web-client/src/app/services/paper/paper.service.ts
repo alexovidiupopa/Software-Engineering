@@ -31,10 +31,10 @@ export class PaperService {
       );
   }
 
-  uploadAbstractMetadata(authorId: number, paperName: string, paperAuthors: string,
-                         paperKeywords: string, filename: string): Observable<boolean> {
+  uploadAbstractMetadata(authorId: number, paperName: string,
+                         keywords: string, filename: string): Observable<boolean> {
     return this.http.post<boolean>(this.url + '/upload-abstract/meta', {
-      authorId, paperName, paperAuthors, paperKeywords, filename
+      authorId, paperName, keywords, filename
     }, this.httpOptions)
       .pipe(
         map(result => Boolean(result['message'])),
@@ -42,30 +42,28 @@ export class PaperService {
       );
   }
 
-  uploadAbstract(authorId: number, paperName: string, paperAuthors: string,
+  uploadAbstract(authorId: number, paperName: string,
                  paperKeywords: string, abstract: File): Observable<boolean> {
-    console.log(authorId, paperName, paperAuthors, paperKeywords, abstract);
-
-    this.uploadAbstractMetadata(authorId, paperName, paperAuthors, paperKeywords, abstract.name)
+    console.log(authorId, paperName, paperKeywords, abstract);
+    var success = true;
+    this.uploadAbstractMetadata(authorId, paperName, paperKeywords, abstract.name)
       .subscribe(metaResult => {
+        console.log(metaResult);
         if (metaResult === true) {
           this.uploadAbstractProper(abstract)
             .subscribe(abstractResult => {
-              if (abstractResult) {
-                return of(true);
-              } else {
-                return of(false);
-              }
+              console.log(abstractResult);
+              success = abstractResult;
             });
         } else {
-          return of(false);
+          success=false;
         }
       });
-    return of(false);
+    return of(success);
   }
 
   getPapersForAuthor(authorId: number): Observable<Paper[]> {
-    return this.http.get<Paper[]>(this.url + '/getPapers/' + authorId, this.httpOptions)
+    return this.http.get<Paper[]>(this.url + '/getPapersForAuthor/' + authorId, this.httpOptions)
       .pipe(
         map(result => result['papers']),
         tap(result => console.log(result)),
@@ -73,93 +71,45 @@ export class PaperService {
       );
   }
 
-  updatePaperMetadata(paperId: number, paperName: string,
-                      paperKeywords: string): Observable<boolean> {
-    return this.http.post<boolean>(this.url + '/update/meta', {
-      paperId, paperName, paperKeywords
+  updatePaperMetadata(paperId: number, authorId:number, paperName: string,
+                      paperKeywords: string, fileName: string): Observable<boolean> {
+    return this.http.put<boolean>(this.url + '/update/meta', {
+      paperId, authorId, paperName, 'keywords':paperKeywords, fileName
     }, this.httpOptions)
       .pipe(
-        map(result => result['message']),
+        map(result => Boolean(result['message'])),
         catchError(this.handleError<boolean>('updatePaperMetadata'))
       );
   }
 
   // todo test me potentially dangerous
-  updatePaper(paperId: number, paperName: string,
+  updatePaper(paperId: number, authorId: number, paperName: string,
               paperKeywords: string, abstract: File, paper: File): Observable<boolean> {
 
-    // this.updatePaperMetadata(paperId, paperName, paperAuthors, paperKeywords)
-    //   .subscribe(metaResult => {
-    //     if (metaResult === true) {
-    //       this.updatePaperAbstract(abstract)
-    //         .subscribe(abstractResult => {
-    //           if (abstractResult === true) {
-    //             this.updatePaperContent(paper)
-    //               .subscribe(contentResult => {
-    //                 if (contentResult === true) {
-    //                   return of(true);
-    //                 } else {
-    //                   return of(false);
-    //                 }
-    //               });
-    //           } else {
-    //             return of(false);
-    //           }
-    //         });
-    //     } else {
-    //       return of(false);
-    //     }
-    //   });
-    // return of(false);
-    this.updatePaperMetadata(paperId, paperName, paperKeywords)
+    this.updatePaperMetadata(paperId, authorId, paperName, paperKeywords, paper.name)
       .subscribe(metaResult => {
         if (metaResult === true) {
-          if (abstract !== null && paper !== null) {
-            this.updatePaperAbstract(abstract)
-              .subscribe(abstractResult => {
-                if (abstractResult === true) {
-                  this.updatePaperContent(paper)
-                    .subscribe(contentResult => {
-                      if (contentResult === true) {
-                        return of(true);
-                      } else {
-                        return of(false);
-                      }
-                    });
-                } else {
-                  return of(false);
-                }
-              });
-          } else if (abstract !== null && paper == null) {
-            this.updatePaperAbstract(abstract)
-              .subscribe(abstractResult => {
-                if (abstractResult === true) {
-                  return of(true);
-                } else {
-                  return of(false);
-                }
-              });
-          } else if (abstract == null && paper !== null) {
-            this.updatePaperContent(paper)
-              .subscribe(contentResult => {
-                if (contentResult === true) {
-                  return of(true);
-                } else {
-                  return of(false);
-                }
-              });
-          } else {
+            var success = true;
+            if (abstract!==null) {
+              this.uploadAbstractProper(abstract)
+                .subscribe(result=>success=success && result);
+            }
+            if (paper!==null) {
+              this.updatePaperContent(paper)
+                .subscribe(result=>success = success && result);
+            }
             return of(true);
-          }
         } else {
           return of(false);
         }
+
       });
+
     return of(false);
   }
 
   getPaperById(id: number): Observable<Paper> {
-    return this.http.get<Paper>(this.url + '/' + id, this.httpOptions)
+    return this.http.get<Paper>(this.url + '/getPaper/' + id, this.httpOptions)
       .pipe(
         tap(result => console.log(result)),
         catchError(this.handleError<Paper>('getPapersForAuthor'))
@@ -215,10 +165,10 @@ export class PaperService {
           let papers: Paper[] = result['papers'];
           // todo check if there is any leaking point, which needs the files no longer given here
           // for (let paper of papers) {
-          //   this.getAbstract(paper.id).subscribe(
+          //   this.getAbstract(paper.pid).subscribe(
           //     result => paper.abstract = result
           //   );
-          //   this.getPaperContent(paper.id).subscribe(
+          //   this.getPaperContent(paper.pid).subscribe(
           //     result => paper.paperContent = result
           //   );
           // }
@@ -239,27 +189,14 @@ export class PaperService {
       );
   }
 
-
-  updatePaperAbstract(abstract: File): Observable<boolean> {
-    const formData = new FormData();
-    formData.append('abstract', abstract);
-    return this.http.put<boolean>(this.url + '/update/abstract', {
-      formData
-    }, this.httpFileOptions)
-      .pipe(
-        map(result => result['message']),
-        catchError(this.handleError<boolean>('updatePaperAbstract'))
-      );
-  }
-
   updatePaperContent(content: File): Observable<boolean> {
     const formData = new FormData();
-    formData.append('content', content);
-    return this.http.put<boolean>(this.url + '/update/content', {
+    formData.append('file', content);
+    return this.http.put<boolean>(this.url + '/upload-content/content',
       formData
-    }, this.httpFileOptions)
+    )
       .pipe(
-        map(result => result['message']),
+        map(result => Boolean(result['message'])),
         catchError(this.handleError<boolean>('updatePaperContent'))
       );
   }
@@ -302,7 +239,17 @@ export class PaperService {
     };
   }
 
+
+
   paperHasContentUploaded(id: number): Observable<boolean> {
-    return this.http.get(this.url + '/has-content/' + id, this.httpOptions).pipe(map(result => result['hasContent']));
+    return this.http.get(this.url + '/has-content/' + id, this.httpOptions)
+      .pipe(
+        tap(result=>console.log(result)),
+        map(result => {
+          if (result['message']==='true')
+            return true;
+          return false;
+        })
+      );
   }
 }

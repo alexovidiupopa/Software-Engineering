@@ -6,8 +6,10 @@ import ro.ubb.project.core.model.pk.PaperSubjectsPK;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "papersubjects", schema = "public")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

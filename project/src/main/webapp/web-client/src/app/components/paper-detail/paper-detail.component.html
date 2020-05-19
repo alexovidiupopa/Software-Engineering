@@ -44,7 +44,7 @@
              multiple="multiple" name="abstractFileUpload"
              style="display:none;" type="file"/>
     </div>
-    <a [href]="paperContentUrl" download="{{paperFilename}}">
+    <a [href]="paperContentUrl" download="{{paperFilename}}" *ngIf="(paperUploaded)">
       <button class="abstract-button" color="primary" mat-raised-button>
         See uploaded paper
       </button>

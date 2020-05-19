@@ -38,8 +38,8 @@ export class ConferenceService {
     console.log(conferenceFormatted);
 
     return this.http.post<boolean>(this.url + '/create', conferenceFormatted, this.httpOptions).pipe(
-      map(response => response['message']),
-      catchError(this.handleError<Conference>('addConference'))
+      map(response => Boolean(response['message'])),
+      catchError(this.handleError<boolean>('addConference'))
     );
   }
 

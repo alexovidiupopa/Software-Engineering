@@ -12,11 +12,9 @@ public class PaperConverter extends AbstractConverter<Paper, PaperDto> {
                 .pid(paperDto.getPid())
                 .session(paperDto.getSession())
                 .title(paperDto.getTitle())
-                .topic(paperDto.getTopic())
                 .accepted(paperDto.getAccepted())
-                .abstracturl(paperDto.getAbstracturl())
-                .contenturl(paperDto.getContenturl())
-                .presentationurl(paperDto.getPresentationurl())
+                .abstractUrl(paperDto.getAbstractUrl())
+                .contentUrl(paperDto.getContentUrl())
                 .build();
     }
 
@@ -26,11 +24,9 @@ public class PaperConverter extends AbstractConverter<Paper, PaperDto> {
                 .pid(paper.getPid())
                 .session(paper.getSession())
                 .title(paper.getTitle())
-                .topic(paper.getTopic())
                 .accepted(paper.getAccepted())
-                .abstracturl(paper.getAbstracturl())
-                .contenturl(paper.getContenturl())
-                .presentationurl(paper.getPresentationurl())
+                .abstractUrl(paper.getAbstractUrl())
+                .contentUrl(paper.getContentUrl())
                 .build();
     }
 }

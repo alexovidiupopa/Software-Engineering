@@ -27,15 +27,15 @@
             </mat-radio-button>
           </mat-radio-group>
           <div class="upload">
-            <button (click)="uploadReview(paper.id)" class="abstract-button" color="warn" id="upload-button"
+            <button (click)="uploadReview(paper.pid)" class="abstract-button" color="warn" id="upload-button"
                     mat-raised-button>
               Upload review
             </button>
-            <mat-label *ngIf="nameOfReviewWithId(paper.id) !== null">{{nameOfReviewWithId(paper.id)}}</mat-label>
+            <mat-label *ngIf="nameOfReviewWithId(paper.pid) !== null">{{nameOfReviewWithId(paper.pid)}}</mat-label>
             <input #reviewUpload accept="application/pdf" id="reviewUpload" multiple="multiple" name="reviewUpload"
                    style="display:none;" type="file"/>
           </div>
-          <button (click)="submitReview(paper.id, i)" color="primary" id="submit-button" mat-flat-button>Submit
+          <button (click)="submitReview(paper.pid, i)" color="primary" id="submit-button" mat-flat-button>Submit
           </button>
           <mat-error *ngIf="badData[i]">Couldn't submit</mat-error>
         </div>

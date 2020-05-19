@@ -39,11 +39,11 @@ export class PaperDetailDecisionComponent implements OnInit {
   }
 
   acceptPaper() {
-    this.paperService.acceptPaper(this.paper.id);
+    this.paperService.acceptPaper(this.paper.pid);
   }
 
   rejectPaper() {
-    this.paperService.rejectPaper(this.paper.id);
+    this.paperService.rejectPaper(this.paper.pid);
   }
 
   sendPaperBack() {
@@ -57,7 +57,7 @@ export class PaperDetailDecisionComponent implements OnInit {
       window.alert('please choose 2 or 3 reviewers!');
       return;
     }
-    this.paperService.reassignPaper(this.paper.id, reviewers);
+    this.paperService.reassignPaper(this.paper.pid, reviewers);
   }
 
   selectReviewer(id: number) {

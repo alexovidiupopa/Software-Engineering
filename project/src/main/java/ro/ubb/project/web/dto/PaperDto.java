@@ -12,10 +12,8 @@ public class PaperDto {
     private int pid;
     private int session;
     private String title;
-    private String topic;
     private String accepted;
-    private String abstracturl;
-    private String contenturl;
-    private String presentationurl;
-
+    private String abstractUrl;
+    private String contentUrl;
+    private String topic;
 }

@@ -63,8 +63,8 @@ export class AssignReviewerComponent implements OnInit {
   }
 
   showReviewers(paper: Paper) {
-    this.paperReviewerPair = new PaperReviewerPair(paper.id);
-    this.paperService.getAllReviewersForPaper(paper.id).subscribe(result => this.reviewers = result);
+    this.paperReviewerPair = new PaperReviewerPair(paper.pid);
+    this.paperService.getAllReviewersForPaper(paper.pid).subscribe(result => this.reviewers = result);
   }
 
   ngOnInit(): void {
