@@ -24,7 +24,6 @@ import ro.ubb.project.web.response.MessageResponse;
 import ro.ubb.project.web.response.PapersResponse;
 import ro.ubb.project.web.response.ReviewersResponse;
 
-import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -72,8 +71,21 @@ public class PaperController {
         System.out.println(paper);
 
         this.paperService.addPaper(paper);
+        List<String> keywords = Arrays.asList(abstractRequest.getKeywords().split(" "));
+        keywords.forEach(
+                keyword -> {
+                    try{
+                        keywordService.addKeyword(Keyword.builder()
+                                .name(keyword)
+                                .build());
+                    }
+                    catch (RuntimeException ignored){
 
-        Arrays.asList(abstractRequest.getKeywords().split(" ")).forEach(
+                    }
+                }
+        );
+
+        keywords.forEach(
                 keyword -> {
                     int keywordId = keywordService.getIdByName(keyword);
                     paperSubjectService.addPaperSubject(PaperSubject.builder()
@@ -82,6 +94,7 @@ public class PaperController {
                             .build());
                 }
         );
+
         //bind paper to new keywords
         return new MessageResponse("true");
     }
@@ -100,8 +113,23 @@ public class PaperController {
 
         this.paperService.updatePaper(paper);
 
+        List<String> keywords = Arrays.asList(paperRequest.getKeywords().split(" "));
+        keywords.forEach(
+             keyword -> {
+                 try{
+                     keywordService.addKeyword(Keyword.builder()
+                             .name(keyword)
+                             .build());
+                 }
+                 catch (RuntimeException ignored){
+
+                 }
+             }
+        );
+
+
         //bind paper to new keywords
-        Arrays.asList(paperRequest.getKeywords().split(" ")).forEach(
+        keywords.forEach(
                 keyword -> {
                     int keywordId = keywordService.getIdByName(keyword);
                     paperSubjectService.addPaperSubject(PaperSubject.builder()
@@ -164,7 +192,7 @@ public class PaperController {
 
         String keyword = keywordIds.stream()
                 .map(kid -> keywordService.getKeywordById(kid).getName())
-                .reduce("", (a, b) -> a + " " + b);
+                .reduce((a, b) -> a + " " + b).get();
 
         dto.setTopic(
                 keyword
@@ -255,7 +283,7 @@ public class PaperController {
     }
 
     @RequestMapping(value = "/content/{id}", method = RequestMethod.GET)
-    ResponseEntity<Resource> getContent(@PathVariable Integer id) throws IOException {
+    ResponseEntity<Resource> getContent(@PathVariable Integer id) {
         Paper paper = paperService.getPaperById(id);
         System.out.println(paper);
         String url = paper.getContentUrl();
@@ -355,7 +383,9 @@ public class PaperController {
     @RequestMapping(value = "/accept/{id}", method = RequestMethod.PUT)
     MessageResponse acceptPaper(@PathVariable int id) {
         try {
-            paperService.getPaperById(id).setAccepted("accepted");
+            Paper paper = paperService.getPaperById(id);
+            paper.setAccepted("accepted");
+            paperService.updatePaper(paper);
             return new MessageResponse("true");
         } catch (RuntimeException e) {
             return new MessageResponse("false");
@@ -365,9 +395,23 @@ public class PaperController {
     @RequestMapping(value = "/reject/{id}", method = RequestMethod.PUT)
     MessageResponse rejectPaper(@PathVariable int id) {
         try {
-            paperService.getPaperById(id).setAccepted("rejected");
+            Paper paper = paperService.getPaperById(id);
+            paper.setAccepted("rejected");
+            paperService.updatePaper(paper);
             return new MessageResponse("true");
         } catch (RuntimeException e) {
+            return new MessageResponse("false");
+        }
+    }
+
+
+    @RequestMapping(value = "/delete/{pid}", method = RequestMethod.DELETE)
+    MessageResponse deletePaper(@PathVariable Integer pid){
+        try{
+            paperService.deletePaper(paperService.getPaperById(pid));
+            return new MessageResponse("true");
+        }
+        catch (RuntimeException e){
             return new MessageResponse("false");
         }
     }
@@ -375,20 +419,17 @@ public class PaperController {
     @RequestMapping(value = "/reassign/paper={pid}", method = RequestMethod.PUT)
     MessageResponse reassignPaper(@PathVariable int pid, @RequestBody ReviewersRequest reviewersRequest) {
         try {
-            Paper paper = paperService.getPaperById(pid);
             List<Assignment> assignments = this.assignmentService.getAllAssignments()
                     .stream()
                     .filter(a -> a.getPid() == pid)
                     .collect(Collectors.toList());
             assignments.forEach(a -> this.assignmentService.deleteAssignment(a));
 
-            reviewersRequest.getReviewers().forEach(reviewer -> {
-                assignmentService.addAssignment(Assignment.builder()
-                        .pid(pid)
-                        .pcid(reviewer)
-                        .qualifier(-1)
-                        .build());
-            });
+            reviewersRequest.getReviewers().forEach(reviewer -> assignmentService.addAssignment(Assignment.builder()
+                    .pid(pid)
+                    .pcid(reviewer)
+                    .qualifier(-1)
+                    .build()));
 
             return new MessageResponse("true");
         } catch (RuntimeException e) {
@@ -403,4 +444,31 @@ public class PaperController {
     }
 
 
+    @RequestMapping(value="/getPapersWithQualifiers",method = RequestMethod.GET)
+    PapersResponse getPapersWithQualifiers(){
+        List<Paper> papers = new ArrayList<>();
+
+        paperService.getAllPapers().forEach(
+                paper->{
+                    double average = assignmentService.getAllAssignments()
+                            .stream()
+                            .filter(assg->assg.getPid()==paper.getPid())
+                            .map(Assignment::getQualifier)
+                            .mapToInt(Integer::intValue)
+                            .average().orElse(0);
+                    if (average>2 && average<4)
+                        paper.setAccepted("conflict");
+                    if(average>=4)
+                        paper.setAccepted("accepted");
+                    if(average<=2)
+                        paper.setAccepted("rejected");
+                    papers.add(paper);
+                    paperService.updatePaper(paper);
+                }
+        );
+
+        return new PapersResponse(
+                (ArrayList<PaperDto>) converter.convertModelsToDtos(papers)
+        );
+    }
 }

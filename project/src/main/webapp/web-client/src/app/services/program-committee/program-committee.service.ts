@@ -4,6 +4,8 @@ import {Observable, of} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
 import {ProgramCommittee} from '../../model/program-committee';
 import {PcDto} from "../../model/pcdto";
+import {User} from "../../model/user";
+import {UserDto} from "../../model/userdto";
 
 @Injectable({
   providedIn: 'root'
@@ -31,6 +33,10 @@ export class ProgramCommitteeService {
       map(response => Boolean(response['message'])),
       catchError(this.handleError<boolean>('makePCIntoChair'))
     );
+  }
+
+  getUserInfo(id: number) : Observable<UserDto>{
+    return this.http.get<UserDto>('http://localhost:8080/api/user/'+id, this.httpOptions);
   }
 
   getProgramCommittee(id: number): Observable<PcDto> {

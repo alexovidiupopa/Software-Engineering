@@ -22,6 +22,16 @@ export class PaperService {
   }
 
 
+  getPapersQualified(): Observable<Paper[]>{
+    const url = this.url + '/getPapersWithQualifiers';
+    return this.http.get<Paper[]>(url, this.httpOptions)
+      .pipe(
+        map(result=>result['papers']),
+        catchError(this.handleError<Paper[]>('getPapersWithQualifiers',[]))
+      );
+  }
+
+
   private getAllReviews(): Observable<Review[]> {
     const url = this.url + '/all-reviews';
     return this.http.get<Review[]>(url, this.httpOptions)
@@ -202,18 +212,28 @@ export class PaperService {
   acceptPaper(id: number) {
     const url = `${this.url}/accept/${id}`;
     console.log(id);
-    this.http.put<boolean>(url, this.httpOptions);
+    return this.http.put<boolean>(url, this.httpOptions)
+      .pipe(
+        map(result=>Boolean(result['message'])),
+        catchError(this.handleError<boolean>('acceptPaper'))
+      );
   }
 
   rejectPaper(id: number) {
     const url = `${this.url}/reject/${id}`;
     console.log(id);
-    this.http.put<boolean>(url, this.httpOptions);
+    return this.http.put<boolean>(url, this.httpOptions).pipe(
+      map(result=>Boolean(result['message'])),
+      catchError(this.handleError<boolean>('rejectPaper'))
+    );
   }
 
   reassignPaper(id: number, reviewers: number[]) {
     const url = `${this.url}/reassign/paper=${id}`;
-    this.http.put<boolean>(url, {reviewers}, this.httpOptions);
+    return this.http.put<boolean>(url, {reviewers}, this.httpOptions).pipe(
+      map(result=>Boolean(result['message'])),
+      catchError(this.handleError<boolean>('reassignPaper'))
+    );
   }
 
   private handleError<T>(operation = 'operation', result?: T) {

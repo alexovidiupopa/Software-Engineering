@@ -3,6 +3,7 @@ import {FormControl, Validators} from '@angular/forms';
 import {ProgramCommittee} from '../../model/program-committee';
 import {ProgramCommitteeService} from '../../services/program-committee/program-committee.service';
 import {PcDto} from "../../model/pcdto";
+import {UserDto} from "../../model/userdto";
 
 @Component({
   selector: 'app-manage-pc',
@@ -16,7 +17,7 @@ export class ManagePCComponent implements OnInit {
   ]);
   email : string;
   pcs: PcDto[];
-
+  pcMembersInfo: UserDto[] = [];
   constructor(private pcService: ProgramCommitteeService) {
   }
 
@@ -26,7 +27,13 @@ export class ManagePCComponent implements OnInit {
 
   getPCs(): void {
     this.pcService.getProgramCommittees()
-      .subscribe(pcs => this.pcs = pcs);
+      .subscribe(pcs => {
+        this.pcs = pcs
+        for (const pc of pcs){
+          this.pcService.getUserInfo(pc.uid)
+            .subscribe(person=>this.pcMembersInfo.push(person));
+        }
+      });
   }
 
   invitePc() {

@@ -5,22 +5,22 @@
 <div *ngIf="pc" id="main-div">
   <mat-card class="example-card">
     <mat-card-header>
-     <!-- <mat-card-title>{{pc.firstName | uppercase}} {{pc.lastName | uppercase}}</mat-card-title>
-      <mat-card-subtitle> {{pc.academicRank}} at {{pc.affiliation}}</mat-card-subtitle>-->
+      <mat-card-title>{{pc.firstname | uppercase}} {{pc.lastname | uppercase}}</mat-card-title>
+      <mat-card-subtitle> {{pc.academicrank}} at {{pc.affiliation}}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
       <section class="mat-typography">
-        <!--<h4>First name: {{pc.firstName}}</h4>
-        <h4>Last name: {{pc.lastName}}</h4>
+        <h4>First name: {{pc.firstname}}</h4>
+        <h4>Last name: {{pc.lastname}}</h4>
         <h4>Email: {{pc.email}}</h4>
         <h4>Affiliation: {{pc.affiliation}}</h4>
-        <h4>Academic Rank: {{pc.academicRank}}</h4>
+        <h4>Academic Rank: {{pc.academicrank}}</h4>
         <h4>Website: {{pc.website}}</h4>
-        <h4>Phone number: {{pc.phoneNumber}}</h4>-->
+        <h4>Phone number: {{pc.phonenumber}}</h4>
       </section>
     </mat-card-content>
     <mat-card-actions>
-      <button (click)="makeChair(pc.pcid)" color="primary" mat-flat-button>Give Chair credentials</button>
+      <button (click)="makeChair(pc.uid)" color="primary" mat-flat-button>Give Chair credentials</button>
       <button (click)="goBack()" mat-flat-button>Back</button>
     </mat-card-actions>
     <mat-error *ngIf="!successfulUpdate">Couldn't update to chair</mat-error>

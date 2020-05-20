@@ -66,12 +66,13 @@ public class PcMemberController {
 
     @RequestMapping(value = "/pcToChair/{id}", method = RequestMethod.PUT)
     public MessageResponse pcToChair(@PathVariable Integer id) {
-        Optional<PcMember> pcMember = this.pcMemberService.getPcMemberById(id);
+        Optional<PcMember> pcMember = this.pcMemberService.getPcMemberById(this.pcMemberService.getPcIdByUid(id));
         System.out.println(pcMember.get().getUid());
         if (pcMember.isPresent()) {
+            pcMemberService.deletePcMember(pcMember.get());
             chairService.addChair(chairConverter.dtoToModel(
                     ChairDto.builder()
-                            .uid(pcMember.get().getUid())
+                            .uid(id)
                             .build()));
             return new MessageResponse("true");
         } else {

@@ -28,7 +28,7 @@
     <mat-nav-list>
      <!-- <a *ngFor="let pc of pcs" href="/pc/detail/{{pc.id}}" mat-list-item> {{pc.firstName}} {{pc.lastName}}
         ({{pc.affiliation}}) </a>-->
-       <a *ngFor="let pc of pcs" href="/pc/detail/{{pc.pcid}}" mat-list-item> {{pc.uid}}</a>
+       <a *ngFor="let pc of pcs; let i = index" href="/pc/detail/{{pcMembersInfo[i].uid}}" mat-list-item>{{pcMembersInfo[i].firstname}} {{pcMembersInfo[i].lastname}} ({{pcMembersInfo[i].affiliation}})</a>
     </mat-nav-list>
   </mat-card>
 

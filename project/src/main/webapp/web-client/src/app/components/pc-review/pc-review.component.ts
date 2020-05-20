@@ -112,8 +112,8 @@ export class PcReviewComponent implements OnInit {
     return null;
   }
 
-  private validData(file: File, qualifier: string) {
-    return file !== null && qualifier != null;
+  private validData(file: File, qualifier: number) {
+    return file !== null && qualifier >= 0 ;
   }
 
   private getQualifierForPaper(id: number): number {
