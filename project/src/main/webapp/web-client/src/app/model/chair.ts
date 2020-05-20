@@ -1,8 +1,6 @@
-import * as moment from 'moment';
-
 export class Chair {
-    cid: number;
-    uid: number;
+  cid: number;
+  uid: number;
 
   constructor(cid: number, uid: number) {
     this.cid = cid;

@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {Paper} from "../../model/paper";
-import {BiddingService} from "../../services/bidding/bidding.service";
-import {Router} from "@angular/router";
-import {AuthenticationService} from "../../services/login";
-import {PaperService} from "../../services/paper/paper.service";
-import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
+import {Paper} from '../../model/paper';
+import {BiddingService} from '../../services/bidding/bidding.service';
+import {Router} from '@angular/router';
+import {AuthenticationService} from '../../services/login';
+import {PaperService} from '../../services/paper/paper.service';
+import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-bidding',
@@ -19,6 +19,8 @@ export class BiddingComponent implements OnInit {
   userId: number;
   papersMap: Map<number, string>;
   paperContentUrl: SafeResourceUrl;
+  urls = [];
+  paperNames: string[] = [];
 
   constructor(private biddingService: BiddingService,
               private router: Router,
@@ -36,27 +38,30 @@ export class BiddingComponent implements OnInit {
 
 
   populatePapers(): void {
-    //this.userId = 1;
     this.biddingService.getAllPapers(this.userId)
-      .subscribe(papers => this.papers = papers);
+      .subscribe(papers => {
+        this.papers = papers;
+        for (let i = 0; i < papers.length; i++) {
+          this.urls.push(this.sanitizer.bypassSecurityTrustResourceUrl('http://localhost:8080/api/paper/content/' + papers[i].pid));
+          this.paperNames.push(papers[i].title);
+        }
+      });
   }
-
 
   submitChoices(): void {
     this.papersMap.forEach((value: string, key: number) => {
-      if (value === "accept")
+      if (value === 'accept') {
         this.accepted.push(key);
-    });
-    this.biddingService.acceptPapers(this.userId, this.accepted);
-  }
-
-  downloadPaper(id: number) {
-    this.paperService.getPaperContent(id).subscribe(
-      response => {
-        this.paperContentUrl = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(response));
-
       }
-    );
+    });
+
+    this.biddingService.acceptPapers(this.userId, this.accepted)
+      .subscribe(
+        result=> {
+          if (result === true)
+            this.router.navigateByUrl('/pc-home');
+        }
+      );
   }
 
   setPaperStatus(id: number, accept: string) {

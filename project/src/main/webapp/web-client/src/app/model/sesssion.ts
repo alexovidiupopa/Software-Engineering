@@ -1,15 +1,15 @@
-import {Time} from '@angular/common';
 import * as moment from 'moment';
 
 export class Sesssion {
-  id: number;
+  sid: number;
   time: moment.Moment;
+  price: number = Math.random() * (50 - 5) + 5 ;
   room: number;
   supervisor: number;
   constructor(id: number, time: moment.Moment, room: number, supervisor: number) {
     this.time = time;
     this.room = room;
-    this.id = id;
+    this.sid = id;
     this.supervisor = supervisor;
   }
 

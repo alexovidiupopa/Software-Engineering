@@ -2,8 +2,6 @@ package ro.ubb.project.web.request;
 
 import lombok.*;
 
-import java.util.ArrayList;
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -13,6 +11,7 @@ import java.util.ArrayList;
 public class PaperRequest {
     private int paperId;
     private int authorId;
-    private String paperTitle;
-    private ArrayList<String> keywords;
+    private String paperName;
+    private String keywords;
+    private String fileName;
 }

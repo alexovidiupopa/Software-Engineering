@@ -15,4 +15,6 @@ public interface PersonService {
     void updatePerson(Person person);
 
     Person getPersonByUserName(String username);
+
+    Person getPersonById(int id);
 }

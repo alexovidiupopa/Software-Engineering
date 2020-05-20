@@ -1,14 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {SessionService} from '../../services/session/session.service';
-import { Paper } from 'src/app/model/paper';
 import {PaperService} from '../../services/paper/paper.service';
-import { Sesssion } from 'src/app/model/sesssion';
-import { Paperr } from 'src/app/model/paperr';
-import {DateAdapter} from '@angular/material/core';
-// @ts-ignore
-import moment = require('moment');
+import {Sesssion} from 'src/app/model/sesssion';
+import {Paper} from 'src/app/model/paper';
 
 @Component({
   selector: 'app-manage-session',
@@ -20,7 +15,7 @@ export class ManageSessionComponent implements OnInit {
 
   sessions: Sesssion[];
   pair: any[]
-  papers: Paperr[];
+  papers: Paper[];
 
 
   constructor(private route: ActivatedRoute, private sessionService: SessionService, private paperService: PaperService) {
@@ -37,12 +32,12 @@ export class ManageSessionComponent implements OnInit {
   {
 
     let paperString = "";
-    let sessionPapers: Paperr[] = [];
+    let sessionPapers: Paper[] = [];
     for( let paper of this.papers.values())
     {
-      if (paper.session == id)
+      if (paper.sessionId == id)
         paperString += paper.title
-        paperString += ", "
+      paperString += "\n "
     }
 
     return paperString;
@@ -50,12 +45,14 @@ export class ManageSessionComponent implements OnInit {
 
   getSession()
   {
-    this.sessionService.getSessions().subscribe( session => this.sessions = session)
+    this.sessionService.getSessions()
+      .subscribe( session => this.sessions = session)
   }
 
   getPapers()
   {
-    this.paperService.getAllPapers().subscribe( papers => this.papers = papers)
+    this.paperService.getAllPapers()
+      .subscribe( papers => this.papers = papers)
   }
 
 }

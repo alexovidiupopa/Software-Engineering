@@ -3,6 +3,7 @@ package ro.ubb.project.core.service;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import org.joda.time.DateTime;
+import org.joda.time.LocalDateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.springframework.stereotype.Service;
@@ -26,16 +27,16 @@ public class Scheduler {
 
     public String getCurrentPhase() {
         DateTimeFormatter dtf = DateTimeFormat.forPattern("MM/DD/YYYY HH:mm:ss");
-        if (DateTime.parse(preliminaryPhaseDeadline, dtf).isAfterNow()) {
+        if (LocalDateTime.parse(preliminaryPhaseDeadline, dtf).toDateTime().isAfterNow()) {
             return "preliminary";
         }
-        if (DateTime.parse(preliminaryPhaseDeadline, dtf).isBeforeNow()) {
+        if (LocalDateTime.parse(preliminaryPhaseDeadline, dtf).toDateTime().isBeforeNow()) {
             return "first";
         }
-        if (DateTime.parse(firstPhaseDeadline, dtf).isBeforeNow()) {
+        if (LocalDateTime.parse(firstPhaseDeadline, dtf).toDateTime().isBeforeNow()) {
             return "second";
         }
-        if (DateTime.parse(secondPhaseDeadline, dtf).isBeforeNow()) {
+        if (LocalDateTime.parse(secondPhaseDeadline, dtf).toDateTime().isBeforeNow()) {
             return "third";
         }
         return "finished";

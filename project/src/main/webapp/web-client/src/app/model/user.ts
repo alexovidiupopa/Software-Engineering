@@ -29,7 +29,7 @@ export class User {
   }
 
 
-  makeid() {
+  makeId() {
     let result = '';
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     const charactersLength = characters.length;
@@ -45,6 +45,6 @@ export class User {
 
   isChair() {
     // tslint:disable-next-line:triple-equals
-    return this.type == 'Chair';
+    return this.type === 'Chair';
   }
 }

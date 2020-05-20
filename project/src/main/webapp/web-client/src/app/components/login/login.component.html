@@ -1,30 +1,32 @@
 <body>
 <div class="header">
-  <button class="nav-item nav-link homeButton"  routerLink="" mat-flat-button><mat-icon>arrow_back</mat-icon></button>
-  <h1 id = "title" >Login</h1>
+  <button class="nav-item nav-link homeButton" mat-flat-button routerLink="">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+  <h1 id="title">Login</h1>
 </div>
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-    <mat-form-field>
-      <mat-label>Username: </mat-label>
-      <input formControlName="username" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" matInput />
-      <mat-error *ngIf="submitted && f.username.errors" class="invalid-feedback">
-        <div *ngIf="f.username.errors.required">Username is required</div>
-      </mat-error>
-    </mat-form-field>
+<form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
+  <mat-form-field>
+    <mat-label>Username:</mat-label>
+    <input [ngClass]="{ 'is-invalid': submitted && f.username.errors }" formControlName="username" matInput/>
+    <mat-error *ngIf="submitted && f.username.errors" class="invalid-feedback">
+      <div *ngIf="f.username.errors.required">Username is required</div>
+    </mat-error>
+  </mat-form-field>
 
 
-    <mat-form-field>
-      <mat-label>Password</mat-label>
-      <input formControlName="password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" matInput/>
-      <mat-error *ngIf="submitted && f.password.errors" class="invalid-feedback">
-        <div *ngIf="f.password.errors.required">Password is required</div>
-      </mat-error>
-    </mat-form-field>
+  <mat-form-field>
+    <mat-label>Password</mat-label>
+    <input [ngClass]="{ 'is-invalid': submitted && f.password.errors }" formControlName="password" matInput type="password"/>
+    <mat-error *ngIf="submitted && f.password.errors" class="invalid-feedback">
+      <div *ngIf="f.password.errors.required">Password is required</div>
+    </mat-error>
+  </mat-form-field>
 
-    <button mat-raised-button id = "buttonLogin" color="warn" [disabled]="loading">
-      <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-      Login
-    </button>
+  <button [disabled]="loading" color="warn" id="buttonLogin" mat-raised-button>
+    <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+    Login
+  </button>
 </form>
 </body>
 

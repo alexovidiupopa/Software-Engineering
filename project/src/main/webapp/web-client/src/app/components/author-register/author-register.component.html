@@ -1,6 +1,6 @@
-<!--<button (click)="goHome()" class="homeButton" color="accent" mat-raised-button>-->
-<!--  Back to register page-->
-<!--</button>-->
+<button (click)="goHome()" class="homeButton" color="primary" mat-raised-button>
+  Back to site
+</button>
 <h2 id="decorationText"> Thank you for the author registration!</h2>
 
 <h1 [hidden]="success">Register as Author</h1>
@@ -34,19 +34,19 @@
     </mat-form-field>
     <mat-form-field>
       <mat-label>First name:</mat-label>
-      <input formControlName="firstName" matInput >
+      <input formControlName="firstName" matInput>
     </mat-form-field>
     <mat-form-field>
       <mat-label>Last name:</mat-label>
-      <input formControlName="lastName" matInput >
+      <input formControlName="lastName" matInput>
     </mat-form-field>
     <mat-form-field>
       <mat-label>Phone number:</mat-label>
-      <input formControlName="phoneNumber" matInput >
+      <input formControlName="phoneNumber" matInput>
     </mat-form-field>
     <mat-form-field>
       <mat-label>Academic rank:</mat-label>
-      <input formControlName="academicRank" matInput >
+      <input formControlName="academicRank" matInput>
     </mat-form-field>
   </form>
   <button (click)="registerAuthor() " [disabled]="myForm.invalid" class="registerButton" mat-raised-button>

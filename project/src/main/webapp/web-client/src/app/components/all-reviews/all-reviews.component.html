@@ -1,7 +1,23 @@
-<p>all-reviews works!</p>
+<app-header></app-header>
 
+<div class="main-div">
+  <mat-card>
 
-<mat-tab-group >
+    <h1 class="mat-h1">Welcome to the All Reviews Page!</h1>
 
-  <mat-tab *ngFor="let review of reviews" [label] = "review.paperId" > Qualifier : {{review.qualifier}} </mat-tab>
-</mat-tab-group>
+    <h5 class="mat-small">Click on a paper in conflict to make a decision.</h5>
+
+    <mat-nav-list>
+      <a *ngFor="let paper of papers" mat-list-item>
+        <a *ngIf="paper.accepted==='conflict'" href="/paper/decision/{{paper.pid}}" >
+          {{paper.title}} ({{paper.accepted}})
+        </a>
+        <a *ngIf="paper.accepted!=='conflict'" >
+          {{paper.title}} ({{paper.accepted}})
+        </a>
+        </a>
+
+    </mat-nav-list>
+  </mat-card>
+
+</div>

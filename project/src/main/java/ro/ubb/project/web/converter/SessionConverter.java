@@ -4,6 +4,8 @@ import org.springframework.stereotype.Component;
 import ro.ubb.project.core.model.Session;
 import ro.ubb.project.web.dto.SessionDto;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 @Component
 public class SessionConverter extends AbstractConverter<Session, SessionDto> {
     @Override
@@ -22,6 +24,7 @@ public class SessionConverter extends AbstractConverter<Session, SessionDto> {
                 .sid(session.getSid())
                 .time(session.getTime())
                 .rid(session.getRid())
+                .price(ThreadLocalRandom.current().nextInt(10,50 + 1))
                 .supervisor(session.getSupervisor())
                 .build();
     }

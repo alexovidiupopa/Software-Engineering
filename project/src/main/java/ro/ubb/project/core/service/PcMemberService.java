@@ -19,4 +19,5 @@ public interface PcMemberService {
 
     boolean isPcMember(int uid);
 
+    int getPcIdByUid(int userId);
 }

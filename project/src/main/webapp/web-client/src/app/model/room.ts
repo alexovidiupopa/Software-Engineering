@@ -1,12 +1,9 @@
-import {Time} from '@angular/common';
-import * as moment from 'moment';
-
 export class Room {
-  id: number;
+  rid: number;
   capacity: number;
 
-  constructor(id: number, capacity: number) {
-    this.id = id;
+  constructor(rid: number, capacity: number) {
+    this.rid = rid;
     this.capacity = capacity;
   }
 }

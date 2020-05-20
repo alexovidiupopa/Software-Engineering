@@ -1,9 +1,8 @@
-import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {Room} from '../../model/room';
-import {map} from 'rxjs/operators';
-import { Chair } from 'src/app/model/chair';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {Observable} from "rxjs";
+import {Chair} from "../../model/chair";
+import {map} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -18,8 +17,6 @@ export class ChairService {
 
   getAllChairs(): Observable<Chair[]>
   {
-    return this.http.get<Chair[]>(this.url + '/getAllChairs', this.httpOptions).pipe( map(result => result["chairs"]) );
+    return this.http.get<Chair[]>(this.url + '/getAllChairs', this.httpOptions).pipe(map(result => result["chairs"]) );
   }
-
-
 }

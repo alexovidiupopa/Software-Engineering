@@ -3,7 +3,7 @@ import {Paper} from '../../model/paper';
 import {PaperService} from '../../services/paper/paper.service';
 import {ActivatedRoute} from '@angular/router';
 import {ReviewMark} from '../../model/review-mark';
-import {Observable, of} from 'rxjs';
+import {Observable} from 'rxjs';
 import {DomSanitizer} from '@angular/platform-browser';
 import {AuthenticationService} from '../../services/login';
 import {Review} from '../../model/review';
@@ -33,21 +33,21 @@ export class PcReviewComponent implements OnInit {
   reviews: ReviewData[] = [];
   abstractUrl: any;
   contentUrl: any;
-
+  authors: string[] = [];
   constructor(private paperService: PaperService, private route: ActivatedRoute, private authorService: AuthorService,
               private sanitizer: DomSanitizer, private authenticationService: AuthenticationService
   ) {
     this.papers = this.paperService.getAllPapersForReviewer(+this.route.snapshot.paramMap.get('id'));
     this.papers.subscribe(result => {
       for (let i = 0; i < result.length; i++) {
-        this.urls.push(this.sanitizer.bypassSecurityTrustResourceUrl("http://localhost:8080/api/paper/content/" + result[i].id));
+        this.urls.push(this.sanitizer.bypassSecurityTrustResourceUrl('http://localhost:8080/api/paper/content/' + result[i].pid));
         this.paperNames.push(result[i].title);
         this.marks.push(null);
         this.badData[i] = false;
+        this.authorService.getAuthorById(result[i].authorId).subscribe(response => this.authors.push(response.firstname + ' ' + response.lastname));
       }
     });
-    //this.downloadPaper(2);
-    console.log("pc-review constructor");
+    console.log('pc-review constructor');
     console.log(this.contentUrl);
     this.isLoaded = true;
   }
@@ -57,22 +57,8 @@ export class PcReviewComponent implements OnInit {
 
   getAuthor(authorId: number) {
     let name: string = null;
-    this.authorService.getAuthorById(authorId).subscribe(response => name = response.firstName + ' ' + response.lastName);
+    this.authorService.getAuthorById(authorId).subscribe(response => name = response.firstname + ' ' + response.lastname);
     return name;
-  }
-
-  downloadPaper(id: number) {
-    /*this.paperService.getAbstract(id).subscribe(
-      response => {
-        this.abstractUrl = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(response));
-        console.log(this.abstractUrl);
-      });*/
-    this.paperService.getPaperContent(id).subscribe(
-      response => {
-        console.log(response);
-        this.contentUrl = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(response));
-        console.log(this.contentUrl);
-      });
   }
 
   uploadReview(id: number) {
@@ -88,9 +74,8 @@ export class PcReviewComponent implements OnInit {
     let file = this.fileOfReviewWithPaperId(id);
     let qualifier = this.getQualifierForPaper(index);
     if (this.validData(file, qualifier)) {
-      //let id = this.authenticationService.getCurrentUser().id;
-      let userid = 2; // fixme remove this!
-      this.paperService.submitReview(userid, new Review(id, file, qualifier))
+      let userId = this.authenticationService.getCurrentUser().id;
+      this.paperService.submitReview(userId, new Review(id, file, qualifier))
         .subscribe(response => {
           if (response === true) {
             location.reload(true);
@@ -127,13 +112,13 @@ export class PcReviewComponent implements OnInit {
     return null;
   }
 
-  private validData(file: File, qualifier: string) {
-    return file !== null && qualifier != null;
+  private validData(file: File, qualifier: number) {
+    return file !== null && qualifier >= 0 ;
   }
 
-  private getQualifierForPaper(id: number): string {
+  private getQualifierForPaper(id: number): number {
     if (this.marks[id] !== null) {
-      return this.marks[id].name;
+      return this.marks[id].value;
     } else {
       return null;
     }

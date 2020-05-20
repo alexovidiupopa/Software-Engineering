@@ -53,19 +53,18 @@ public class LoginController {
                         .withClaim("type", "chair")
                         .withClaim("uid", uid)
                         .sign(algorithm));
-
-            if (authorService.isAuthor(uid))
-                return new MessageResponse(JWT.create()
-                        .withIssuer("admin")
-                        .withClaim("success", true)
-                        .withClaim("type", "author")
-                        .withClaim("uid", uid)
-                        .sign(algorithm));
             if (pcMemberService.isPcMember(uid))
                 return new MessageResponse(JWT.create()
                         .withIssuer("admin")
                         .withClaim("success", true)
                         .withClaim("type", "pc")
+                        .withClaim("uid", uid)
+                        .sign(algorithm));
+            if (authorService.isAuthor(uid))
+                return new MessageResponse(JWT.create()
+                        .withIssuer("admin")
+                        .withClaim("success", true)
+                        .withClaim("type", "author")
                         .withClaim("uid", uid)
                         .sign(algorithm));
             return new MessageResponse(JWT.create()

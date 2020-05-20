@@ -1,6 +1,7 @@
 <app-header></app-header>
 
-<button routerLink="/bid" mat-flat-button>Bid papers</button>
+<button mat-flat-button routerLink="/bid">Bid papers</button>
 <!--<button *ngIf="isSecondPhase()" routerLink="/review/pc" mat-flat-button>Review papers</button>-->
 <!--<button *ngIf="isFirstPhase()" routerLink="/paper/upload" mat-flat-button>Upload a new paper</button>-->
-<button  routerLink="/paper/all" mat-flat-button>My papers</button>
+<button id="logoutButton"  (click)="logout()" mat-flat-button><mat-icon>logout</mat-icon></button>
+<button mat-flat-button routerLink="/paper/all">My papers</button>

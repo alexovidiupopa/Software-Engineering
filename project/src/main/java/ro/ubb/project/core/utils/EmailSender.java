@@ -5,9 +5,10 @@ import com.sendgrid.*;
 import java.io.IOException;
 
 public class EmailSender {
-    public static final String ORIGIN_EMAIL = "";
+    public static final String ORIGIN_EMAIL = "pdie2597@scs.ubbcluj.ro";
     public static final String WELCOME_SUBJECT = "Welcome to CMS!";
     public static final String JOIN_SUBJECT = "Conference Invitation";
+    public static final String PURCHASE_SUBJECT = "Your Purchase";
     public static final String REGISTER_LINK = "http://localhost:4200/api/pc/signup";
     public static final String LOGIN_LINK = "http://localhost:4200/api/login";
 

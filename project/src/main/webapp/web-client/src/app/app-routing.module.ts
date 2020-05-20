@@ -20,7 +20,6 @@ import {BuyTicketComponent} from './components/buy-ticket/buy-ticket.component';
 import {UpdateConferenceComponent} from './components/update-conference/update-conference.component';
 import {StructureConferenceComponent} from './components/structure-conference/structure-conference.component';
 import {PcReviewComponent} from './components/pc-review/pc-review.component';
-import {RoomsComponent} from './components/rooms/rooms.component';
 import {AssignReviewerComponent} from './components/assign-reviewer/assign-reviewer.component';
 import {PaperDetailDecisionComponent} from './components/paper-detail-decision/paper-detail-decision.component';
 import {CheckoutComponent} from './components/checkout/checkout.component';
@@ -47,7 +46,6 @@ const routes: Routes = [
   {path: 'conference/structure', component: StructureConferenceComponent},
   {path: 'review/pc/:id', component: PcReviewComponent},
   {path: 'review/assign', component: AssignReviewerComponent},
-  {path: 'rooms', component: RoomsComponent},
   {path: '', component: HomepageComponent}, //HomeComponent
   {path: 'chair-home', component: ChairHomeComponent},
   {path: 'login', component: LoginComponent},

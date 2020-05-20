@@ -1,13 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {PaperService} from "../../services/paper/paper.service";
-import {Paper} from "../../model/paper";
-import {AuthenticationService} from "../../services/login";
-import {User} from "../../model/user";
-import {ActivatedRoute, Router} from "@angular/router";
-import {Location} from "@angular/common";
-import {DomSanitizer} from "@angular/platform-browser";
-import {ProgramCommitteeService} from "../../services/program-committee/program-committee.service";
-import {ProgramCommittee} from "../../model/program-committee";
+import {PaperService} from '../../services/paper/paper.service';
+import {Paper} from '../../model/paper';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Location} from '@angular/common';
+import {DomSanitizer} from '@angular/platform-browser';
+import {ProgramCommitteeService} from '../../services/program-committee/program-committee.service';
+import {PcDto} from "../../model/pcdto";
+import {UserDto} from "../../model/userdto";
 
 @Component({
   selector: 'app-paper-detail-decision',
@@ -16,10 +15,10 @@ import {ProgramCommittee} from "../../model/program-committee";
 })
 export class PaperDetailDecisionComponent implements OnInit {
 
-  user: User;
   paper: Paper;
   id = +this.route.snapshot.paramMap.get('id');
-  pcMembers: ProgramCommittee[] = [];
+  pcMembers: PcDto[] = [];
+  pcMembersInfo: UserDto[] = [];
   reviewersMap: Map<number, boolean>;
 
   constructor(
@@ -28,10 +27,8 @@ export class PaperDetailDecisionComponent implements OnInit {
     private location: Location,
     private router: Router,
     private sanitizer: DomSanitizer,
-    private authenticationService: AuthenticationService,
     private pcService: ProgramCommitteeService
   ) {
-    //this.user = authenticationService.getCurrentUser();
     this.reviewersMap = new Map<number, boolean>();
   }
 
@@ -40,9 +37,36 @@ export class PaperDetailDecisionComponent implements OnInit {
     this.getPcs();
   }
 
+  acceptPaper() {
+    this.paperService.acceptPaper(this.paper.pid)
+      .subscribe();
+  }
+
+  rejectPaper() {
+    this.paperService.rejectPaper(this.paper.pid)
+      .subscribe();
+  }
+
+  sendPaperBack() {
+    let reviewers = [];
+    this.reviewersMap.forEach((value, key) => {
+      if (value === true) {
+        reviewers.push(key);
+      }
+    });
+    if (reviewers.length !== 2 && reviewers.length !== 3) {
+      window.alert('please choose 2 or 3 reviewers!');
+      return;
+    }
+    this.paperService.reassignPaper(this.paper.pid, reviewers)
+      .subscribe();
+  }
+
+  selectReviewer(id: number) {
+    this.reviewersMap.set(id, !this.reviewersMap.get(id));
+  }
 
   private getPaper() {
-    //this.paper = new Paper("name1","authors",1,"keywords",null,null,1);
     this.paperService.getPaperById(this.id)
       .subscribe(paper => {
         this.paper = paper;
@@ -50,37 +74,14 @@ export class PaperDetailDecisionComponent implements OnInit {
   }
 
   private getPcs() {
-    //this.pcMembers.push(new ProgramCommittee(null, null, null, "UBB", "alex","popa",null, null, null, 1));
     this.pcService.getProgramCommittees()
       .subscribe(pcs => {
         this.pcMembers = pcs;
+        for (const pc of pcs){
+          this.pcService.getUserInfo(pc.uid)
+            .subscribe(person=>this.pcMembersInfo.push(person));
+        }
       });
-    this.pcMembers.forEach(pc => this.reviewersMap.set(pc.id, false));
-  }
-
-  acceptPaper() {
-    this.paperService.accept(this.paper.id);
-  }
-
-  rejectPaper() {
-    this.paperService.reject(this.paper.id);
-  }
-
-  sendPaperBack() {
-    let reviewers = [];
-    this.reviewersMap.forEach((value, key) => {
-      if (value == true) {
-        reviewers.push(key);
-      }
-    });
-    if (reviewers.length != 2 && reviewers.length != 3) {
-      window.alert("please choose 2 or 3 reviewers!");
-      return;
-    }
-    this.paperService.reassign(this.paper.id, reviewers);
-  }
-
-  selectReviewer(id: number) {
-    this.reviewersMap.set(id, !this.reviewersMap.get(id));
+    this.pcMembers.forEach(pc => this.reviewersMap.set(pc.pcid, false));
   }
 }

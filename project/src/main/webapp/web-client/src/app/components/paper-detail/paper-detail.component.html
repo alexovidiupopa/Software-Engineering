@@ -4,7 +4,7 @@
   <mat-card class="example-card">
     <mat-card-header>
       <mat-card-title>{{paper.title | uppercase}}</mat-card-title>
-      <mat-card-subtitle> {{paper.authors}}</mat-card-subtitle>
+      <mat-card-subtitle> {{paper.topic}}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
       <section class="mat-typography">
@@ -17,32 +17,24 @@
                    value="{{paper.title}}">
           </mat-form-field>
         </form>
-        <form class="example-form">
-          <mat-form-field class="example-full-width">
-            <mat-label>Other contributors (can be left empty if yours alone)</mat-label>
-            <input #paperAuthorsInput (change)="paperAuthorsUpdated(paperAuthorsInput.value)"
-                   id="paper-authors"
-                   matInput placeholder="Ex. Michael Holmes, Andy Greenwich" value="{{paper.authors}}">
-          </mat-form-field>
-        </form>
+
         <form class="example-form">
           <mat-form-field class="example-full-width">
             <mat-label>Keywords</mat-label>
             <input #paperKeywordsInput (change)="paperKeywordsUpdated(paperKeywordsInput.value)"
                    id="paper-keywords"
                    matInput placeholder="Ex. Augustinian Studies, love, divinity, delight, joy, C. S. Lewis"
-                   value="{{paper.keywords}}">
+                   value="{{paper.topic}}">
           </mat-form-field>
         </form>
       </section>
     </mat-card-content>
-    <a [href]="abstractUrl" download="abstract">
-      <button (click)="downloadAbstract()" class="abstract-button" color="primary" mat-raised-button>
-
-
+    <a [href]="abstractUrl" download="{{abstractFilename}}">
+      <button class="abstract-button" color="primary" mat-raised-button>
         See uploaded abstract
       </button>
     </a>
+
     <div>
       <button (click)="uploadAbstract()" class="abstract-button" color="warn" mat-raised-button>
         Update abstract
@@ -52,9 +44,8 @@
              multiple="multiple" name="abstractFileUpload"
              style="display:none;" type="file"/>
     </div>
-    <a [href]="paperContentUrl" download="content">
-      <button (click)="downloadPaperContent()" *ngIf="paperUploaded" class="abstract-button" color="primary"
-              mat-raised-button>
+    <a [href]="paperContentUrl" download="{{paperFilename}}" *ngIf="(paperUploaded)">
+      <button class="abstract-button" color="primary" mat-raised-button>
         See uploaded paper
       </button>
     </a>
