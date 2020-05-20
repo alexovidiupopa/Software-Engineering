@@ -9,16 +9,10 @@ import lombok.*;
 @Getter
 @Setter
 @Builder
+@ToString
 public class ConferenceRequest {
-    //private int conf_id;
-    private String conferenceName;
 
-    @Override
-    public String toString() {
-        return "ConferenceRequest{" +
-                "conferenceName='" + conferenceName + '\'' +
-                '}';
-    }
+    private String conferenceName;
 
     @JsonFormat(pattern = "MM/DD/YYYY HH:mm:ss")
     private String preliminaryPhaseDeadline;

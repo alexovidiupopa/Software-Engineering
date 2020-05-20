@@ -8,6 +8,8 @@ import {Location} from '@angular/common';
 import {DomSanitizer} from '@angular/platform-browser';
 import {ProgramCommitteeService} from '../../services/program-committee/program-committee.service';
 import {ProgramCommittee} from '../../model/program-committee';
+import {PcDto} from "../../model/pcdto";
+import {UserDto} from "../../model/userdto";
 
 @Component({
   selector: 'app-paper-detail-decision',
@@ -18,7 +20,8 @@ export class PaperDetailDecisionComponent implements OnInit {
 
   paper: Paper;
   id = +this.route.snapshot.paramMap.get('id');
-  pcMembers: ProgramCommittee[] = [];
+  pcMembers: PcDto[] = [];
+  pcMembersInfo: UserDto[] = [];
   reviewersMap: Map<number, boolean>;
 
   constructor(
@@ -38,11 +41,13 @@ export class PaperDetailDecisionComponent implements OnInit {
   }
 
   acceptPaper() {
-    this.paperService.acceptPaper(this.paper.id);
+    this.paperService.acceptPaper(this.paper.pid)
+      .subscribe();
   }
 
   rejectPaper() {
-    this.paperService.rejectPaper(this.paper.id);
+    this.paperService.rejectPaper(this.paper.pid)
+      .subscribe();
   }
 
   sendPaperBack() {
@@ -56,7 +61,8 @@ export class PaperDetailDecisionComponent implements OnInit {
       window.alert('please choose 2 or 3 reviewers!');
       return;
     }
-    this.paperService.reassignPaper(this.paper.id, reviewers);
+    this.paperService.reassignPaper(this.paper.pid, reviewers)
+      .subscribe();
   }
 
   selectReviewer(id: number) {
@@ -74,7 +80,11 @@ export class PaperDetailDecisionComponent implements OnInit {
     this.pcService.getProgramCommittees()
       .subscribe(pcs => {
         this.pcMembers = pcs;
+        for (const pc of pcs){
+          this.pcService.getUserInfo(pc.uid)
+            .subscribe(person=>this.pcMembersInfo.push(person));
+        }
       });
-    this.pcMembers.forEach(pc => this.reviewersMap.set(pc.id, false));
+    this.pcMembers.forEach(pc => this.reviewersMap.set(pc.pcid, false));
   }
 }

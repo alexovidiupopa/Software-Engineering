@@ -1,21 +1,21 @@
 export class PaperReviewerPair {
-  idPaper: number;
-  idsReviewer: number[] = [];
+  pid: number;
+  reviewers: number[] = [];
 
-  constructor(idPaper: number) {
-    this.idPaper = idPaper;
+  constructor(pid: number) {
+    this.pid = pid;
   }
 
-  addReviewer(id: number) {
-    this.idsReviewer.push(id);
+  addReviewer(id: number)  {
+    this.reviewers.push(id);
   }
 
   /// returns 1 if there are too many reviewers, returns -1 if there are too few reviewrs, and 0 otherwise
   canSend() {
-    if (this.idsReviewer.length < 2) {
+    if (this.reviewers.length < 2) {
       return -1;
     }
-    if (this.idsReviewer.length > 3) {
+    if (this.reviewers.length > 3) {
       return 1;
     }
     return 0;
@@ -23,9 +23,9 @@ export class PaperReviewerPair {
   }
 
   removeReviewer(id: number) {
-    const index: number = this.idsReviewer.indexOf(id);
+    const index: number = this.reviewers.indexOf(id);
     if (index !== -1) {
-      this.idsReviewer.splice(index, 1);
+      this.reviewers.splice(index, 1);
     }
   }
 }

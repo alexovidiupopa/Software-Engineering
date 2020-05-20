@@ -4,6 +4,8 @@ import {Location} from '@angular/common';
 import {ProgramCommittee} from '../../model/program-committee';
 import {ProgramCommitteeService} from '../../services/program-committee/program-committee.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {PcDto} from "../../model/pcdto";
+import {UserDto} from "../../model/userdto";
 
 @Component({
   selector: 'app-pc-detail',
@@ -11,9 +13,9 @@ import {MatSnackBar} from '@angular/material/snack-bar';
   styleUrls: ['./pc-detail.component.css']
 })
 export class PcDetailComponent implements OnInit {
-  pc: ProgramCommittee;
+  //pc: ProgramCommittee;
   successfulUpdate = true;
-
+  pc: UserDto;
   constructor(
     private route: ActivatedRoute,
     private pcService: ProgramCommitteeService,
@@ -28,7 +30,7 @@ export class PcDetailComponent implements OnInit {
 
   getPC(): void {
     const id = +this.route.snapshot.paramMap.get('id');
-    this.pcService.getProgramCommittee(id)
+    this.pcService.getUserInfo(id)
       .subscribe(pc => this.pc = pc);
   }
 

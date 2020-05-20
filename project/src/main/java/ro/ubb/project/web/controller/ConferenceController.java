@@ -1,6 +1,5 @@
 package ro.ubb.project.web.controller;
 
-import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.slf4j.Logger;
@@ -15,10 +14,7 @@ import ro.ubb.project.web.request.ConferenceRequest;
 import ro.ubb.project.web.request.MessageRequest;
 import ro.ubb.project.web.response.MessageResponse;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 
 @RestController
 @RequestMapping("/api/conference")
@@ -40,29 +36,47 @@ public class ConferenceController {
         System.out.println(conference);
         log.trace("received conference creation request={}", conference);
         DateTimeFormatter dtf = DateTimeFormat.forPattern("MM/DD/YYYY HH:mm:ss");
-        scheduler.setConferenceName(conference.getConferenceName());
-        scheduler.setFirstPhaseDeadline(dtf.parseDateTime(conference.getFirstPhaseDeadline()).toString());
-        scheduler.setSecondPhaseDeadline(dtf.parseDateTime(conference.getSecondPhaseDeadline()).toString());
-        scheduler.setThirdPhaseDeadline(dtf.parseDateTime(conference.getThirdPhaseDeadline()).toString());
 
         try {
             BufferedWriter bf = new BufferedWriter(new FileWriter(new File("src\\main\\resources\\conference.txt")));
-            bf.write("name=" + conference.getConferenceName());
-            bf.write("preliminaryPhaseDeadline=" + DateTime.parse(conference.getPreliminaryPhaseDeadline(), dtf).toString());
-            bf.write("firstPhaseDeadline=" + DateTime.parse(conference.getFirstPhaseDeadline(), dtf).toString());
-            bf.write("secondPhaseDeadline=" + DateTime.parse(conference.getSecondPhaseDeadline(), dtf).toString());
-            bf.write("thirdPhaseDeadline=" + DateTime.parse(conference.getThirdPhaseDeadline(), dtf).toString());
+            bf.write( conference.getConferenceName() + "\n");
+            bf.write( conference.getPreliminaryPhaseDeadline() + "\n");
+            bf.write(conference.getFirstPhaseDeadline() + "\n");
+            bf.write(conference.getSecondPhaseDeadline() + "\n");
+            bf.write(conference.getThirdPhaseDeadline() + "\n");
+            bf.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         log.trace("created scheduler={}", scheduler);
+        System.out.println(scheduler);
         return new MessageResponse("true");
     }
 
     @RequestMapping(value = "/getCurrentPhase", method = RequestMethod.GET)
     public MessageResponse getCurrentPhase() {
-        return new MessageResponse(scheduler.getCurrentPhase());
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(new File("src\\main\\resources\\conference.txt")));
+            DateTimeFormatter dtf = DateTimeFormat.forPattern("MM/DD/YYYY HH:mm:ss");
+            String name = br.readLine();
+            String preliminary = br.readLine();
+            String first = br.readLine();
+            String second = br.readLine();
+            String third = br.readLine();
+            scheduler.setConferenceName(name);
+            scheduler.setPreliminaryPhaseDeadline(preliminary);
+            scheduler.setFirstPhaseDeadline(first);
+            scheduler.setSecondPhaseDeadline(second);
+            scheduler.setThirdPhaseDeadline(third);
+            System.out.println(scheduler);
+            return new MessageResponse(scheduler.getCurrentPhase());
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new MessageResponse("false");
+        }
+
+
     }
 
     @RequestMapping(value = "/updateDeadline", method = RequestMethod.POST)

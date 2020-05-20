@@ -3,12 +3,12 @@ export class Author {
   password: string;
   website: string;
   affiliation: string;
-  firstName: string;
-  lastName: string;
-  phoneNumber: string;
+  firstname: string;
+  lastname: string;
+  phonenumber: string;
   email: string;
-  academicRank: string;
-  id: number;
+  academicrank: string;
+  uid: number;
 
   // tslint:disable-next-line:max-line-length
   constructor(username: string, password: string, website: string, affiliation: string,
@@ -18,11 +18,11 @@ export class Author {
     this.password = password;
     this.website = website;
     this.affiliation = affiliation;
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.phoneNumber = phoneNumber;
+    this.firstname = firstName;
+    this.lastname = lastName;
+    this.phonenumber = phoneNumber;
     this.email = email;
-    this.academicRank = academicRank;
-    this.id = id;
+    this.academicrank = academicRank;
+    this.uid = id;
   }
 }

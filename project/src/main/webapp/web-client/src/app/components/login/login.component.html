@@ -17,7 +17,7 @@
 
   <mat-form-field>
     <mat-label>Password</mat-label>
-    <input [ngClass]="{ 'is-invalid': submitted && f.password.errors }" formControlName="password" matInput/>
+    <input [ngClass]="{ 'is-invalid': submitted && f.password.errors }" formControlName="password" matInput type="password"/>
     <mat-error *ngIf="submitted && f.password.errors" class="invalid-feedback">
       <div *ngIf="f.password.errors.required">Password is required</div>
     </mat-error>

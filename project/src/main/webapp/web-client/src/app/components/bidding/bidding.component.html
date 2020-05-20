@@ -3,7 +3,7 @@
   <h2>Papers available for bidding</h2>
   <mat-list>
     <mat-list-item *ngFor="let paper of papers; let i = index">
-      {{paper.id}}
+      {{paper.pid}}
       {{paper.authorId}}
       {{paper.title}}
       <a [href]="urls[i]" download="{{paperNames[i]}}.pdf">
@@ -12,8 +12,8 @@
         </button>
       </a>
       <mat-radio-group>
-        <mat-radio-button (click)="setPaperStatus(paper.id,'accept')" value="accept">Accept</mat-radio-button>
-        <mat-radio-button (click)="setPaperStatus(paper.id,'reject')" value="reject">Reject</mat-radio-button>
+        <mat-radio-button (click)="setPaperStatus(paper.pid,'accept')" value="accept">Accept</mat-radio-button>
+        <mat-radio-button (click)="setPaperStatus(paper.pid,'reject')" value="reject">Reject</mat-radio-button>
       </mat-radio-group>
     </mat-list-item>
   </mat-list>

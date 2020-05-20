@@ -4,8 +4,8 @@
     it.</h2>
   <h3 class="mat-h3">Choose from the following pc members if you want to reassign:</h3>
   <mat-list>
-    <mat-list-item *ngFor="let member of pcMembers">{{member.firstName}} {{member.lastName}} {{member.affiliation}}
-      <input (click)="selectReviewer(member.id)" type="checkbox">
+    <mat-list-item *ngFor="let member of pcMembers; let i = index">{{pcMembersInfo[i].firstname}} {{pcMembersInfo[i].lastname}} {{pcMembersInfo[i].affiliation}}
+      <input (click)="selectReviewer(member.pcid)" type="checkbox">
     </mat-list-item>
 
   </mat-list>

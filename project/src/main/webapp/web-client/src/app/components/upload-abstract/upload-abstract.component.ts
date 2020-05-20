@@ -1,6 +1,7 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {PaperService} from '../../services/paper/paper.service';
 import {Router} from '@angular/router';
+import {AuthenticationService} from "../../services/login";
 
 @Component({
   selector: 'app-upload-abstract',
@@ -16,7 +17,7 @@ export class UploadAbstractComponent implements OnInit {
   file: File = null;
   fileName: string;
 
-  constructor(private paperService: PaperService, private router: Router) {
+  constructor(private paperService: PaperService, private router: Router, private authenticationService:AuthenticationService) {
   }
 
   ngOnInit(): void {
@@ -39,11 +40,12 @@ export class UploadAbstractComponent implements OnInit {
   createAbstractButtonPressed() {
     if (this.validData()) {
       this.paperService
-        .uploadAbstract(1, this.paperTitle, this.paperAuthors, this.paperKeywords, this.file)
+        .uploadAbstract(this.authenticationService.getCurrentUser().id, this.paperTitle, this.paperKeywords, this.file)
         .subscribe(result => {
+          console.log(result);
           if (result === true) {
             this.abstractFailed = false;
-            this.router.navigateByUrl('/');
+            this.router.navigateByUrl('/author-home');
           } else {
             this.abstractFailed = true;
           }

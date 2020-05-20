@@ -42,7 +42,7 @@ export class BiddingComponent implements OnInit {
       .subscribe(papers => {
         this.papers = papers;
         for (let i = 0; i < papers.length; i++) {
-          this.urls.push(this.sanitizer.bypassSecurityTrustResourceUrl('http://localhost:8080/api/paper/content/' + papers[i].id));
+          this.urls.push(this.sanitizer.bypassSecurityTrustResourceUrl('http://localhost:8080/api/paper/content/' + papers[i].pid));
           this.paperNames.push(papers[i].title);
         }
       });
@@ -54,7 +54,14 @@ export class BiddingComponent implements OnInit {
         this.accepted.push(key);
       }
     });
-    this.biddingService.acceptPapers(this.userId, this.accepted);
+
+    this.biddingService.acceptPapers(this.userId, this.accepted)
+      .subscribe(
+        result=> {
+          if (result === true)
+            this.router.navigateByUrl('/pc-home');
+        }
+      );
   }
 
   setPaperStatus(id: number, accept: string) {

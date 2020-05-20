@@ -18,7 +18,7 @@ export class ManageSessionComponent implements OnInit {
   papers: Paper[];
 
   constructor(private route: ActivatedRoute, private sessionService: SessionService, private paperService: PaperService) {
-    this.papers = [new Paper(1, 1, 1, 'a', 'a', 'A', 'a', 'a', 'a')];
+    this.papers = [new Paper(1, 1, 1, 'a', 'a', 'A', 'a', 'a')];
     this.sessions = [new Sesssion(1, 1, 1, 1), new Sesssion(2, 1, 1, 1)];
   }
 

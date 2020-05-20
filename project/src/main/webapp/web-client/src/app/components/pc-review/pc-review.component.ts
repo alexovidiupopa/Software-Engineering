@@ -33,17 +33,18 @@ export class PcReviewComponent implements OnInit {
   reviews: ReviewData[] = [];
   abstractUrl: any;
   contentUrl: any;
-
+  authors: string[] = [];
   constructor(private paperService: PaperService, private route: ActivatedRoute, private authorService: AuthorService,
               private sanitizer: DomSanitizer, private authenticationService: AuthenticationService
   ) {
     this.papers = this.paperService.getAllPapersForReviewer(+this.route.snapshot.paramMap.get('id'));
     this.papers.subscribe(result => {
       for (let i = 0; i < result.length; i++) {
-        this.urls.push(this.sanitizer.bypassSecurityTrustResourceUrl('http://localhost:8080/api/paper/content/' + result[i].id));
+        this.urls.push(this.sanitizer.bypassSecurityTrustResourceUrl('http://localhost:8080/api/paper/content/' + result[i].pid));
         this.paperNames.push(result[i].title);
         this.marks.push(null);
         this.badData[i] = false;
+        this.authorService.getAuthorById(result[i].authorId).subscribe(response => this.authors.push(response.firstname + ' ' + response.lastname));
       }
     });
     console.log('pc-review constructor');
@@ -56,7 +57,7 @@ export class PcReviewComponent implements OnInit {
 
   getAuthor(authorId: number) {
     let name: string = null;
-    this.authorService.getAuthorById(authorId).subscribe(response => name = response.firstName + ' ' + response.lastName);
+    this.authorService.getAuthorById(authorId).subscribe(response => name = response.firstname + ' ' + response.lastname);
     return name;
   }
 
@@ -111,13 +112,13 @@ export class PcReviewComponent implements OnInit {
     return null;
   }
 
-  private validData(file: File, qualifier: string) {
-    return file !== null && qualifier != null;
+  private validData(file: File, qualifier: number) {
+    return file !== null && qualifier >= 0 ;
   }
 
-  private getQualifierForPaper(id: number): string {
+  private getQualifierForPaper(id: number): number {
     if (this.marks[id] !== null) {
-      return this.marks[id].name;
+      return this.marks[id].value;
     } else {
       return null;
     }
