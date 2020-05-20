@@ -6,7 +6,7 @@ export class PaperReviewerPair {
     this.pid = pid;
   }
 
-  addReviewer(id: number)  {
+  addReviewer(id: number) {
     this.reviewers.push(id);
   }
 

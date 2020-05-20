@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, Validators} from '@angular/forms';
-import {ProgramCommittee} from '../../model/program-committee';
 import {ProgramCommitteeService} from '../../services/program-committee/program-committee.service';
-import {PcDto} from "../../model/pcdto";
+import {PcDto} from '../../model/pcdto';
 
 @Component({
   selector: 'app-manage-pc',
@@ -14,7 +13,7 @@ export class ManagePCComponent implements OnInit {
     Validators.required,
     Validators.email,
   ]);
-  email : string;
+  email: string;
   pcs: PcDto[];
 
   constructor(private pcService: ProgramCommitteeService) {

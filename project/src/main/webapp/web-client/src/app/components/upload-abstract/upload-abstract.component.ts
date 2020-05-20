@@ -1,7 +1,7 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {PaperService} from '../../services/paper/paper.service';
 import {Router} from '@angular/router';
-import {AuthenticationService} from "../../services/login";
+import {AuthenticationService} from '../../services/login';
 
 @Component({
   selector: 'app-upload-abstract',
@@ -17,7 +17,7 @@ export class UploadAbstractComponent implements OnInit {
   file: File = null;
   fileName: string;
 
-  constructor(private paperService: PaperService, private router: Router, private authenticationService:AuthenticationService) {
+  constructor(private paperService: PaperService, private router: Router, private authenticationService: AuthenticationService) {
   }
 
   ngOnInit(): void {

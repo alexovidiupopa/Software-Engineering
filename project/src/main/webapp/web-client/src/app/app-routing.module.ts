@@ -6,7 +6,6 @@ import {PcDetailComponent} from './components/pc-detail/pc-detail.component';
 import {PcHomeComponent} from './components/pc-home/pc-home.component';
 import {ChairHomeComponent} from './components/chair-home';
 import {LoginComponent} from './components/login';
-import {RegisterComponent} from './components/register/register.component';
 import {AuthorRegisterComponent} from './components/author-register/author-register.component';
 import {PcRegisterComponent} from './components/pc-register/pc-register.component';
 import {UploadAbstractComponent} from './components/upload-abstract/upload-abstract.component';
@@ -56,7 +55,7 @@ const routes: Routes = [
   {path: 'pc-register', component: PcRegisterComponent},
   {path: 'paper/upload', component: UploadAbstractComponent, canActivate: [AuthGuard]},
   {path: 'paper/all', component: AuthorPapersComponent, canActivate: [AuthGuard]},
-  {path: 'paper/detail/:id', component: PaperDetailComponent, canActivate: [AuthGuard] },
+  {path: 'paper/detail/:id', component: PaperDetailComponent, canActivate: [AuthGuard]},
   {path: 'paper/decision/:id', component: PaperDetailDecisionComponent, canActivate: [AuthGuard]},
   {path: 'session/manage/:id', component: ManageSessionComponent, canActivate: [AuthGuard]},
   // otherwise redirect to home

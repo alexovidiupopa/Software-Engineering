@@ -1,10 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Location} from '@angular/common';
-import {ProgramCommittee} from '../../model/program-committee';
 import {ProgramCommitteeService} from '../../services/program-committee/program-committee.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {PcDto} from "../../model/pcdto";
+import {PcDto} from '../../model/pcdto';
 
 @Component({
   selector: 'app-pc-detail',
@@ -15,6 +14,7 @@ export class PcDetailComponent implements OnInit {
   //pc: ProgramCommittee;
   successfulUpdate = true;
   pc: PcDto;
+
   constructor(
     private route: ActivatedRoute,
     private pcService: ProgramCommitteeService,

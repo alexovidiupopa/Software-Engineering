@@ -52,17 +52,17 @@ export class PaperDetailComponent implements OnInit {
         this.paper = paper;
         this.paperService.paperHasContentUploaded(paper.pid).subscribe(result => {
             this.paperUploaded = result;
-            if (this.paperUploaded===true) {
+            if (this.paperUploaded === true) {
               this.paperContentUrl = this.sanitizer.bypassSecurityTrustResourceUrl('http://localhost:8080/api/paper/content/' + paper.pid);
               this.uploadPaperButtonText = 'Update paper content';
-              this.paperFilename = this.paper.contentUrl.substring(this.paper.contentUrl.lastIndexOf("/")+1);
+              this.paperFilename = this.paper.contentUrl.substring(this.paper.contentUrl.lastIndexOf('/') + 1);
             } else {
               this.uploadPaperButtonText = 'Upload paper';
             }
           }
         );
         this.abstractUrl = this.sanitizer.bypassSecurityTrustResourceUrl('http://localhost:8080/api/paper/abstract/' + paper.pid);
-        this.abstractFilename = this.paper.abstractUrl.substring(this.paper.abstractUrl.lastIndexOf("/")+1);
+        this.abstractFilename = this.paper.abstractUrl.substring(this.paper.abstractUrl.lastIndexOf('/') + 1);
       });
   }
 
@@ -78,20 +78,20 @@ export class PaperDetailComponent implements OnInit {
       this.paperAuthors = $('#paper-authors').val();
       this.paperKeywords = $('#paper-keywords').val();
 
-      if (this.abstractFile!==null) {
-        const newName = this.paper.abstractUrl.substring(this.paper.abstractUrl.lastIndexOf("/") + 1);
+      if (this.abstractFile !== null) {
+        const newName = this.paper.abstractUrl.substring(this.paper.abstractUrl.lastIndexOf('/') + 1);
         this.abstractFile = new File([this.abstractFile], newName, {type: this.abstractFile.type});
         console.log(newName);
       }
 
-      if (this.paperFile!==null){
-        const newNameContent = this.paper.contentUrl.substring(this.paper.contentUrl.lastIndexOf("/")+1);
+      if (this.paperFile !== null) {
+        const newNameContent = this.paper.contentUrl.substring(this.paper.contentUrl.lastIndexOf('/') + 1);
         console.log(newNameContent);
-        this.paperFile = new File([this.paperFile],newNameContent,{type:this.paperFile.type});
+        this.paperFile = new File([this.paperFile], newNameContent, {type: this.paperFile.type});
       }
       console.log(this.abstractFile);
       // fixme this would probably crash due to lack of null-checking on files
-      this.paperService.updatePaper(this.id, this.authenticationService.getCurrentUser().id, this.paperTitle, this.paperKeywords, this.abstractFile, this.paperFile, this.paper.contentUrl.substring(this.paper.contentUrl.lastIndexOf("/")+1))
+      this.paperService.updatePaper(this.id, this.authenticationService.getCurrentUser().id, this.paperTitle, this.paperKeywords, this.abstractFile, this.paperFile, this.paper.contentUrl.substring(this.paper.contentUrl.lastIndexOf('/') + 1))
         .subscribe(response => {
           if (response === true) {
             this.router.navigateByUrl(this.authenticationService.getCurrentUser().getHomepageUrl());

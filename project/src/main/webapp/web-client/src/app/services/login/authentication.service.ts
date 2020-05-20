@@ -41,10 +41,10 @@ export class AuthenticationService {
     console.log(this.user);
     //return this.currentUserSubject.value;
     const user = JSON.parse(localStorage.getItem('currentUser'));
-    if (user===null){
+    if (user === null) {
       return null;
     }
-    return new User(user['firstName'],user['lastName'], user['username'], user['password'], user['type'],user['url'],<number>user['id']);
+    return new User(user['firstName'], user['lastName'], user['username'], user['password'], user['type'], user['url'], <number> user['id']);
     //return JSON.parse(localStorage.getItem('currentUser')) as User;
   }
 

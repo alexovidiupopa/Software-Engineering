@@ -2,7 +2,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {first} from 'rxjs/operators';
 import {AuthenticationService} from '../../services/login';
 
 @Component({templateUrl: 'login.component.html', styleUrls: ['./login.component.css']})
@@ -21,7 +20,7 @@ export class LoginComponent implements OnInit {
   ) {
     // redirect to home if already logged in
     this.authenticationService.logout();
-    if (this.authenticationService.getCurrentUser()!==null) {
+    if (this.authenticationService.getCurrentUser() !== null) {
       this.router.navigate(['/']);
     }
   }

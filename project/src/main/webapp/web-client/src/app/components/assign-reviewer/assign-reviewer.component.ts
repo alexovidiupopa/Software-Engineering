@@ -3,7 +3,6 @@ import {PaperService} from '../../services/paper/paper.service';
 import {Reviewer} from '../../model/Reviewer';
 import {MatCheckbox} from '@angular/material/checkbox';
 import {PaperReviewerPair} from '../../model/PaperReviewerPair';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Paper} from '../../model/paper';
 import {Router} from '@angular/router';
 

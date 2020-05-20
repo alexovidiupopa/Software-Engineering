@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
 import {Author} from '../../model/author';
-import {catchError, map} from "rxjs/operators";
+import {catchError} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -22,8 +22,8 @@ export class AuthorService {
   getAuthorById(authorId: number): Observable<Author> {
     return this.http.get<Author>(this.url + '/' + authorId, this.httpOptions)
       .pipe(
-      catchError(this.handleError<Author>('getAuthorById'))
-    );
+        catchError(this.handleError<Author>('getAuthorById'))
+      );
   }
 
 

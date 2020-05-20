@@ -10,7 +10,8 @@
       <form class="example-form">
         <mat-form-field class="example-full-width">
           <mat-label>Invite</mat-label>
-          <input [formControl]="emailFormControl" (change)="inputChange(emailInput.value)" matInput placeholder="Ex. pat@example.com" #emailInput>
+          <input #emailInput (change)="inputChange(emailInput.value)" [formControl]="emailFormControl"
+                 matInput placeholder="Ex. pat@example.com">
           <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
             Please enter a valid email address
           </mat-error>
@@ -19,16 +20,16 @@
           </mat-error>
         </mat-form-field>
       </form>
-      <button color="primary" id="invite-button" mat-flat-button (click)="invitePc()">Invite</button>
+      <button (click)="invitePc()" color="primary" id="invite-button" mat-flat-button>Invite</button>
 
     </div>
 
     <h4 class="mat-h4">Here is a list of the Program Committee.</h4>
     <h5 class="mat-small">Click on name for more details.</h5>
     <mat-nav-list>
-     <!-- <a *ngFor="let pc of pcs" href="/pc/detail/{{pc.id}}" mat-list-item> {{pc.firstName}} {{pc.lastName}}
-        ({{pc.affiliation}}) </a>-->
-       <a *ngFor="let pc of pcs" href="/pc/detail/{{pc.pcid}}" mat-list-item> {{pc.uid}}</a>
+      <!-- <a *ngFor="let pc of pcs" href="/pc/detail/{{pc.id}}" mat-list-item> {{pc.firstName}} {{pc.lastName}}
+         ({{pc.affiliation}}) </a>-->
+      <a *ngFor="let pc of pcs" href="/pc/detail/{{pc.pcid}}" mat-list-item> {{pc.uid}}</a>
     </mat-nav-list>
   </mat-card>
 

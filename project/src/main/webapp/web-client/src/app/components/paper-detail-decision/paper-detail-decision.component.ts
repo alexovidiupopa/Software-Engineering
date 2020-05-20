@@ -1,14 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {PaperService} from '../../services/paper/paper.service';
 import {Paper} from '../../model/paper';
-import {AuthenticationService} from '../../services/login';
-import {User} from '../../model/user';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Location} from '@angular/common';
 import {DomSanitizer} from '@angular/platform-browser';
 import {ProgramCommitteeService} from '../../services/program-committee/program-committee.service';
-import {ProgramCommittee} from '../../model/program-committee';
-import {PcDto} from "../../model/pcdto";
+import {PcDto} from '../../model/pcdto';
 
 @Component({
   selector: 'app-paper-detail-decision',

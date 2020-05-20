@@ -21,16 +21,6 @@ export class PaperService {
     private http: HttpClient) {
   }
 
-
-  private getAllReviews(): Observable<Review[]> {
-    const url = this.url + '/all-reviews';
-    return this.http.get<Review[]>(url, this.httpOptions)
-      .pipe(
-        map(result => result['reviews']),
-        catchError(this.handleError<Review[]>('getAllReviews', []))
-      );
-  }
-
   uploadAbstractMetadata(authorId: number, paperName: string,
                          keywords: string, filename: string): Observable<boolean> {
     return this.http.post<boolean>(this.url + '/upload-abstract/meta', {
@@ -56,7 +46,7 @@ export class PaperService {
               success = abstractResult;
             });
         } else {
-          success=false;
+          success = false;
         }
       });
     return of(success);
@@ -71,10 +61,10 @@ export class PaperService {
       );
   }
 
-  updatePaperMetadata(paperId: number, authorId:number, paperName: string,
+  updatePaperMetadata(paperId: number, authorId: number, paperName: string,
                       paperKeywords: string, fileName: string): Observable<boolean> {
     return this.http.put<boolean>(this.url + '/update/meta', {
-      paperId, authorId, paperName, 'keywords':paperKeywords, 'fileName':fileName
+      paperId, authorId, paperName, 'keywords': paperKeywords, 'fileName': fileName
     }, this.httpOptions)
       .pipe(
         map(result => Boolean(result['message'])),
@@ -89,17 +79,17 @@ export class PaperService {
     this.updatePaperMetadata(paperId, authorId, paperName, paperKeywords, contentUrl)
       .subscribe(metaResult => {
         if (metaResult === true) {
-            if (abstract!==null) {
-              this.uploadAbstractProper(abstract)
-                .subscribe(result=>success=success && result);
-            }
-            if (paper!==null) {
-              this.updatePaperContent(paper)
-                .subscribe(result=>success = success && result);
-            }
-            success=true;
+          if (abstract !== null) {
+            this.uploadAbstractProper(abstract)
+              .subscribe(result => success = success && result);
+          }
+          if (paper !== null) {
+            this.updatePaperContent(paper)
+              .subscribe(result => success = success && result);
+          }
+          success = true;
         } else {
-          success=false;
+          success = false;
         }
 
       });
@@ -120,7 +110,6 @@ export class PaperService {
         catchError(this.handleError<File>('getPapersForAuthor'))
       );
   }
-
 
   getPaperContent(paperId: number): Observable<any> {
     return this.http.get<any>(this.url + '/content/' + paperId, this.httpOptions)
@@ -216,6 +205,28 @@ export class PaperService {
     this.http.put<boolean>(url, {reviewers}, this.httpOptions);
   }
 
+  paperHasContentUploaded(id: number): Observable<boolean> {
+    return this.http.get(this.url + '/has-content/' + id, this.httpOptions)
+      .pipe(
+        tap(result => console.log(result)),
+        map(result => {
+          if (result['message'] === 'true') {
+            return true;
+          }
+          return false;
+        })
+      );
+  }
+
+  private getAllReviews(): Observable<Review[]> {
+    const url = this.url + '/all-reviews';
+    return this.http.get<Review[]>(url, this.httpOptions)
+      .pipe(
+        map(result => result['reviews']),
+        catchError(this.handleError<Review[]>('getAllReviews', []))
+      );
+  }
+
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
 
@@ -225,19 +236,5 @@ export class PaperService {
       // Let the app keep running by returning an empty result.
       return of(result as T);
     };
-  }
-
-
-
-  paperHasContentUploaded(id: number): Observable<boolean> {
-    return this.http.get(this.url + '/has-content/' + id, this.httpOptions)
-      .pipe(
-        tap(result=>console.log(result)),
-        map(result => {
-          if (result['message']==='true')
-            return true;
-          return false;
-        })
-      );
   }
 }

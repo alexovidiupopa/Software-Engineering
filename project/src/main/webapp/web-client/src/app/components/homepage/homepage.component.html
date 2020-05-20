@@ -42,7 +42,10 @@
 </style>
 
 
-<button id="loginButton" mat-flat-button routerLink="/login">Login</button>
+<button *ngIf="!userLoggedIn" id="loginButton" mat-flat-button routerLink="/login">Login</button>
+<button *ngIf="userLoggedIn" id="homeButton" mat-icon-button routerLink="{{userUrl}}">
+  <mat-icon>home</mat-icon>
+</button>
 <button id="registerButton" mat-flat-button routerLink="/author-register">Register</button>
 <button id="buyTicketButton" mat-flat-button routerLink="/ticket">Buy Tickets</button>
 

@@ -57,9 +57,10 @@ export class BiddingComponent implements OnInit {
 
     this.biddingService.acceptPapers(this.userId, this.accepted)
       .subscribe(
-        result=> {
-          if (result === true)
+        result => {
+          if (result === true) {
             this.router.navigateByUrl('/pc-home');
+          }
         }
       );
   }

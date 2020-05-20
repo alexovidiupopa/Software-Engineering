@@ -52,6 +52,7 @@ import {PaymentComponent} from './components/payment/payment.component';
 import {ManageSessionComponent} from './components/manage-session/manage-session.component';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatTabsModule} from '@angular/material/tabs';
+
 @NgModule({
   imports: [
     BrowserModule,

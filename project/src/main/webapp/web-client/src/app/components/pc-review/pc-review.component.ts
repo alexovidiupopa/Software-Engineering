@@ -34,6 +34,7 @@ export class PcReviewComponent implements OnInit {
   abstractUrl: any;
   contentUrl: any;
   authors: string[] = [];
+
   constructor(private paperService: PaperService, private route: ActivatedRoute, private authorService: AuthorService,
               private sanitizer: DomSanitizer, private authenticationService: AuthenticationService
   ) {

@@ -3,7 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
 import {ProgramCommittee} from '../../model/program-committee';
-import {PcDto} from "../../model/pcdto";
+import {PcDto} from '../../model/pcdto';
 
 @Injectable({
   providedIn: 'root'
@@ -41,6 +41,13 @@ export class ProgramCommitteeService {
       );
   }
 
+  invitePc(email: string): Observable<any> {
+    console.log(email);
+    return this.http.post('http://localhost:8080/api/chair/invitePc',
+      {'message': email},
+      this.httpOptions);
+  }
+
   /**
    * Handle Http operation that failed.
    * Let the app continue.
@@ -56,12 +63,5 @@ export class ProgramCommitteeService {
       // Let the app keep running by returning an empty result.
       return of(result as T);
     };
-  }
-
-  invitePc(email: string): Observable<any> {
-    console.log(email);
-    return this.http.post("http://localhost:8080/api/chair/invitePc",
-      {"message":email},
-      this.httpOptions);
   }
 }
