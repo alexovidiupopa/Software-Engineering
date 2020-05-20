@@ -8,7 +8,6 @@ import ro.ubb.project.core.repository.RoomRepository;
 import ro.ubb.project.core.repository.SessionRepository;
 import ro.ubb.project.core.repository.TicketRepository;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 

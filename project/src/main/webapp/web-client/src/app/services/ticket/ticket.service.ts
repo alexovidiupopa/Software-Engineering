@@ -4,7 +4,6 @@ import {Observable, of} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
 import {Ticket} from '../../model/ticket';
 import {PaymentData} from '../../model/payment-data';
-import {Session} from '../../model/session';
 import * as moment from 'moment';
 import {Sesssion} from "../../model/sesssion";
 

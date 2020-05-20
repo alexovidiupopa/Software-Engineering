@@ -1,7 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {PaperService} from '../../services/paper/paper.service';
-import {Review} from '../../model/review';
 import {Paper} from "../../model/paper";
 
 @Component({

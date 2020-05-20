@@ -1,4 +1,3 @@
-import {Session} from './session';
 import {Sesssion} from "./sesssion";
 
 export class Ticket {
