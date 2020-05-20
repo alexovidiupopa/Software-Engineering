@@ -51,9 +51,9 @@
     <br>
     <mat-label>Sessions willing to participate in:</mat-label>
 
-    <mat-selection-list (ngModelChange)="selectionChanged($event)" [(ngModel)]="selectedOptions">
+    <mat-selection-list (selectionChange)="selectionChanged($event)" [(ngModel)]="selectedOptions" #ssn>
       <mat-list-option *ngFor="let session of sessions" [value]="session">
-        {{session.name}} ({{session.price}})
+        Session #{{session.sid}} ({{session.price}}$)
       </mat-list-option>
     </mat-selection-list>
 

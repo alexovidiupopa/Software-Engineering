@@ -42,7 +42,6 @@ import {BuyTicketComponent} from './components/buy-ticket/buy-ticket.component';
 import {UpdateConferenceComponent} from './components/update-conference/update-conference.component';
 import {StructureConferenceComponent} from './components/structure-conference/structure-conference.component';
 import {PcReviewComponent} from './components/pc-review/pc-review.component';
-import {RoomsComponent} from './components/rooms/rooms.component';
 import {AssignReviewerComponent} from './components/assign-reviewer/assign-reviewer.component';
 import {MatRadioModule} from '@angular/material/radio';
 import {PaperDetailDecisionComponent} from './components/paper-detail-decision/paper-detail-decision.component';
@@ -52,6 +51,7 @@ import {PaymentComponent} from './components/payment/payment.component';
 import {ManageSessionComponent} from './components/manage-session/manage-session.component';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatTabsModule} from '@angular/material/tabs';
+import { EditSessionComponent } from './components/edit-session/edit-session.component';
 @NgModule({
   imports: [
     BrowserModule,
@@ -108,13 +108,13 @@ import {MatTabsModule} from '@angular/material/tabs';
     UpdateConferenceComponent,
     StructureConferenceComponent,
     PcReviewComponent,
-    RoomsComponent,
     AssignReviewerComponent,
     PaperDetailDecisionComponent,
     CheckoutComponent,
     SuccessBuyComponent,
     PaymentComponent,
     ManageSessionComponent,
+    EditSessionComponent,
   ],
   bootstrap: [AppComponent]
 })
