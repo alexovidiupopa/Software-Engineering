@@ -7,6 +7,5 @@ public class AbstractRequest {
     private int authorId;
     private String paperName;
     private String keywords;
-    private String authors;
     private String filename;
 }

@@ -4,6 +4,8 @@ import {Location} from '@angular/common';
 import {ProgramCommittee} from '../../model/program-committee';
 import {ProgramCommitteeService} from '../../services/program-committee/program-committee.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {PcDto} from "../../model/pcdto";
+import {UserDto} from "../../model/userdto";
 
 @Component({
   selector: 'app-pc-detail',
@@ -11,14 +13,14 @@ import {MatSnackBar} from '@angular/material/snack-bar';
   styleUrls: ['./pc-detail.component.css']
 })
 export class PcDetailComponent implements OnInit {
-  pc: ProgramCommittee;
+  //pc: ProgramCommittee;
   successfulUpdate = true;
-
+  pc: UserDto;
   constructor(
     private route: ActivatedRoute,
     private pcService: ProgramCommitteeService,
     private location: Location,
-    private _snackBar: MatSnackBar
+    private snackBar: MatSnackBar
   ) {
   }
 
@@ -28,7 +30,7 @@ export class PcDetailComponent implements OnInit {
 
   getPC(): void {
     const id = +this.route.snapshot.paramMap.get('id');
-    this.pcService.getProgramCommittee(id)
+    this.pcService.getUserInfo(id)
       .subscribe(pc => this.pc = pc);
   }
 
@@ -39,7 +41,7 @@ export class PcDetailComponent implements OnInit {
   makeChair(id: number) {
     this.pcService.updatePCToChair(id).subscribe(success => {
       this.successfulUpdate = success;
-      if (this.successfulUpdate == true) {
+      if (this.successfulUpdate === true) {
         this.openSnackBar('Made chair :)', null);
       }
     });
@@ -47,7 +49,7 @@ export class PcDetailComponent implements OnInit {
   }
 
   openSnackBar(message: string, action: string) {
-    this._snackBar.open(message, action, {
+    this.snackBar.open(message, action, {
       duration: 1000,
     });
   }

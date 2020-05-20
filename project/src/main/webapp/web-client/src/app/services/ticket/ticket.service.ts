@@ -5,6 +5,8 @@ import {catchError, map} from 'rxjs/operators';
 import {Ticket} from '../../model/ticket';
 import {PaymentData} from '../../model/payment-data';
 import {Session} from '../../model/session';
+import * as moment from 'moment';
+import {Sesssion} from "../../model/sesssion";
 
 @Injectable({
   providedIn: 'root'
@@ -21,22 +23,31 @@ export class TicketService {
   }
 
   buyTickets(tickets: Ticket[], paymentData: PaymentData): Observable<boolean> {
-    console.log(tickets);
-    console.log(paymentData);
-    return this.http.post<boolean>('http://demo4608640.mockable.io/api/ticket/buy', {
-      tickets,
-      paymentData
+    let ticketsDto = [];
+    for (const ticket of tickets) {
+      const sessions = ticket.sessions.map(session => session.sid);
+      ticketsDto.push({
+        name: ticket.firstName + ' ' + ticket.lastName,
+        datePurchased: moment().format('MM/DD/YYYY HH:mm:ss'),
+        sessions,
+        price: ticket.sessions.reduce((a, b) => a + b.price, 0)
+      });
+    }
+    return this.http.post<boolean>(this.url + '/buy', {
+      'tickets':ticketsDto,
+      paymentData,
+      email: tickets[0].email
     }, this.httpOptions)
       .pipe(
-        map(result => result['success']),
+        map(result => Boolean(result['message'])),
         catchError(this.handleError<boolean>('buyTickets'))
       );
   }
 
-  getSessionsWithAvailableSeats(): Observable<Session[]> {
-    return this.http.get<Session[]>('http://demo4608640.mockable.io/api/ticket/available', this.httpOptions).pipe(
+  getSessionsWithAvailableSeats(): Observable<Sesssion[]> {
+    return this.http.get<Sesssion[]>('http://localhost:8080/api/session/available', this.httpOptions).pipe(
       map(response => response['sessions']),
-      catchError(this.handleError<Session[]>('getSessionsWithAvailableSeats'))
+      catchError(this.handleError<Sesssion[]>('getSessionsWithAvailableSeats'))
     );
   }
 

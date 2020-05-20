@@ -13,4 +13,6 @@ public interface BiddingService {
     void deleteBidding(Bidding bidding);
 
     void updateBidding(Bidding bidding);
+
+    List<Integer> getReviewersForPaperId(Integer pid);
 }

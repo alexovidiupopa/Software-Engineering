@@ -39,11 +39,9 @@ public class PaperServiceImpl implements PaperService {
             Paper p = toUpdate.get();
             p.setAid(paper.getAid());
             p.setTitle(paper.getTitle());
-            p.setTopic(paper.getTopic());
             p.setAccepted(paper.getAccepted());
-            p.setAbstracturl(paper.getAbstracturl());
-            p.setContenturl(paper.getContenturl());
-            p.setPresentationurl(paper.getPresentationurl());
+            p.setAbstractUrl(paper.getAbstractUrl());
+            p.setContentUrl(paper.getContentUrl());
             this.paperRepository.save(p);
         } else {
             throw new RuntimeException("No assignment found");

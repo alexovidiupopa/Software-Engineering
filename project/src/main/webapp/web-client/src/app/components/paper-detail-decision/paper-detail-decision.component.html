@@ -4,13 +4,13 @@
     it.</h2>
   <h3 class="mat-h3">Choose from the following pc members if you want to reassign:</h3>
   <mat-list>
-    <mat-list-item *ngFor="let member of pcMembers">{{member.firstName}} {{member.lastName}} {{member.affiliation}}
-      <input type="checkbox" (click)="selectReviewer(member.id)">
+    <mat-list-item *ngFor="let member of pcMembers; let i = index">{{pcMembersInfo[i].firstname}} {{pcMembersInfo[i].lastname}} {{pcMembersInfo[i].affiliation}}
+      <input (click)="selectReviewer(member.pcid)" type="checkbox">
     </mat-list-item>
 
   </mat-list>
-  <button color="primary" id="accept-button" mat-flat-button (click)="acceptPaper()">Accept</button>
-  <button color="primary" id="reject-button" mat-flat-button (click)="rejectPaper()">Reject</button>
-  <button color="primary" id="send-back-button" mat-flat-button (click)="sendPaperBack()">Send back to reviewing
+  <button (click)="acceptPaper()" color="primary" id="accept-button" mat-flat-button>Accept</button>
+  <button (click)="rejectPaper()" color="primary" id="reject-button" mat-flat-button>Reject</button>
+  <button (click)="sendPaperBack()" color="primary" id="send-back-button" mat-flat-button>Send back to reviewing
   </button>
 </div>

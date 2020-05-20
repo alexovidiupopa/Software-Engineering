@@ -26,7 +26,6 @@ import {PcHomeComponent} from './components/pc-home/pc-home.component';
 import {ChairHomeComponent} from './components/chair-home';
 import {RegisterComponent} from './components/register/register.component';
 import {LoginComponent} from './components/login';
-import {HomeComponent} from './components/home';
 import {MatSelectModule} from '@angular/material/select';
 import {AuthorRegisterComponent} from './components/author-register/author-register.component';
 import {PcRegisterComponent} from './components/pc-register/pc-register.component';
@@ -43,14 +42,16 @@ import {BuyTicketComponent} from './components/buy-ticket/buy-ticket.component';
 import {UpdateConferenceComponent} from './components/update-conference/update-conference.component';
 import {StructureConferenceComponent} from './components/structure-conference/structure-conference.component';
 import {PcReviewComponent} from './components/pc-review/pc-review.component';
-import {RoomsComponent} from './components/rooms/rooms.component';
 import {AssignReviewerComponent} from './components/assign-reviewer/assign-reviewer.component';
-import {MatRadioModule} from "@angular/material/radio";
+import {MatRadioModule} from '@angular/material/radio';
 import {PaperDetailDecisionComponent} from './components/paper-detail-decision/paper-detail-decision.component';
-import {CheckoutComponent} from "./components/checkout/checkout.component";
-import {SuccessBuyComponent} from "./components/success-buy/success-buy.component";
-import {PaymentComponent} from "./components/payment/payment.component";
-
+import {CheckoutComponent} from './components/checkout/checkout.component';
+import {SuccessBuyComponent} from './components/success-buy/success-buy.component';
+import {PaymentComponent} from './components/payment/payment.component';
+import {ManageSessionComponent} from './components/manage-session/manage-session.component';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatTabsModule} from '@angular/material/tabs';
+import { EditSessionComponent } from './components/edit-session/edit-session.component';
 @NgModule({
   imports: [
     BrowserModule,
@@ -76,6 +77,9 @@ import {PaymentComponent} from "./components/payment/payment.component";
     MatFormFieldModule,
     MatSelectModule,
     MatProgressBarModule,
+    MatGridListModule,
+    MatTabsModule,
+    // MatTabsModule,
   ],
   providers: [
     {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'fill'}},
@@ -83,7 +87,6 @@ import {PaymentComponent} from "./components/payment/payment.component";
   ],
   declarations: [
     AppComponent,
-    HomeComponent,
     LoginComponent,
     RegisterComponent,
     ChairHomeComponent,
@@ -105,12 +108,13 @@ import {PaymentComponent} from "./components/payment/payment.component";
     UpdateConferenceComponent,
     StructureConferenceComponent,
     PcReviewComponent,
-    RoomsComponent,
     AssignReviewerComponent,
     PaperDetailDecisionComponent,
     CheckoutComponent,
     SuccessBuyComponent,
     PaymentComponent,
+    ManageSessionComponent,
+    EditSessionComponent,
   ],
   bootstrap: [AppComponent]
 })

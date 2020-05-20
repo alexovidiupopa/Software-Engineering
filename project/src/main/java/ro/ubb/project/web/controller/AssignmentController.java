@@ -25,9 +25,9 @@ public class AssignmentController {
     public MessageResponse submitReview(@RequestBody AssignmentDto assignmentDto) {
         try {
             assignmentService.updateAssignment(assignmentConverter.dtoToModel(assignmentDto));
-            return new MessageResponse("success");
+            return new MessageResponse("true");
         } catch (RuntimeException e) {
-            return new MessageResponse("error");
+            return new MessageResponse("false");
         }
     }
 
@@ -36,7 +36,9 @@ public class AssignmentController {
         try {
             return new MessageResponse(assignmentService.getAssignmentById(pcid, pid).getReviewUrl());
         } catch (RuntimeException e) {
-            return new MessageResponse("error");
+            return new MessageResponse("false");
         }
     }
+
+
 }

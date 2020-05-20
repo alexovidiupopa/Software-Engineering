@@ -19,7 +19,7 @@ export class AuthorPapersComponent implements OnInit {
   }
 
   private getPapers() {
-    this.paperService.getPapersForAuthor(/*this.userService.getCurrentUser().id*/1).subscribe( // fixme uncomment when login logic works
+    this.paperService.getPapersForAuthor(this.userService.getCurrentUser().id).subscribe(
       result => {
         this.papers = result;
         console.log(result);

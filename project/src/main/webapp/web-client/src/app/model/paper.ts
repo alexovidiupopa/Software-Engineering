@@ -1,20 +1,23 @@
 export class Paper {
-  title: string;
-  authors: string;
+  pid: number;
   authorId: number;
-  keywords: string;
-  abstract: File;
-  paperContent: File;
-  id: number;
+  sessionId: number;
+  title: string;
+  topic: string;
+  accepted: string;
+  abstractUrl: string;
+  contentUrl: string;
 
 
-  constructor(title: string, authors: string, authorId: number, keywords: string, abstract: File, paperContent: File, id: number) {
+  constructor(pid: number, aid: number, session: number, title: string, topic: string, accepted: string, abstractUrl: string, contentUrl: string) {
+    this.pid = pid;
+    this.authorId = aid;
+    this.sessionId = session;
     this.title = title;
-    this.authors = authors;
-    this.authorId = authorId;
-    this.keywords = keywords;
-    this.abstract = abstract;
-    this.paperContent = paperContent;
-    this.id = id;
+    this.topic = topic;
+    this.accepted = accepted;
+    this.abstractUrl = abstractUrl;
+    this.contentUrl = contentUrl;
   }
+
 }

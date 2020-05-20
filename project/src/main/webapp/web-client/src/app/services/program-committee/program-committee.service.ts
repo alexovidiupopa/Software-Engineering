@@ -3,6 +3,9 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
 import {ProgramCommittee} from '../../model/program-committee';
+import {PcDto} from "../../model/pcdto";
+import {User} from "../../model/user";
+import {UserDto} from "../../model/userdto";
 
 @Injectable({
   providedIn: 'root'
@@ -17,23 +20,27 @@ export class ProgramCommitteeService {
     private http: HttpClient) {
   }
 
-  getProgramCommittees(): Observable<ProgramCommittee[]> {
-    return this.http.get<ProgramCommittee[]>(this.url + '/getAllPcMembers', this.httpOptions)
+  getProgramCommittees(): Observable<PcDto[]> {
+    return this.http.get<PcDto[]>(this.url + '/getAllPcMembers', this.httpOptions)
       .pipe(
         map(result => result['pcMember']), // todo fix plural typo
-        catchError(this.handleError<ProgramCommittee[]>('getProgramCommittees', []))
+        catchError(this.handleError<PcDto[]>('getProgramCommittees', []))
       );
   }
 
   updatePCToChair(id: number): Observable<boolean> {
-    return this.http.put<boolean>(this.url + '/to-chair', {pcid: id}, this.httpOptions).pipe(
-      map(response => response['message']),
-      catchError(this.handleError<ProgramCommittee>('makePCIntoChair'))
+    return this.http.put<boolean>(this.url + '/pcToChair/' + id, {}, this.httpOptions).pipe(
+      map(response => Boolean(response['message'])),
+      catchError(this.handleError<boolean>('makePCIntoChair'))
     );
   }
 
-  getProgramCommittee(id: number): Observable<ProgramCommittee> {
-    return this.http.post<ProgramCommittee>(this.url + '/getPcMemberById', {pcid: id}, this.httpOptions)
+  getUserInfo(id: number) : Observable<UserDto>{
+    return this.http.get<UserDto>('http://localhost:8080/api/user/'+id, this.httpOptions);
+  }
+
+  getProgramCommittee(id: number): Observable<PcDto> {
+    return this.http.get<PcDto>(this.url + '/getPcMemberById/' + id, this.httpOptions)
       .pipe(
         map(result => result['pcMember']),
         catchError(this.handleError<ProgramCommittee[]>('getProgramCommittees', []))
@@ -57,4 +64,10 @@ export class ProgramCommitteeService {
     };
   }
 
+  invitePc(email: string): Observable<any> {
+    console.log(email);
+    return this.http.post("http://localhost:8080/api/chair/invitePc",
+      {"message":email},
+      this.httpOptions);
+  }
 }

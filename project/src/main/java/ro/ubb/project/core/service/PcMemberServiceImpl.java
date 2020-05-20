@@ -52,4 +52,14 @@ public class PcMemberServiceImpl implements PcMemberService {
                 .findAny();
         return member.isPresent();
     }
+
+    @Override
+    public int getPcIdByUid(int userId) {
+        for(PcMember pc : pcMemberRepository.findAll()) {
+            if (pc.getUid() == userId) {
+                return pc.getPcid();
+            }
+        }
+        throw new RuntimeException("no pc with this userId");
+    }
 }

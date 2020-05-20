@@ -20,11 +20,11 @@ export class SignUpService {
 
   registerPcMember(pcMember: ProgramCommittee): Observable<boolean> {
     return this.http.post<boolean>(this.url + '/pc/signup', pcMember, this.httpOptions).pipe(
-      map(response => response['message']));
+      map(response => Boolean(response['message'])));
   }
 
   registerAuthor(author: Author): Observable<boolean> {
     return this.http.post<boolean>(this.url + '/author/signup', author, this.httpOptions).pipe(
-      map(response => response['message']));
+      map(response => Boolean(response['message'])));
   }
 }

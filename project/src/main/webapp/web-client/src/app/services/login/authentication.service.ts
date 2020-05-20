@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {BehaviorSubject, Observable} from 'rxjs';
+import {BehaviorSubject, Observable, of} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {User} from '../../model/user';
-import {LoginUserBody} from "../../model/LoginUserBody";
+import {LoginUserBody} from '../../model/LoginUserBody';
 import * as jwt_decode from 'jwt-decode';
 
 // tslint:disable-next-line:class-name
@@ -29,8 +29,8 @@ export class AuthenticationService {
   };
 
   constructor(private http: HttpClient) {
-    this.currentUserSubject = new BehaviorSubject<any>(JSON.parse(localStorage.getItem('currentUser')));
-    this.currentUser = this.currentUserSubject.asObservable();
+    //this.currentUserSubject = new BehaviorSubject<any>(JSON.parse(localStorage.getItem('currentUser')));
+    this.currentUser = of(this.getCurrentUser());
   }
 
   public get currentUserValue() {
@@ -39,31 +39,26 @@ export class AuthenticationService {
 
   public getCurrentUser() {
     console.log(this.user);
-    return this.currentUserSubject.value;
+    //return this.currentUserSubject.value;
+    const user = JSON.parse(localStorage.getItem('currentUser'));
+    if (user===null){
+      return null;
+    }
+    return new User(user['firstName'],user['lastName'], user['username'], user['password'], user['type'],user['url'],<number>user['id']);
+    //return JSON.parse(localStorage.getItem('currentUser')) as User;
   }
 
   public assignAnIdentificationTokenToUser(user: User) {
-    let token: string = user.makeid();
+    let token: string = user.makeId();
     while (localStorage.getItem(token)) {
-      token = user.makeid();
+      token = user.makeId();
     }
     user.setToken(token);
   }
 
-
-  private decode_JWT_token(token: any) {
-    const decodedToken = jwt_decode(token);
-    return decodedToken;
-  }
-
   login(username, password) {
-
-
-    //s-ar putea sa nu trebuiasca json.stringify dar sunte 99% sigur ca trebuie
-
     return this.http.post<request>(this.url + '/login', JSON.stringify(new LoginUserBody(username, password)), {
       headers: new HttpHeaders({'Content-Type': 'application/json'})
-
     }).pipe(
       map(response => {
         const decodedToken = this.decode_JWT_token(response['message']);
@@ -71,7 +66,7 @@ export class AuthenticationService {
         this.response.success = decodedToken['success'];
 
         if (this.response.success === true) {
-          this.response.type = decodedToken['type']; //s-ar putea sa trebuiasca .type
+          this.response.type = decodedToken['type'];
           this.user = new User('firstname', 'lastname', 'username', 'password', this.response.type, 'idk', decodedToken['uid']);
           if (this.user.type === 'chair') {
             this.user.url = '/chair-home';
@@ -82,9 +77,9 @@ export class AuthenticationService {
           }
 
           this.assignAnIdentificationTokenToUser(this.user);
-          localStorage.setItem(this.user.getToken(), JSON.stringify(this.user));
-          this.currentUserSubject.next(this.user);
-          return this.user;
+          localStorage.setItem('currentUser', JSON.stringify(this.user));
+          //this.currentUserSubject.next(this.user);
+          return (this.user);
         } else {
           return Error('username or password incorrect');
         }
@@ -93,8 +88,14 @@ export class AuthenticationService {
   }
 
   logout() {
-    localStorage.removeItem(this.user.getToken());
-    this.currentUserSubject.next(null);
+    localStorage.removeItem('currentUser');
+    //this.currentUserSubject.next(null);
+    //this.currentUserSubject = JSON.parse(localStorage.getItem('currentUser'));
+  }
+
+  private decode_JWT_token(token: any) {
+    const decodedToken = jwt_decode(token);
+    return decodedToken;
   }
 }
 

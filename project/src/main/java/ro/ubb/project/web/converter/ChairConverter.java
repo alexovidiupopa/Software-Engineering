@@ -11,6 +11,7 @@ public class ChairConverter extends AbstractConverter<Chair, ChairDto> {
     public Chair dtoToModel(ChairDto chairDto) {
         return Chair.builder()
                 .cid(chairDto.getCid())
+                .uid(chairDto.getUid())
                 .build();
     }
 
@@ -18,6 +19,7 @@ public class ChairConverter extends AbstractConverter<Chair, ChairDto> {
     public ChairDto modelToDto(Chair chair) {
         return ChairDto.builder()
                 .cid(chair.getCid())
+                .uid(chair.getUid())
                 .build();
     }
 }
