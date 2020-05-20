@@ -1,9 +1,3 @@
-div {
-  margin-left: 10px;
-  margin-top: 1%;
-  width: 100%;
-  height: 700px;
-}
 
 #decorationText {
   width: 30%;
@@ -38,15 +32,44 @@ form {
   margin-left: 40%;
   margin-bottom: 2%;
 }
-
 .homeButton {
-  width: 20%;
-  margin-left: 1%;
-  margin-top: 1%;
+  position: relative;
+  background-color: #b5202e;
+  color: white;
+  width: 1%;
+  height: 80%;
+  margin-left: 0.2%;
+  margin-top: 0.3%;
+  z-index: 2;
 }
+
+.homeButton:hover {
+  background-color: #e12032;
+}
+
+
 
 mat-form-field {
   margin: auto;
   margin-top: 15px;
   width: 500px;
 }
+
+#title {
+  position: absolute;
+  color: white;
+  margin-left: 45%;
+  width: 25%;
+  margin-top: 0.4%;
+  z-index: 2;
+}
+
+.header {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 50px;
+  top: 0;
+  background-color: #19265c;
+}
+
