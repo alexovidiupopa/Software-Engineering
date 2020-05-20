@@ -1,10 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Location} from '@angular/common';
-import {ProgramCommittee} from '../../model/program-committee';
 import {ProgramCommitteeService} from '../../services/program-committee/program-committee.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {PcDto} from "../../model/pcdto";
 import {UserDto} from "../../model/userdto";
 
 @Component({

@@ -5,6 +5,7 @@ import {map} from 'rxjs/operators';
 import {User} from '../../model/user';
 import {LoginUserBody} from '../../model/LoginUserBody';
 import * as jwt_decode from 'jwt-decode';
+import {ProgramCommitteeService} from "../program-committee/program-committee.service";
 
 // tslint:disable-next-line:class-name
 class request {
@@ -28,7 +29,7 @@ export class AuthenticationService {
 
   };
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private pcService : ProgramCommitteeService) {
     //this.currentUserSubject = new BehaviorSubject<any>(JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser = of(this.getCurrentUser());
   }
@@ -67,7 +68,12 @@ export class AuthenticationService {
 
         if (this.response.success === true) {
           this.response.type = decodedToken['type'];
-          this.user = new User('firstname', 'lastname', 'username', 'password', this.response.type, 'idk', decodedToken['uid']);
+          this.pcService.getUserInfo(Number(decodedToken['uid']))
+            .subscribe(result=>this.user =
+              new User(result.firstname, result.lastname,result.username,null,this.response.type,
+                null,result.uid)
+            );
+          //this.user = new User('firstname', 'lastname', 'username', 'password', this.response.type, 'idk', decodedToken['uid']);
           if (this.user.type === 'chair') {
             this.user.url = '/chair-home';
           } else if (this.user.type === 'pc') {

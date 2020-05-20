@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, Validators} from '@angular/forms';
-import {Session} from '../../model/session';
 import {TicketService} from '../../services/ticket/ticket.service';
 import {Router} from '@angular/router';
 import {Ticket} from '../../model/ticket';

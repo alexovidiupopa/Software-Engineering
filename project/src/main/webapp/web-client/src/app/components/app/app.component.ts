@@ -1,8 +1,5 @@
 import {Component} from '@angular/core';
 import {User} from '../../model/user';
-import {Router} from '@angular/router';
-import {AuthenticationService} from '../../services/login';
-import {ConferenceService} from '../../services/conference/conference.service';
 
 @Component({
   selector: 'app-root',

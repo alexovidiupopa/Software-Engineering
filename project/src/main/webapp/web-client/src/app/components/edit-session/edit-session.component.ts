@@ -1,18 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import {MatDatepickerInputEvent} from "@angular/material/datepicker";
+import {Component, OnInit} from '@angular/core';
 import {Room} from "../../model/room";
-import {FormBuilder, FormGroup} from "@angular/forms";
 import {Chair} from "../../model/chair";
 import {PaperService} from "../../services/paper/paper.service";
 import {RoomService} from "../../services/room/room.service";
 import {ActivatedRoute} from "@angular/router";
 import {ChairService} from "../../services/chair/chair.service";
 import {Paper} from "../../model/paper";
-import * as $ from 'jquery';
 import {SessionService} from "../../services/session/session.service";
 import {AmazingTimePickerService} from "amazing-time-picker";
-import * as moment from "moment";
-import {Session} from "../../model/session";
 import {MatOption} from "@angular/material/core";
 import {MatSelectChange} from "@angular/material/select";
 

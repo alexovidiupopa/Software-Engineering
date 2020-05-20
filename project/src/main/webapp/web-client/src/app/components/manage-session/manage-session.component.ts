@@ -37,7 +37,7 @@ export class ManageSessionComponent implements OnInit {
     {
       if (paper.sessionId == id)
         paperString += paper.title
-      paperString += ", "
+      paperString += "\n "
     }
 
     return paperString;

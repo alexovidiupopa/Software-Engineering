@@ -1,5 +1,3 @@
-import * as moment from 'moment';
-
 export class Chair {
   cid: number;
   uid: number;
