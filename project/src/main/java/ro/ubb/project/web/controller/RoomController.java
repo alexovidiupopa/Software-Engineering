@@ -29,9 +29,9 @@ public class RoomController {
     MessageResponse addRoom(@RequestBody RoomDto roomDto) {
         try {
             roomService.addRoom(converter.dtoToModel(roomDto));
-            return new MessageResponse("success");
+            return new MessageResponse("true");
         } catch (RuntimeException e) {
-            return new MessageResponse("error");
+            return new MessageResponse("false");
         }
     }
 
@@ -39,9 +39,9 @@ public class RoomController {
     MessageResponse delete(@PathVariable Integer id) {
         try {
             roomService.deleteRoomById(id);
-            return new MessageResponse("success");
+            return new MessageResponse("true");
         } catch (RuntimeException e) {
-            return new MessageResponse("error");
+            return new MessageResponse("false");
         }
     }
 }

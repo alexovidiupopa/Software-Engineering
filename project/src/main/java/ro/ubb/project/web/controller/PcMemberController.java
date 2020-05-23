@@ -3,10 +3,7 @@ package ro.ubb.project.web.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ro.ubb.project.core.model.PcMember;
 import ro.ubb.project.core.service.ChairService;
 import ro.ubb.project.core.service.PcMemberService;
@@ -18,8 +15,6 @@ import ro.ubb.project.web.converter.PersonConverter;
 import ro.ubb.project.web.dto.ChairDto;
 import ro.ubb.project.web.dto.PcMemberDto;
 import ro.ubb.project.web.dto.PersonDto;
-import ro.ubb.project.web.request.GetPcMemberByIdRequest;
-import ro.ubb.project.web.request.PcToChairRequest;
 import ro.ubb.project.web.request.RegisterRequest;
 import ro.ubb.project.web.response.MessageResponse;
 import ro.ubb.project.web.response.PcMemberResponse;
@@ -62,23 +57,26 @@ public class PcMemberController {
         return new PcMembersResponse(pcMemberDtos);
     }
 
-    @RequestMapping(value = "/getPcMemberById", method = RequestMethod.GET)
-    public PcMemberResponse getPcMemberById(@RequestBody GetPcMemberByIdRequest getPcMemberByIdRequest) {
-        Optional<PcMember> pcMember = this.pcMemberService.getPcMemberById(getPcMemberByIdRequest.getPcid());
-        return pcMember.map(member -> new PcMemberResponse(new PcMemberConverter().modelToDto(member))).orElseGet(PcMemberResponse::new);
+    @RequestMapping(value = "/getPcMemberById/{id}", method = RequestMethod.GET)
+    public PcMemberResponse getPcMemberById(@PathVariable Integer id) {
+        int pcId = this.pcMemberService.getPcIdByUid(id);
+        //Optional<PcMember> pcMember = this.pcMemberService.getPcMemberById(pcId);
+        return new PcMemberResponse(new PcMemberDto(pcId, id));
     }
 
-    @RequestMapping(value = "/pcToChair", method = RequestMethod.GET)
-    public MessageResponse pcToChair(@RequestBody PcToChairRequest pcToChairRequest) {
-        Optional<PcMember> pcMember = this.pcMemberService.getPcMemberById(pcToChairRequest.getPcid());
+    @RequestMapping(value = "/pcToChair/{id}", method = RequestMethod.PUT)
+    public MessageResponse pcToChair(@PathVariable Integer id) {
+        Optional<PcMember> pcMember = this.pcMemberService.getPcMemberById(this.pcMemberService.getPcIdByUid(id));
+        System.out.println(pcMember.get().getUid());
         if (pcMember.isPresent()) {
+            pcMemberService.deletePcMember(pcMember.get());
             chairService.addChair(chairConverter.dtoToModel(
                     ChairDto.builder()
-                            .uid(pcMember.get().getUid())
+                            .uid(id)
                             .build()));
-            return new MessageResponse("success");
+            return new MessageResponse("true");
         } else {
-            return new MessageResponse("error");
+            return new MessageResponse("false");
         }
     }
 
@@ -104,6 +102,6 @@ public class PcMemberController {
                         .build()
         ));
         EmailSender.send(EmailSender.ORIGIN_EMAIL, registerRequest.getEmail(), EmailSender.WELCOME_SUBJECT, EmailSender.LOGIN_LINK);
-        return new MessageResponse("success");
+        return new MessageResponse("true");
     }
 }

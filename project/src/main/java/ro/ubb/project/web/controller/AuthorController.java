@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ro.ubb.project.core.model.Author;
+import ro.ubb.project.core.model.Paper;
 import ro.ubb.project.core.service.AuthorService;
 import ro.ubb.project.core.service.PaperService;
 import ro.ubb.project.core.service.PersonService;
@@ -62,16 +63,23 @@ public class AuthorController {
                         .build()
         ));
         EmailSender.send(EmailSender.ORIGIN_EMAIL, registerRequest.getEmail(), EmailSender.WELCOME_SUBJECT, EmailSender.LOGIN_LINK);
-        return new MessageResponse("success");
+        return new MessageResponse("true");
     }
 
     @RequestMapping(value = "/get-for-session/{id}", method = RequestMethod.GET)
     Collection<AuthorDto> getAuthors(@PathVariable Integer id) {
         List<Author> authors = paperService.getAllPapers().stream()
                 .filter(p -> p.getSession() == id)
-                .map(p -> p.getAid())
+                .map(Paper::getAid)
                 .map(aid -> authorService.getAuthorById(aid))
                 .collect(Collectors.toList());
         return authorConverter.convertModelsToDtos(authors);
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    PersonDto getAuthor(@PathVariable Integer id) {
+        return personConverter.modelToDto(
+                personService.getPersonById((authorService.getAuthorById(id)).getUid())
+        );
     }
 }

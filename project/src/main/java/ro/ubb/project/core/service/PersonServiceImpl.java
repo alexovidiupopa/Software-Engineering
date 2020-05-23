@@ -65,4 +65,12 @@ public class PersonServiceImpl implements PersonService {
             throw new RuntimeException("No person with this name found");
         }
     }
+
+    @Override
+    public Person getPersonById(int id) {
+        Optional<Person> person = personRepository.findById(id);
+        if (person.isPresent())
+            return person.get();
+        throw new RuntimeException("No person with this id");
+    }
 }

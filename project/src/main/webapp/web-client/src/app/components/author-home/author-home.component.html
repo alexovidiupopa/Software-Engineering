@@ -1,2 +1,9 @@
-<app-header></app-header>
-<p>you are author</p>
+<div class="header">
+  <button id="logoutButton"  (click)="logout()" mat-flat-button><mat-icon>logout</mat-icon></button>
+  <h1 id = "title" >Author Homepage</h1>
+</div>
+
+<button mat-raised-button color="warn" class="my_button_class" routerLink="/paper/all" style="position:absolute; left:40%;bottom:59%">
+  <!--fixme those should show only if there is a conference-->
+  Manage papers
+</button>

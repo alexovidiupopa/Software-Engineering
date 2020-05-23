@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, Validators} from '@angular/forms';
-import {Session} from '../../model/session';
 import {TicketService} from '../../services/ticket/ticket.service';
 import {Router} from '@angular/router';
 import {Ticket} from '../../model/ticket';
+import {Sesssion} from "../../model/sesssion";
 
 @Component({
   selector: 'app-buy-ticket',
@@ -18,9 +18,9 @@ export class BuyTicketComponent implements OnInit {
   firstName: string;
   lastName: string;
   email: string;
-  sessions: Session[];
+  sessions: Sesssion[] = [];
   ticketCost: number;
-  selectedOptions: Session[] = [];
+  selectedOptions: Sesssion[] = [];
   badData = false;
 
   constructor(private ticketService: TicketService, private router: Router) {
@@ -44,6 +44,7 @@ export class BuyTicketComponent implements OnInit {
   }
 
   proceedToCheckout() {
+    console.log(this.sessions);
     if (this.validData()) {
       const cart: Ticket[] = JSON.parse(localStorage.getItem('cart'));
       const newTicket = this.createTicket();

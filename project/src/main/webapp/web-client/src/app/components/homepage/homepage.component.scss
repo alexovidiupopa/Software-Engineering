@@ -406,6 +406,7 @@ $input-color-placeholder: #999 !default;
 
 .bg3 {
   content: url(src/assets/img/xeo.jpg);
+  border-radius: 50%;
 }
 
 .bg4 {
@@ -667,11 +668,11 @@ $input-color-placeholder: #999 !default;
   margin: 0;
   color: #FFFFFF;
   // background: #fbf8ec;
-  background: -moz-linear-gradient(to bottom, #FFFFFF 35%, #4e6773 100%);
-  background: -webkit-linear-gradient(to bottom, #FFFFFF 35%, #4e6773 100%);
-  background: -ms-linear-gradient(to bottom, #FFFFFF 35%, #4e6773 100%);
-  background: -o-linear-gradient(to bottom, #FFFFFF 35%, #4e6773 100%);
-  background: linear-gradient(to bottom, #FFFFFF 35%, #4e6773 100%);
+  background: -moz-linear-gradient(to bottom, #FFFFFF 35%, #617e8a 100%);
+  background: -webkit-linear-gradient(to bottom, #FFFFFF 35%, #617e8a 100%);
+  background: -ms-linear-gradient(to bottom, #FFFFFF 35%, #617e8a 100%);
+  background: -o-linear-gradient(to bottom, #FFFFFF 35%, #617e8a 100%);
+  background: linear-gradient(to bottom, #FFFFFF 35%, #617e8a 100%);
 
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -703,7 +704,6 @@ $input-color-placeholder: #999 !default;
   position: absolute;
   left: 0;
   bottom: 0;
-  margin-left: -35%;
   margin-bottom: -50px;
   width: 110%;
   opacity: .85;
@@ -713,7 +713,26 @@ $input-color-placeholder: #999 !default;
   }
 
   &.right {
-    margin-left: 30%;
+    margin-left: 20%;
+    opacity: 1;
+  }
+}
+
+.fog-low2 {
+  position: absolute;
+  bottom: 0;
+  margin-left: -35%;
+  margin-bottom: -50px;
+  margin-right: 10%;
+  width: 90%;
+  opacity: .85;
+
+  img {
+    width: 100%;
+  }
+
+  &.right {
+    margin-left: 20%;
     opacity: 1;
   }
 }
@@ -736,13 +755,14 @@ $input-color-placeholder: #999 !default;
 
 .moving-clouds {
   position: absolute;
-  z-index: 1;
+  z-index: 0;
   bottom: 0;
   left: 0;
-  width: 250.625em;
-  height: 43.75em;
-  -webkit-animation: cloudLoop 80s linear infinite;
-  animation: cloudLoop 80s linear infinite;
+  right: 0;
+  width: 100%;
+  height: 41.75em;
+  -webkit-animation: cloudLoop 20s linear infinite;
+  animation: cloudLoop 20s linear infinite;
 }
 
 @keyframes cloudLoop {
@@ -1311,9 +1331,9 @@ $input-color-placeholder: #999 !default;
     position: relative;
 
   }
+
+
   .wrapper {
-
-
     left: 0;
     background-color: white;
   }

@@ -64,7 +64,7 @@ public class AssignmentServiceImpl implements AssignmentService {
         return assignmentRepository.findAll()
                 .stream()
                 .filter(assignment -> assignment.getPid() == pid)
-                .map(assignment -> assignment.getPcid())
+                .map(Assignment::getPcid)
                 .collect(Collectors.toList());
     }
 
@@ -73,7 +73,7 @@ public class AssignmentServiceImpl implements AssignmentService {
         return assignmentRepository.findAll()
                 .stream()
                 .filter(assignment -> assignment.getPcid() == pcid)
-                .map(assignment -> assignment.getPid())
+                .map(Assignment::getPid)
                 .collect(Collectors.toList());
     }
 }

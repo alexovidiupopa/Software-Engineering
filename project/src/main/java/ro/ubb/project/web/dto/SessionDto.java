@@ -16,4 +16,5 @@ public class SessionDto {
     private Time time;
     private int rid;
     private int supervisor;
+    private int price;
 }

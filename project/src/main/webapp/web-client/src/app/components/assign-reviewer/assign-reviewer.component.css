@@ -2,17 +2,19 @@ mat-grid-tile {
   background: lightblue;
 
 }
-.g1{
+
+.g1 {
 
   background-color: red;
 
 }
-.g2{
-  width:60% !important;
+
+.g2 {
+  width: 60% !important;
   background-color: blue;
 
 }
 
-.fullWidth{
-  width: 50% !important ;
+.fullWidth {
+  width: 50% !important;
 }

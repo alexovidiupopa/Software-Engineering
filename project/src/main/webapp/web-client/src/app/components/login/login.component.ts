@@ -1,10 +1,10 @@
+/* tslint:disable:no-string-literal */
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {first} from 'rxjs/operators';
 import {AuthenticationService} from '../../services/login';
 
-@Component({templateUrl: 'login.component.html'})
+@Component({templateUrl: 'login.component.html', styleUrls: ['./login.component.css']})
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   loading = false;
@@ -19,7 +19,8 @@ export class LoginComponent implements OnInit {
     private authenticationService: AuthenticationService
   ) {
     // redirect to home if already logged in
-    if (this.authenticationService.currentUserValue) {
+    this.authenticationService.logout();
+    if (this.authenticationService.getCurrentUser()!==null) {
       this.router.navigate(['/']);
     }
   }
@@ -39,10 +40,6 @@ export class LoginComponent implements OnInit {
         password: ['', Validators.required]
       }
     );
-
-    // get return url from route parameters or default to '/'
-
-
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
 
   }
@@ -58,9 +55,10 @@ export class LoginComponent implements OnInit {
 
     this.loading = true;
     this.authenticationService.login(this.formFields.username.value, this.formFields.password.value)
-      .pipe(first())
+      //.pipe(first())
       .subscribe(
         data => {
+          console.log(data);
           this.returnUrl = data['url'];
           this.router.navigate([this.returnUrl]);
         },

@@ -56,7 +56,7 @@ export class AuthorRegisterComponent implements OnInit {
   }
 
   goHome() {
-    this.router.navigate(['register']);
+    this.router.navigate(['']);
   }
 
   assignId(): number {
