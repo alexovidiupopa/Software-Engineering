@@ -27,6 +27,11 @@ export class ConferenceService {
     );
   }
 
+
+  check_if_conference_exists():Observable<Boolean>{
+    return this.http.get<Boolean>(this.url + '/exists',this.httpOptions);
+  }
+
   addConference(conference: Conference): Observable<boolean> {
     const conferenceFormatted = {
       conferenceName: conference.conferenceName,
@@ -42,6 +47,8 @@ export class ConferenceService {
       catchError(this.handleError<boolean>('addConference'))
     );
   }
+
+
 
   /**
    * Handle Http operation that failed.

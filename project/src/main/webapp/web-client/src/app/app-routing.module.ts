@@ -45,8 +45,8 @@ const routes: Routes = [
   {path: 'conference/structure', component: StructureConferenceComponent, canActivate: [AuthGuard]},
   {path: 'review/pc/:id', component: PcReviewComponent, canActivate: [AuthGuard]},
   {path: 'review/assign', component: AssignReviewerComponent, canActivate: [AuthGuard]},
-  {path: '', component: HomepageComponent},
-  {path: 'chair-home', component: ChairHomeComponent, canActivate: [AuthGuard]},
+  {path: '', component: ChairHomeComponent},
+  {path: 'chair-home', component: ChairHomeComponent},
   {path: 'login', component: LoginComponent},
 
   // {path: 'register', component: RegisterComponent},
