@@ -10,6 +10,7 @@ import {SessionService} from "../../services/session/session.service";
 import {AmazingTimePickerService} from "amazing-time-picker";
 import {MatOption} from "@angular/material/core";
 import {MatSelectChange} from "@angular/material/select";
+import {UserDto} from '../../model/userdto';
 
 @Component({
   selector: 'app-edit-session',
@@ -28,15 +29,16 @@ export class EditSessionComponent implements OnInit {
   selectedPapers : Paper[] = [];
   cid: number;
   rid: number;
+  chairUsers: UserDto[] = [];
 
   constructor( private atp: AmazingTimePickerService,private sessionService: SessionService, private paperService: PaperService, private roomService: RoomService, private chairService: ChairService, private route: ActivatedRoute) {
-
-  }
-
-  ngOnInit(): void {
     this.getAllRooms();
     this.getPapers()
     this.getAllChairs();
+  }
+
+  ngOnInit(): void {
+
   }
 
   getAllRooms()
@@ -46,8 +48,10 @@ export class EditSessionComponent implements OnInit {
 
   getAllChairs()
   {
-
-    this.chairService.getAllChairs().subscribe( chairs => this.chairs = chairs);
+    this.chairService.getAllChairs().subscribe( chairs => {
+      this.chairs = chairs;
+      this.getNameForChairId();
+    });
   }
 
   getPapers()
@@ -55,13 +59,16 @@ export class EditSessionComponent implements OnInit {
     this.paperService.getAllPapers().subscribe( papers => this.papers = papers);
   }
 
-  getNameForChairId(id:number)
+  getNameForChairId()
   {
-    let name;
-    this.chairService.getNameForChairId(id).subscribe(n => name = n)
+    for (let chairr of this.chairs)
+    {
+      let chair: UserDto;
+      this.chairService.getNameForChairId(chairr.uid).subscribe(n => chair = n)
+      console.log(chair.lastname)
+      this.chairUsers.push(chair)
+    }
   }
-
-
 
   openTime() {
     const amazingTimePicker = this.atp.open({

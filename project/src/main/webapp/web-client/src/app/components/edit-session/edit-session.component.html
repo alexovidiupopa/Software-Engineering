@@ -14,8 +14,8 @@
       <mat-form-field>
         <mat-label> Chair</mat-label>
         <mat-select id="chairs" (selectionChange)="selectChair($event)">
-          <mat-option *ngFor="let chair of chairs" [value]="chair.cid">
-            {{getNameForChairId(chair.cid)}}
+          <mat-option *ngFor="let chair of chairUsers" [value]="chair.uid">
+            {{chair}}
           </mat-option>
         </mat-select>
       </mat-form-field>
