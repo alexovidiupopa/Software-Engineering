@@ -20,6 +20,9 @@
   display: flex;
 }
 
-#invite-button {
+.invite-button {
+  height: 8.1vh;
   flex: 1;
+  background-color: #3b5998;
+  color: white;
 }

@@ -53,10 +53,17 @@ mat-form-field {
 }
 
 #buttonLogin {
+  /*background-color: #d41000;*/
+  /*color: white;*/
   margin-top: 2%;
   width: 20%;
   margin-left: 40%;
 }
+
+#buttonLogin:hover {
+  /*background-color: #ff1700;*/
+}
+
 
 /*@-moz-keyframes rotate {*/
 /*  0% {*/

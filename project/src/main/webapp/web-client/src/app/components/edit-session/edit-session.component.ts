@@ -55,6 +55,12 @@ export class EditSessionComponent implements OnInit {
     this.paperService.getAllPapers().subscribe( papers => this.papers = papers);
   }
 
+  getNameForChairId(id:number)
+  {
+    let name;
+    this.chairService.getNameForChairId(id).subscribe(n => name = n)
+  }
+
 
 
   openTime() {

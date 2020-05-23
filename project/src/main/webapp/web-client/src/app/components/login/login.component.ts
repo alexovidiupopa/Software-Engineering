@@ -10,7 +10,7 @@ export class LoginComponent implements OnInit {
   loading = false;
   submitted = false;
   returnUrl: string;
-  error: string;
+  error: string = '';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-
+    // this.error = ''
     this.loading = true;
     this.authenticationService.login(this.formFields.username.value, this.formFields.password.value)
       //.pipe(first())

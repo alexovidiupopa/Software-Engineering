@@ -3,10 +3,10 @@
   <div class="main-div">
     <mat-card>
       <mat-form-field>
-        <mat-label> Room</mat-label>
+        <mat-label>Room</mat-label>
         <mat-select id="rooms" (selectionChange)="selectRoom($event)">
           <mat-option *ngFor="let room of rooms" [value]="room.rid">
-            {{room.rid}}   {{room.capacity}}
+            {{room.rid + " (cap : " + room.capacity + ")"}}
           </mat-option>
         </mat-select>
       </mat-form-field>
@@ -15,7 +15,7 @@
         <mat-label> Chair</mat-label>
         <mat-select id="chairs" (selectionChange)="selectChair($event)">
           <mat-option *ngFor="let chair of chairs" [value]="chair.cid">
-            {{chair.cid}}
+            {{getNameForChairId(chair.cid)}}
           </mat-option>
         </mat-select>
       </mat-form-field>

@@ -1,7 +1,8 @@
 
 .g1 {
-  background-color: #6262c4;
+  background-color: #00601d;
   border-radius: 15px;
+  color: white;
 }
 
 mat-grid-list
@@ -12,7 +13,7 @@ mat-grid-list
 }
 
 mat-grid-tile:hover{
-  background-color: #8484ff;
+  background-color: #009329;
 }
 
 .g2 {
@@ -25,3 +26,14 @@ mat-grid-tile:hover{
   width: 50% !important;
 }
 
+button
+{
+  margin-left: 2%;
+  background-color: #3b5998;
+  color: white;
+}
+
+button:hover
+{
+  background-color: #486cb8;
+}

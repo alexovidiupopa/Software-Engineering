@@ -8,6 +8,7 @@ import {map} from "rxjs/operators";
   providedIn: 'root'
 })
 export class ChairService {
+
   httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
   };
@@ -18,5 +19,9 @@ export class ChairService {
   getAllChairs(): Observable<Chair[]>
   {
     return this.http.get<Chair[]>(this.url + '/getAllChairs', this.httpOptions).pipe(map(result => result["chairs"]) );
+  }
+
+  getNameForChairId(id: number) : Observable<string> {
+    return this.http.get<string>(this.url + '/getNameForChairId' + id, this.httpOptions).pipe(map(result => result) );
   }
 }

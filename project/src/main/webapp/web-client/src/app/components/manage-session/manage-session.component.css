@@ -1,7 +1,20 @@
 button {
   margin-right: 3%;
+  color: white;
+  background-color: #bf3000;
+}
+
+button:hover
+{
+  background-color: #ff6b00;
+}
+
+p
+{
+  font-weight: bolder;
 }
 
 mat-list-item {
+  margin-top: 2%;
   margin-left: 3%;
 }

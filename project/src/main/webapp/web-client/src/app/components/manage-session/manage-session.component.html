@@ -1,7 +1,8 @@
+
 <mat-list>
   <mat-list-item *ngFor="let session of sessions">
-    <button mat-raised-button routerLink="/session/edit/{{session.sid}}">Create Session</button>
-    {{"(" + session.time + "): "}}{{getPapersForSessionId(session.sid)}}
+    <button mat-raised-button routerLink="/session/edit/{{session.sid}}">Edit Session</button>
+    <p>{{"(" + session.time + ") "}}{{getPapersForSessionId(session.sid)}}</p>
   </mat-list-item>
 </mat-list>
 

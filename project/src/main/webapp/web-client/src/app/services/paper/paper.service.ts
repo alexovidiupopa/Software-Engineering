@@ -149,7 +149,6 @@ export class PaperService {
       map(result => result['papers']),
       catchError(this.handleError<Paper[]>('getAllPapers', []))
     );
-
   }
 
   getAllReviewersForPaper(paperId: number): Observable<Reviewer[]> {
