@@ -24,6 +24,6 @@ public class Assignment {
     private int pid;
     private int qualifier;
 
-    @Column(name="reviewurl")
+    @Column(name="review_url")
     private String reviewUrl;
 }

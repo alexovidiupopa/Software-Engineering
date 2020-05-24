@@ -76,7 +76,7 @@ public class LoginController {
         } catch (RuntimeException e) {
             return new MessageResponse(JWT.create()
                     .withIssuer("admin")
-                    .withClaim("success", false)
+                    .withClaim("failed", false)
                     .withClaim("type", "")
                     .withClaim("uid", 0)
                     .sign(algorithm));
