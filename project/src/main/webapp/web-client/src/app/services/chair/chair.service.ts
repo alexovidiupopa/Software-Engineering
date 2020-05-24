@@ -24,7 +24,7 @@ export class ChairService {
   }
 
   getNameForChairId(id: number) : Observable<UserDto> {
-    console.log(this.userurl + '/' + id)
+    // console.log(this.userurl + '/' + id)
     return this.http.get<UserDto>(this.userurl + '/' + id, this.httpOptions);
   }
 }

@@ -11,6 +11,7 @@ export class UserDto{
     this.email = email;
     this.academicrank = academicrank;
   }
+  uid: number;
   username: string;
   password: string;
   website: string;
@@ -20,5 +21,4 @@ export class UserDto{
   phonenumber: string;
   email: string;
   academicrank: string;
-  uid: number;
 }

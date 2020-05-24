@@ -52,8 +52,9 @@
   border-radius: 4px 0 0 4px;
 }
 
-button {
+#submit-button {
   background-color: red;
+  color: white;
   font-family: Arial;
   border-radius: 20px;
 }

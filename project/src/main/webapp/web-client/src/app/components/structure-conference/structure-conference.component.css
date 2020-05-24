@@ -18,6 +18,6 @@ app-manage-session
 div{
   display: flex;
   flex-direction: column;
-  margin-left: 30%;
-  margin-top: 5%;
+  margin-left: 25%;
+  margin-top: 2%;
 }
