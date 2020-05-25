@@ -5,7 +5,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import ro.ubb.project.core.service.PersonService;
 import ro.ubb.project.web.request.MessageRequest;
 
 @SpringBootTest
@@ -13,9 +12,6 @@ class ChairControllerTest {
 
     @Autowired
     private ChairController chairController;
-
-    @Autowired
-    private PersonService personService;
 
     @BeforeEach
     public void setUp() {

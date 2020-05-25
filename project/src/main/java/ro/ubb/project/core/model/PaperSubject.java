@@ -9,7 +9,7 @@ import javax.persistence.IdClass;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "papersubjects", schema = "public")
+@Table(name = "papersubject", schema = "public")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -18,6 +18,7 @@ import javax.persistence.Table;
 @EqualsAndHashCode
 @IdClass(PaperSubjectsPK.class)
 public class PaperSubject {
+
     @Id
     private int pid;
     @Id
