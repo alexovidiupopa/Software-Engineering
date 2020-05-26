@@ -1,13 +1,13 @@
-import {Session} from './session';
+import {Sesssion} from "./sesssion";
 
 export class Ticket {
   firstName: string;
   email: string;
   lastName: string;
-  sessions: Session[];
+  sessions: Sesssion[];
 
 
-  constructor(firstName: string, lastName: string, email: string, sessions: Session[]) {
+  constructor(firstName: string, lastName: string, email: string, sessions: Sesssion[]) {
     this.firstName = firstName;
     this.email = email;
     this.lastName = lastName;

@@ -471,4 +471,40 @@ public class PaperController {
                 (ArrayList<PaperDto>) converter.convertModelsToDtos(papers)
         );
     }
+
+    @RequestMapping(value = "/getUnscheduledPapers",method = RequestMethod.GET)
+    PapersResponse getUnscheduledPapers(){
+        return new PapersResponse(
+                (ArrayList<PaperDto>) converter.convertModelsToDtos(
+                        paperService.getAllPapers()
+                        .stream()
+                        .filter(paper-> paper.getAccepted().equals("accepted") && paper.getSession()==-1)
+                        .collect(Collectors.toList())
+                )
+        );
+    }
+
+    @RequestMapping(value = "/addPaperToSession/{pid}/{sid}", method = RequestMethod.POST)
+    MessageResponse addPaperToSession(@PathVariable Integer pid, @PathVariable Integer sid){
+        try {
+            Paper paper = paperService.getPaperById(pid);
+            paper.setSession(sid);
+            paperService.updatePaper(paper);
+            return new MessageResponse("true");
+        } catch (RuntimeException e) {
+            return new MessageResponse("false");
+        }
+    }
+
+    @RequestMapping(value = "/deletePaperFromSession/{pid}", method = RequestMethod.POST)
+    MessageResponse deletePaperFromSession(@PathVariable Integer pid){
+        try {
+            Paper paper = paperService.getPaperById(pid);
+            paper.setSession(-1);
+            paperService.updatePaper(paper);
+            return new MessageResponse("true");
+        } catch (RuntimeException e) {
+            return new MessageResponse("false");
+        }
+    }
 }

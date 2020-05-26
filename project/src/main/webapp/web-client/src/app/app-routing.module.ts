@@ -6,7 +6,6 @@ import {PcDetailComponent} from './components/pc-detail/pc-detail.component';
 import {PcHomeComponent} from './components/pc-home/pc-home.component';
 import {ChairHomeComponent} from './components/chair-home';
 import {LoginComponent} from './components/login';
-import {RegisterComponent} from './components/register/register.component';
 import {AuthorRegisterComponent} from './components/author-register/author-register.component';
 import {PcRegisterComponent} from './components/pc-register/pc-register.component';
 import {UploadAbstractComponent} from './components/upload-abstract/upload-abstract.component';
@@ -20,7 +19,6 @@ import {BuyTicketComponent} from './components/buy-ticket/buy-ticket.component';
 import {UpdateConferenceComponent} from './components/update-conference/update-conference.component';
 import {StructureConferenceComponent} from './components/structure-conference/structure-conference.component';
 import {PcReviewComponent} from './components/pc-review/pc-review.component';
-import {RoomsComponent} from './components/rooms/rooms.component';
 import {AssignReviewerComponent} from './components/assign-reviewer/assign-reviewer.component';
 import {PaperDetailDecisionComponent} from './components/paper-detail-decision/paper-detail-decision.component';
 import {CheckoutComponent} from './components/checkout/checkout.component';
@@ -28,6 +26,7 @@ import {SuccessBuyComponent} from './components/success-buy/success-buy.componen
 import {PaymentComponent} from './components/payment/payment.component';
 import {ManageSessionComponent} from './components/manage-session/manage-session.component';
 import {AuthGuard} from './helper';
+import {EditSessionComponent} from "./components/edit-session/edit-session.component";
 
 
 const routes: Routes = [
@@ -46,7 +45,6 @@ const routes: Routes = [
   {path: 'conference/structure', component: StructureConferenceComponent, canActivate: [AuthGuard]},
   {path: 'review/pc/:id', component: PcReviewComponent, canActivate: [AuthGuard]},
   {path: 'review/assign', component: AssignReviewerComponent, canActivate: [AuthGuard]},
-  {path: 'rooms', component: RoomsComponent, canActivate: [AuthGuard]},
   {path: '', component: HomepageComponent},
   {path: 'chair-home', component: ChairHomeComponent, canActivate: [AuthGuard]},
   {path: 'login', component: LoginComponent},
@@ -58,7 +56,9 @@ const routes: Routes = [
   {path: 'paper/all', component: AuthorPapersComponent, canActivate: [AuthGuard]},
   {path: 'paper/detail/:id', component: PaperDetailComponent, canActivate: [AuthGuard] },
   {path: 'paper/decision/:id', component: PaperDetailDecisionComponent, canActivate: [AuthGuard]},
-  {path: 'session/manage/:id', component: ManageSessionComponent, canActivate: [AuthGuard]},
+
+  {path: 'session/manage', component: ManageSessionComponent, canActivate: [AuthGuard]},
+  {path: 'session/edit/:id', component: EditSessionComponent, canActivate: [AuthGuard]},
   // otherwise redirect to home
   {path: '**', redirectTo: ''}
 ];

@@ -254,10 +254,35 @@ export class PaperService {
       .pipe(
         tap(result=>console.log(result)),
         map(result => {
-          if (result['message']==='true')
-            return true;
-          return false;
+          return result['message'] === 'true';
+
         })
       );
+  }
+
+  getAllUnscheduledPapers() : Observable<Paper[]>{
+    return this.http.get<Paper[]>(this.url + "/getUnscheduledPapers", this.httpOptions)
+      .pipe(
+        map(result=>result['papers']),
+        catchError(this.handleError<boolean>('getAllUnscheduledPapers'))
+      );
+  }
+
+  addPaperToSession(paper: Paper, id: number) :Observable<boolean> {
+    return this.http.post<boolean>(this.url+"/addPaperToSession/" + paper.pid + "/" + id,this.httpOptions)
+      .pipe(
+        map(result=>Boolean(result['message'])),
+        catchError(this.handleError<boolean>('addPaperToSession'))
+      );
+  }
+
+
+  deletePaperFromSession(id: number) {
+    return this.http.put<boolean>(this.url + "/deletePaperFromSession/" + id, {},this.httpOptions)
+      .pipe(
+        map(result=>Boolean(result['message'])),
+        catchError(this.handleError<boolean>('addPaperToSession'))
+      );
+
   }
 }

@@ -4,7 +4,6 @@ import {Observable, of} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
 import {ProgramCommittee} from '../../model/program-committee';
 import {PcDto} from "../../model/pcdto";
-import {User} from "../../model/user";
 import {UserDto} from "../../model/userdto";
 
 @Injectable({
