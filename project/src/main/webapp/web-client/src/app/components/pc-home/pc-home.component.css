@@ -1,0 +1,22 @@
+.my_button_class {
+  width: 250px !important;
+  height: 150px !important;
+  min-width: unset !important;
+  font-size: 22px;
+  color: white;
+  background-color: #3b5998;
+  margin-left: 5%;
+}
+
+.my_button_class:hover
+{
+  background-color: #4578c1;
+}
+
+
+div{
+  margin-top: 15%;
+  margin-left: 27%;
+  display: flex;
+  flex-direction: row;
+}

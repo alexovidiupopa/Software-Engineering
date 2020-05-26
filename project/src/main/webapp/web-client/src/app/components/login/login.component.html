@@ -23,10 +23,13 @@
     </mat-error>
   </mat-form-field>
 
-  <button [disabled]="loading" color="warn" id="buttonLogin" mat-raised-button>
-    <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+  <button [disabled]="loading"  color="warn" id="buttonLogin" mat-raised-button>
+<!--    <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>-->
     Login
   </button>
+<!--  <mat-error *ngIf="error!=''">-->
+<!--    error-->
+<!--  </mat-error>-->
 </form>
 </body>
 

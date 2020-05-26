@@ -10,6 +10,8 @@ import {SessionService} from "../../services/session/session.service";
 import {AmazingTimePickerService} from "amazing-time-picker";
 import {MatOption} from "@angular/material/core";
 import {MatSelectChange} from "@angular/material/select";
+import {UserDto} from '../../model/userdto';
+import {Form, FormBuilder, FormControl, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-edit-session',
@@ -28,15 +30,31 @@ export class EditSessionComponent implements OnInit {
   selectedPapers : Paper[] = [];
   cid: number;
   rid: number;
+  chairUsers: UserDto[] = [];
+  loading: boolean = true;
 
-  constructor( private atp: AmazingTimePickerService,private sessionService: SessionService, private paperService: PaperService, private roomService: RoomService, private chairService: ChairService, private route: ActivatedRoute) {
+  roomForm = new FormControl('', [
+    Validators.required,
+  ]);
 
-  }
+  chairForm = new FormControl('', [
+    Validators.required,
+  ]);
 
-  ngOnInit(): void {
+  dateForm = new FormControl('', [
+    Validators.required,
+  ]);
+
+  constructor( private atp: AmazingTimePickerService,private sessionService: SessionService,
+               private paperService: PaperService, private roomService: RoomService,
+               private chairService: ChairService, private route: ActivatedRoute) {
     this.getAllRooms();
     this.getPapers()
     this.getAllChairs();
+  }
+
+  ngOnInit(): void {
+
   }
 
   getAllRooms()
@@ -46,16 +64,45 @@ export class EditSessionComponent implements OnInit {
 
   getAllChairs()
   {
-
-    this.chairService.getAllChairs().subscribe( chairs => this.chairs = chairs);
+    this.chairService.getAllChairs().subscribe( chairs => {
+      this.chairs = chairs;
+      this.getChairUsers();
+    });
   }
 
   getPapers()
   {
-    this.paperService.getAllPapers().subscribe( papers => this.papers = papers);
+    this.paperService.getAllPapers().subscribe( papers =>
+    {
+      this.papers = papers
+      this.loading = false;
+    });
+  }
+
+  getNameForChairUid(uid:number): string
+  {
+      let chairName = ''
+      for ( let chair of this.chairUsers)
+      {
+        if( chair.uid == uid ){
+          chairName = chairName + chair.firstname + " " + chair.lastname
+          return chairName
+        }
+      }
+      return "nameless"
   }
 
 
+  getChairUsers()
+  {
+    for (let chair of this.chairs)
+    {
+      this.chairService.getNameForChairId(chair.uid).subscribe(user =>
+      {
+        this.chairUsers.push(user)
+      })
+    }
+  }
 
   openTime() {
     const amazingTimePicker = this.atp.open({
@@ -79,7 +126,6 @@ export class EditSessionComponent implements OnInit {
   createSession() {
     this.sessionService.addSession(this.cid, this.rid, this.sessionTime, this.selectedPapers)
       .subscribe();
-
   }
 
   selectChair(event: MatSelectChange) {

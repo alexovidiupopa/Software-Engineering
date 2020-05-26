@@ -2,12 +2,11 @@
   <button class="nav-item nav-link homeButton" mat-flat-button routerLink="">
     <mat-icon>arrow_back</mat-icon>
   </button>
-  <h1 id="title">Buy ticket</h1>
+  <h1 id="title">Buy tickets</h1>
 </div>
 <div class="main-div">
-  <mat-card>
-
-    <h1 class="mat-h1">Buy a ticket</h1>
+<mat-card>
+<!--    <h1 class="mat-h1">Buy a ticket</h1>-->
     <h5 class="mat-h5">
       Disclaimer: due to the fact that each ticket contains sensitive data,
       <br>we have to ask you to complete each ticket with full and valid data
@@ -48,8 +47,11 @@
       </mat-form-field>
     </form>
     <br>
-    <br>
+
+
     <mat-label>Sessions willing to participate in:</mat-label>
+  <a [hidden]="loaded"><mat-spinner [diameter]="80" id = "spinner"></mat-spinner></a>
+
 
     <mat-selection-list (selectionChange)="selectionChanged($event)" [(ngModel)]="selectedOptions" #ssn>
       <mat-list-option *ngFor="let session of sessions" [value]="session">
@@ -57,17 +59,15 @@
       </mat-list-option>
     </mat-selection-list>
 
-    <mat-label>Cost: {{ticketCost}}$</mat-label>
+    <h4 id = "costText">Cost: {{ticketCost}}$</h4>
     <div id="buttons-grid">
-      <button (click)="buyAnotherTicket()" class="abstract-button" color="primary" mat-raised-button>
+      <button (click)="buyAnotherTicket()" class="buy-another-button" mat-raised-button>
         Buy another ticket
       </button>
-      <button (click)="proceedToCheckout()" class="abstract-button" color="warn" mat-raised-button>
+      <button (click)="proceedToCheckout()" class="checkout-button" mat-raised-button>
         Checkout
       </button>
     </div>
-    <mat-error *ngIf="badData">Input data is invalid!</mat-error>
-
-  </mat-card>
-
+    <mat-error *ngIf="badData" id = "error">Input data is invalid!</mat-error>
+</mat-card>
 </div>
