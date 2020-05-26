@@ -1,5 +1,23 @@
 #managerooms
 {
-  margin-left: 5%;
+  margin-left: 4.5%;
+    width: 15%;
+  color: white;
+  background-color: #3b5998;
+}
+
+#managerooms:hover
+{
+  background-color: #4c76c6;
+}
+
+app-manage-session
+{
+
+}
+div{
+  display: flex;
+  flex-direction: column;
+  margin-left: 25%;
   margin-top: 2%;
 }

@@ -10,6 +10,7 @@ import {Sesssion} from "../../model/sesssion";
   templateUrl: './buy-ticket.component.html',
   styleUrls: ['./buy-ticket.component.css']
 })
+
 export class BuyTicketComponent implements OnInit {
   emailFormControl = new FormControl('', [
     Validators.required,
@@ -22,12 +23,14 @@ export class BuyTicketComponent implements OnInit {
   ticketCost: number;
   selectedOptions: Sesssion[] = [];
   badData = false;
+  loaded = false;
 
   constructor(private ticketService: TicketService, private router: Router) {
   }
 
   ngOnInit(): void {
-    this.ticketService.getSessionsWithAvailableSeats().subscribe(sessions => this.sessions = sessions);
+    this.ticketService.getSessionsWithAvailableSeats().subscribe(
+      sessions => {this.sessions = sessions; this.loaded = true});
   }
 
   buyAnotherTicket() {
