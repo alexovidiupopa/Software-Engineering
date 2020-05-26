@@ -4,10 +4,10 @@
   <mat-spinner ></mat-spinner>
 </div>
 
+<button mat-raised-button routerLink="/session/edit/1">Create new session</button>
 <mat-list>
   <mat-list-item *ngFor="let session of sessions">
-    <button mat-raised-button routerLink="/session/edit/{{session.sid}}">Edit Session{{" " + session.sid}}</button>
-    <p>{{"(" + session.time + ") "}}{{getPapersForSessionId(session.sid)}}</p>
+    <p>Session #{{session.sid}}:{{"(" + session.time + ") "}}{{getPapersForSessionId(session.sid)}}</p>
   </mat-list-item>
 </mat-list>
 

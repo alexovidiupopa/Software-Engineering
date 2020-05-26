@@ -2,7 +2,7 @@
 
 <div>
   <button mat-flat-button class = "my_button_class" routerLink="/bid">Bid papers</button>
-  <!--<button *ngIf="isSecondPhase()" routerLink="/review/pc" mat-flat-button>Review papers</button>-->
-  <!--<button *ngIf="isFirstPhase()" routerLink="/paper/upload" mat-flat-button>Upload a new paper</button>-->
+  <button mat-flat-button class = "my_button_class" routerLink="/review/pc/{{id}}" mat-flat-button>Review papers</button>
+  <button mat-flat-button class = "my_button_class" routerLink="/paper/upload" mat-flat-button>Upload a new paper</button>
   <button mat-flat-button class = "my_button_class" routerLink="/paper/all">My papers</button>
 </div>
