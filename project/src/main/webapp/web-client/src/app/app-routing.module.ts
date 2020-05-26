@@ -27,6 +27,7 @@ import {SuccessBuyComponent} from './components/success-buy/success-buy.componen
 import {PaymentComponent} from './components/payment/payment.component';
 import {ManageSessionComponent} from './components/manage-session/manage-session.component';
 import {EditSessionComponent} from './components/edit-session/edit-session.component';
+import {AuthGuard} from "./helper";
 
 
 const routes: Routes = [

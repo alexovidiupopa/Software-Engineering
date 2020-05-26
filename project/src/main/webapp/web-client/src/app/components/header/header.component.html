@@ -11,7 +11,7 @@
       </button>
 
       <!--      <button class="nav-item nav-link" *ngIf="isChair()" routerLink="/create-conference" mat-flat-button>Create Conference</button>-->
-      <button *ngIf="isChair()" class="nav-item nav-link" mat-flat-button routerLink="/manage-pcs">Manage Program
+<!--      <button *ngIf="isChair()" class="nav-item nav-link" mat-flat-button routerLink="/manage-pcs">Manage Program
         Committees
       </button>
       <button *ngIf="(isPC() || isAuthor()) && isFirstPhase()" class="nav-item nav-link" mat-flat-button
@@ -36,7 +36,7 @@
       </button>
       <button *ngIf="isPC() && isSecondPhase()" class="nav-item nav-link" mat-flat-button routerLink="/review/pc">Review
         papers
-      </button>
+      </button>-->
       <button (click)="logout()" class="nav-item nav-link" id="logoutButton" mat-flat-button routerLink="/">
         <mat-icon>logout</mat-icon>
       </button>
