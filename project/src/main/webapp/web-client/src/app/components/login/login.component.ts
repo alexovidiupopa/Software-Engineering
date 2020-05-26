@@ -59,12 +59,16 @@ export class LoginComponent implements OnInit {
       .subscribe(
         data => {
           console.log(data);
+          console.log("here3");
           this.returnUrl = data['url'];
           this.router.navigate([this.returnUrl]);
         },
         error => {
           this.error = error;
-          this.loading = false;
+          console.log(error);
+          this.loading = false
+          this.submitted=false;
+          alert("Invalid credentials");
         });
   }
 }
