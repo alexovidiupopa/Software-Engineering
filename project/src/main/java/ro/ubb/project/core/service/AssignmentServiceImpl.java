@@ -53,7 +53,6 @@ public class AssignmentServiceImpl implements AssignmentService {
         if (toUpdate.isPresent()) {
             Assignment a = toUpdate.get();
             a.setQualifier(assignment.getQualifier());
-            this.assignmentRepository.save(a);
         } else {
             throw new RuntimeException("No assignment found");
         }
