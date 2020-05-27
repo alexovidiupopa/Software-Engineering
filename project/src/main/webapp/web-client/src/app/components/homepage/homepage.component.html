@@ -43,20 +43,17 @@
 
 
 <button id="loginButton" mat-flat-button routerLink="/login">Login</button>
-<button id="registerButton" mat-flat-button routerLink="/author-register">Register</button>
+<!--<button id="registerButton" mat-flat-button routerLink="/author-register">Register</button>-->
+<button id="registerButton" mat-flat-button (click)="goToAuthorRegister()">Register</button>
 <button id="buyTicketButton" mat-flat-button routerLink="/ticket">Buy Tickets</button>
 
 
 <div class="wrapper">
   <div class="bg1 ">
-    <div class="filter"></div>
-    <div class="content-center">
-      <div class="container">
         <div class="title-brand">
           <div class="angular-logo">
             <div class="bg2"></div>
           </div>
-
           <h1 class="presentation-title">XOR EAX EAX</h1>
           <div class="fog-low">
             <div class="bg4"></div>
@@ -66,18 +63,16 @@
           </div>
         </div>
 
-        <h2 class="presentation-subtitle ,text-center">Give us 10</h2>
-      </div>
-    </div>
+        <h2 class="presentation-subtitle">Give us 10</h2>
+
     <div class="moving-clouds">
       <div class="bg5"></div>
     </div>
-    <h6 class=" category-absolute ml-auto mr-auto">Designed and coded by
-      <!-- <h6 class="category category-absolute">Designed and coded by -->
 
 
+
+    <h6 class=" category-absolute">Designed and coded by
       <img class="creative-tim-logo bg3" src="src/app/assets/img/xeo">
-
     </h6>
   </div>
 

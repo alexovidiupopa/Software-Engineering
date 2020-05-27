@@ -1,12 +1,19 @@
-mat-grid-tile {
-  background: lightblue;
-
-}
 
 .g1 {
+  background-color: #00601d;
+  border-radius: 15px;
+  color: white;
+}
 
-  background-color: red;
+mat-grid-list
+{
+  margin-top: 2%;
+  width: 96%;
+  margin-left: 2%;
+}
 
+mat-grid-tile:hover{
+  background-color: #009329;
 }
 
 .g2 {
@@ -17,4 +24,16 @@ mat-grid-tile {
 
 .fullWidth {
   width: 50% !important;
+}
+
+button
+{
+  margin-left: 2%;
+  background-color: #3b5998;
+  color: white;
+}
+
+button:hover
+{
+  background-color: #486cb8;
 }

@@ -6,6 +6,9 @@
     <h1 class="mat-h1">Here are your papers</h1>
     <h4 class="mat-h4">You can edit them by clicking on their name.</h4>
     <h5 class="mat-small">Click on name for more details.</h5>
+    <div id = "spinner" [hidden]="!loading">
+      <mat-spinner diameter="80"></mat-spinner>
+    </div>
     <mat-nav-list>
       <a *ngFor="let paper of papers" href="/paper/detail/{{paper.pid}}" mat-list-item> {{paper.title}} </a>
     </mat-nav-list>

@@ -19,12 +19,13 @@
           </mat-error>
         </mat-form-field>
       </form>
-      <button color="primary" id="invite-button" mat-flat-button (click)="invitePc()">Invite</button>
+      <button  mat-flat-button [disabled]="!emailFormControl.valid" class = "invite-button" (click)="invitePc()">Invite</button>
+      <mat-error *ngIf="!validData" class = "error">Input data is invalid!</mat-error>
 
     </div>
-
-    <h4 class="mat-h4">Here is a list of the Program Committee.</h4>
-    <h5 class="mat-small">Click on name for more details.</h5>
+    <br>
+    <p class="mat-h4">Here is a list of the Program Committee: </p>
+    <p class="mat-small">(Click on name for more details)</p>
     <mat-nav-list>
      <!-- <a *ngFor="let pc of pcs" href="/pc/detail/{{pc.id}}" mat-list-item> {{pc.firstName}} {{pc.lastName}}
         ({{pc.affiliation}}) </a>-->

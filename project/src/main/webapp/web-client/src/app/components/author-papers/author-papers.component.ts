@@ -10,6 +10,7 @@ import {AuthenticationService} from '../../services/login';
 })
 export class AuthorPapersComponent implements OnInit {
   papers: Paper[];
+  loading: boolean = true;
 
   constructor(private paperService: PaperService, private userService: AuthenticationService) {
   }
@@ -22,6 +23,7 @@ export class AuthorPapersComponent implements OnInit {
     this.paperService.getPapersForAuthor(this.userService.getCurrentUser().id).subscribe(
       result => {
         this.papers = result;
+        this.loading = false;
         console.log(result);
       }
     );

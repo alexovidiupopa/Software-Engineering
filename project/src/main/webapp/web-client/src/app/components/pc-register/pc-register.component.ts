@@ -104,6 +104,7 @@ export class PcRegisterComponent implements OnInit {
     return this.myForm.value.academicRank;
   }
 
+
   registerPCMember(): void {
     this.success = true;
     // tslint:disable-next-line:max-line-length

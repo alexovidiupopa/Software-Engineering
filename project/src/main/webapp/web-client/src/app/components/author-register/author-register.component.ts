@@ -38,16 +38,23 @@ export class AuthorRegisterComponent implements OnInit {
       affiliation: ['', [
         Validators.required,
       ]],
+      website: ['', [
+        Validators.required,
+      ]],
       firstName: ['', [
         Validators.required,
       ]],
       lastName: ['', [
         Validators.required,
       ]],
+      academicRank: ['', [
+        Validators.required,
+      ]],
       phoneNumber: ['', [
         Validators.required,
         Validators.pattern('(?=.*[0-9])([0-9]+)$'),
       ]],
+
       email: ['', [
         Validators.required,
         Validators.email

@@ -10,10 +10,10 @@
     <mat-nav-list>
       <a *ngFor="let paper of papers" mat-list-item>
         <a *ngIf="paper.accepted==='conflict'" href="/paper/decision/{{paper.pid}}" >
-          {{paper.title}} ({{paper.accepted}})
+          {{paper.title}} <b>({{paper.accepted}})</b>
         </a>
         <a *ngIf="paper.accepted!=='conflict'" >
-          {{paper.title}} ({{paper.accepted}})
+          {{paper.title}} <b>({{paper.accepted}})</b>
         </a>
         </a>
 

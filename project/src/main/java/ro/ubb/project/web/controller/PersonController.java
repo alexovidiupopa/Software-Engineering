@@ -12,6 +12,7 @@ import ro.ubb.project.core.service.PersonService;
 import ro.ubb.project.web.converter.PersonConverter;
 import ro.ubb.project.web.dto.PersonDto;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -30,7 +31,7 @@ public class PersonController {
     @RequestMapping(value = "/users", method = RequestMethod.GET)
     public Set<PersonDto> getPersons() {
         List<Person> persons = personService.getAllPersons();
-        return (Set<PersonDto>) converter.convertModelsToDtos(persons);
+        return new HashSet<>(converter.convertModelsToDtos(persons));
     }
 
     @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)

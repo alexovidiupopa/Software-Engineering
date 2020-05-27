@@ -1,9 +1,14 @@
-<button (click)="goHome()" class="homeButton" color="primary" mat-raised-button>
-  Back to site
-</button>
+<div class="header">
+  <button class="homeButton" mat-flat-button routerLink="">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+  <h1 id="title">Register</h1>
+</div>
 <h2 id="decorationText"> Thank you for the author registration!</h2>
 
-<h1 [hidden]="success">Register as Author</h1>
+
+<!--<h1 [hidden]="success">Register as Author</h1>-->
+
 <div [hidden]="success">
   <form [formGroup]="myForm">
     <mat-form-field>

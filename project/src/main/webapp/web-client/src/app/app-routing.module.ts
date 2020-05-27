@@ -6,6 +6,7 @@ import {PcDetailComponent} from './components/pc-detail/pc-detail.component';
 import {PcHomeComponent} from './components/pc-home/pc-home.component';
 import {ChairHomeComponent} from './components/chair-home';
 import {LoginComponent} from './components/login';
+import {RegisterComponent} from './components/register/register.component';
 import {AuthorRegisterComponent} from './components/author-register/author-register.component';
 import {PcRegisterComponent} from './components/pc-register/pc-register.component';
 import {UploadAbstractComponent} from './components/upload-abstract/upload-abstract.component';
@@ -25,18 +26,20 @@ import {CheckoutComponent} from './components/checkout/checkout.component';
 import {SuccessBuyComponent} from './components/success-buy/success-buy.component';
 import {PaymentComponent} from './components/payment/payment.component';
 import {ManageSessionComponent} from './components/manage-session/manage-session.component';
-import {AuthGuard} from './helper';
-import {EditSessionComponent} from "./components/edit-session/edit-session.component";
+import {EditSessionComponent} from './components/edit-session/edit-session.component';
+import {AuthGuard} from "./helper";
+import {AuthorReviewsComponent} from "./components/author-reviews/author-reviews.component";
 
 
 const routes: Routes = [
   {path: 'pc/detail/:id', component: PcDetailComponent},
-  {path: 'create-conference', component: CreateConferenceComponent, canActivate: [AuthGuard]},
-  {path: 'manage-pcs', component: ManagePCComponent, canActivate: [AuthGuard]},
-  {path: 'pc-home', component: PcHomeComponent, canActivate: [AuthGuard]},
-  {path: 'author-home', component: AuthorHomeComponent, canActivate: [AuthGuard]},
-  {path: 'reviews/all', component: AllReviewsComponent, canActivate: [AuthGuard]},
-  {path: 'bid', component: BiddingComponent, canActivate: [AuthGuard]},
+  {path: 'create-conference', component: CreateConferenceComponent},
+  {path: 'manage-pcs', component: ManagePCComponent},
+  // {path: 'home', component: HomeComponent, canActivate: [AuthGuard]}, //fixme AuthGuard should be enabled
+  {path: 'pc-home', component: PcHomeComponent},
+  {path: 'author-home', component: AuthorHomeComponent},
+  {path: 'reviews/all', component: AllReviewsComponent},
+  {path: 'bid', component: BiddingComponent},
   {path: 'ticket', component: BuyTicketComponent},
   {path: 'checkout', component: CheckoutComponent},
   {path: 'pay/safe', component: PaymentComponent},
@@ -45,20 +48,19 @@ const routes: Routes = [
   {path: 'conference/structure', component: StructureConferenceComponent, canActivate: [AuthGuard]},
   {path: 'review/pc/:id', component: PcReviewComponent, canActivate: [AuthGuard]},
   {path: 'review/assign', component: AssignReviewerComponent, canActivate: [AuthGuard]},
-  {path: '', component: HomepageComponent},
-  {path: 'chair-home', component: ChairHomeComponent, canActivate: [AuthGuard]},
+  {path: '', component: HomepageComponent}, //HomeComponent
+  {path: 'chair-home', component: ChairHomeComponent},
   {path: 'login', component: LoginComponent},
-
-  // {path: 'register', component: RegisterComponent},
+  {path: 'register', component: RegisterComponent},
   {path: 'author-register', component: AuthorRegisterComponent},
   {path: 'pc-register', component: PcRegisterComponent},
-  {path: 'paper/upload', component: UploadAbstractComponent, canActivate: [AuthGuard]},
-  {path: 'paper/all', component: AuthorPapersComponent, canActivate: [AuthGuard]},
-  {path: 'paper/detail/:id', component: PaperDetailComponent, canActivate: [AuthGuard] },
-  {path: 'paper/decision/:id', component: PaperDetailDecisionComponent, canActivate: [AuthGuard]},
-
-  {path: 'session/manage', component: ManageSessionComponent, canActivate: [AuthGuard]},
-  {path: 'session/edit/:id', component: EditSessionComponent, canActivate: [AuthGuard]},
+  {path: 'paper/upload', component: UploadAbstractComponent},
+  {path: 'paper/all', component: AuthorPapersComponent},
+  {path: 'paper/detail/:id', component: PaperDetailComponent},
+  {path: 'paper/decision/:id', component: PaperDetailDecisionComponent},
+  {path: 'session/manage', component: ManageSessionComponent},
+  {path: 'session/edit/:id', component: EditSessionComponent},
+  {path: 'reviews/:id',component:AuthorReviewsComponent},
   // otherwise redirect to home
   {path: '**', redirectTo: ''}
 ];

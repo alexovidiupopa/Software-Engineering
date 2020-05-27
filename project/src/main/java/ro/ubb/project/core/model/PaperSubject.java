@@ -18,6 +18,7 @@ import javax.persistence.Table;
 @EqualsAndHashCode
 @IdClass(PaperSubjectsPK.class)
 public class PaperSubject {
+
     @Id
     private int pid;
     @Id

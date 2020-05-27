@@ -17,6 +17,7 @@ export class ManagePCComponent implements OnInit {
   email : string;
   pcs: PcDto[];
   pcMembersInfo: UserDto[] = [];
+  validData = true;
   constructor(private pcService: ProgramCommitteeService) {
   }
 
@@ -36,8 +37,9 @@ export class ManagePCComponent implements OnInit {
   }
 
   invitePc() {
-    this.pcService.invitePc(this.email)
-      .subscribe();
+      alert("Invited pc with email: " + this.email)
+      this.pcService.invitePc(this.email)
+        .subscribe();
   }
 
   inputChange(email: string) {

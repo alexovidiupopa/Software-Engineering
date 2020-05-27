@@ -390,12 +390,14 @@ $input-color-placeholder: #999 !default;
 }
 
 .bg1 {
-  height: 50em;
+  position: absolute;
+  height: 100%;
   background-size: cover;
-  width: auto;
+  width: 100%;
+  top: 0;
   background-image: url('src/assets/img/antoine-barres.jpg');
-  background-position: 50% 50%;
 }
+
 
 .bg2 {
 
@@ -414,8 +416,12 @@ $input-color-placeholder: #999 !default;
 }
 
 .bg5 {
+  margin-top: 15%;
+  width: 100%;
+  height: 70%;
   content: url(src/assets/img/clouds.png);
 }
+
 
 [class*="features-"],
 [class*="team-"],
@@ -679,17 +685,24 @@ $input-color-placeholder: #999 !default;
 }
 
 .presentation-subtitle {
+  position: absolute;
+  margin-left: 1%;
+  bottom: 3%;
   font-size: 1.7em;
   color: #FFFFFF;
+  background: linear-gradient(to right, orange , yellow, green, cyan, blue, violet);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .category-absolute {
   position: absolute;
   text-align: center;
-  top: 100vh;
+  bottom: 4%;
   margin-top: -60px;
   padding: 0 15px;
-  width: 100%;
+  margin-left: 20%;
+  width: 60%;
   color: rgba(255, 255, 255, 0.5);
 
   .creative-tim-logo {
@@ -738,9 +751,9 @@ $input-color-placeholder: #999 !default;
 }
 
 .angular-logo {
-  max-width: 20px;
-  margin: -50px auto 45px;
-
+  margin-top: 5%;
+  right: 20%;
+  margin-left: 32.5%;
   img {
     width: 100%;
   }
@@ -756,13 +769,37 @@ $input-color-placeholder: #999 !default;
 .moving-clouds {
   position: absolute;
   z-index: 0;
-  bottom: 0;
+  bottom: 5%;
   left: 0;
   right: 0;
   width: 100%;
-  height: 41.75em;
-  -webkit-animation: cloudLoop 20s linear infinite;
-  animation: cloudLoop 20s linear infinite;
+  height: 40.75em;
+  //-webkit-animation: cloudLoop 10s linear infinite;
+  animation: cloudLoop 50s linear infinite;
+}
+
+.moving-clouds2 {
+  position: absolute;
+  z-index: 0;
+  bottom: 5%;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 40.75em;
+  //-webkit-animation: cloudLoop 10s linear infinite;
+  animation: cloudLoop 70s linear infinite;
+}
+
+.moving-clouds3 {
+  position: absolute;
+  z-index: 0;
+  bottom: 5%;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 40.75em;
+  //-webkit-animation: cloudLoop 10s linear infinite;
+  animation: cloudLoop 0s linear infinite;
 }
 
 @keyframes cloudLoop {
@@ -785,10 +822,8 @@ $input-color-placeholder: #999 !default;
 .ie-background {
   .page-header {
     .content-center {
-      top: 50%;
-      left: 50%;
       position: absolute;
-      -ms-transform: translate(-50%, -75%);
+      //-ms-transform: translate(-50%, -75%);
 
       .title-brand {
         .presentation-title {
@@ -1332,11 +1367,6 @@ $input-color-placeholder: #999 !default;
 
   }
 
-
-  .wrapper {
-    left: 0;
-    background-color: white;
-  }
 }
 
 @media screen and (min-width: 767px) {
@@ -1439,21 +1469,20 @@ $input-color-placeholder: #999 !default;
     .navbar {
       .container {
         .navbar-toggler {
-          display: block;
-          margin-top: 20px;
+          //display: block;
+          //margin-top: 20px;
         }
       }
     }
 
     .navbar-translate {
-      width: 100%;
       position: relative;
 
     }
 
     .wrapper {
-
-      left: 0;
+      position: relative;
+      height: 40%;
       background-color: white;
     }
 
@@ -1477,10 +1506,6 @@ $input-color-placeholder: #999 !default;
 
       }
 
-      .wrapper {
-        left: 0;
-
-      }
 
       .navbar-translate {
 

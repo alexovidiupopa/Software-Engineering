@@ -3,12 +3,17 @@
   height: 150px !important;
   min-width: unset !important;
   font-size: 22px;
+  color: white;
   background-color: #3b5998;
 }
 
 .my_button_class:hover
 {
   background-color: #4578c1;
+}
+button
+{
+  margin-left: 3%;
 }
 
 

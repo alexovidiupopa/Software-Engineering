@@ -52,6 +52,8 @@ import {ManageSessionComponent} from './components/manage-session/manage-session
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatTabsModule} from '@angular/material/tabs';
 import {EditSessionComponent} from './components/edit-session/edit-session.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { AuthorReviewsComponent } from './components/author-reviews/author-reviews.component';
 
 @NgModule({
   imports: [
@@ -80,6 +82,7 @@ import {EditSessionComponent} from './components/edit-session/edit-session.compo
     MatProgressBarModule,
     MatGridListModule,
     MatTabsModule,
+    MatProgressSpinnerModule,
     // MatTabsModule,
   ],
   providers: [
@@ -116,6 +119,7 @@ import {EditSessionComponent} from './components/edit-session/edit-session.compo
     PaymentComponent,
     ManageSessionComponent,
     EditSessionComponent,
+    AuthorReviewsComponent,
   ],
   bootstrap: [AppComponent]
 })
