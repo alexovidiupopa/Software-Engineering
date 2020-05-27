@@ -12,16 +12,23 @@
 
 
 <div *ngIf="reviewers.length > 0">
-  <ng-container [(ngModel)]="reviewers"  *ngFor="let reviewer of reviewers">
+  <mat-list>
+    <mat-list-item *ngFor="let reviewer of reviewers">
+      <br>
+      <mat-checkbox #checkbox (change)='addRemoveReviewer($event,checkbox)'
+                    value='{{reviewer.id}}'>{{reviewer.firstName}} {{reviewer.lastName}} <br></mat-checkbox>
+    </mat-list-item>
+  </mat-list>
+  <!--<ng-container [(ngModel)]="reviewers"  *ngFor="let reviewer of reviewers">
     <br>
     <mat-checkbox #checkbox (change)='addRemoveReviewer($event,checkbox)'
                   value='{{reviewer.id}}'>{{reviewer.firstName}} {{reviewer.lastName}} <br></mat-checkbox>
-  </ng-container>
+  </ng-container>-->
   <br>
   <button (click)="assignReviewerToPaper()" mat-button>Assign those reviwers to the paper</button>
 
 </div>
 
-<div *ngIf="canShow == true">
-  check the console!
-</div>
+<mat-label *ngIf="canShow == true">
+  Reviewers assigned!
+</mat-label>

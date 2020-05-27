@@ -288,4 +288,13 @@ export class PaperService {
       );
 
   }
+
+  getReviewsForAuthor(id: number) : Observable<Paper[]> {
+    const url = this.url + '/getPapersForAuthor/' + id;
+    return this.http.get<Paper[]>(url, this.httpOptions)
+      .pipe(
+        map(result=>result['papers']),
+        catchError(this.handleError<Paper[]>('getReviewsForAuthor',[]))
+      );
+  }
 }

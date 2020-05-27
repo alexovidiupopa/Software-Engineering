@@ -53,6 +53,7 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import {MatTabsModule} from '@angular/material/tabs';
 import {EditSessionComponent} from './components/edit-session/edit-session.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { AuthorReviewsComponent } from './components/author-reviews/author-reviews.component';
 
 @NgModule({
   imports: [
@@ -118,6 +119,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     PaymentComponent,
     ManageSessionComponent,
     EditSessionComponent,
+    AuthorReviewsComponent,
   ],
   bootstrap: [AppComponent]
 })

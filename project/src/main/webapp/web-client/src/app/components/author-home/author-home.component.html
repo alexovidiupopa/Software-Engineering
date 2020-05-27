@@ -8,7 +8,10 @@
     Upload a new paper
   </button>
   <button mat-raised-button class="my_button_class" routerLink="/paper/all" >
-    <!--fixme those should show only if there is a conference-->
     My papers
+  </button>
+  <button class="my_button_class" color="warn" mat-raised-button routerLink="/reviews/{{authenticationService.getCurrentUser().id}}"
+          >
+    Reviews for my paper
   </button>
 </div>

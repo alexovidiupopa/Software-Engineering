@@ -29,7 +29,10 @@ export class ConferenceService {
 
 
   check_if_conference_exists():Observable<Boolean>{
-    return this.http.get<Boolean>(this.url + '/exists',this.httpOptions);
+    return this.http.get<Boolean>(this.url + '/exists',this.httpOptions)
+      .pipe(
+        map(result=>Boolean(result['message']))
+      );
   }
 
   addConference(conference: Conference): Observable<boolean> {

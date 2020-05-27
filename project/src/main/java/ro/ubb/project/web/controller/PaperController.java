@@ -192,7 +192,8 @@ public class PaperController {
 
         String keyword = keywordIds.stream()
                 .map(kid -> keywordService.getKeywordById(kid).getName())
-                .reduce((a, b) -> a + " " + b).get();
+                .reduce((a, b) -> a + " " + b)
+                .orElse("NO_KEYWORDS");
 
         dto.setTopic(
                 keyword
@@ -443,6 +444,12 @@ public class PaperController {
         return (ArrayList<AssignmentDto>) converter.convertModelsToDtos(assignmentService.getAllAssignments());
     }
 
+    @RequestMapping(value="/getReviewsForAuthor/{id}", method = RequestMethod.GET)
+    PapersResponse getReviewsForAuthor(@PathVariable Integer id){
+        List<Paper> papers = new ArrayList<>();
+
+        return new PapersResponse((ArrayList<PaperDto>) converter.convertModelsToDtos(papers));
+    }
 
     @RequestMapping(value="/getPapersWithQualifiers",method = RequestMethod.GET)
     PapersResponse getPapersWithQualifiers(){
@@ -459,9 +466,9 @@ public class PaperController {
                     if (average>2 && average<4)
                         paper.setAccepted("conflict");
                     if(average>=4)
-                        paper.setAccepted("accepted");
-                    if(average<=2)
                         paper.setAccepted("rejected");
+                    if(average<=2)
+                        paper.setAccepted("accepted");
                     papers.add(paper);
                     paperService.updatePaper(paper);
                 }
