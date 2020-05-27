@@ -25,7 +25,7 @@ A person who would just want to participate could buy a ticket for the session(s
 <li>Database server: PostgreSQL, hosted on Google Cloud</li>
 <li>Programming languages:
     <ul>
-        <li>Front-end: Typescript with Angular, HTML, CSS</li>
+        <li>Front-end: Typescript with Angular, HTML, (S)CSS</li>
         <li>Back-end: Java, SpringBoot</li> 
     </ul>
 </li>
