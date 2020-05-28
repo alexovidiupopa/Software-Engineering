@@ -38,7 +38,7 @@ public class ConferenceController {
         System.out.println(conference);
         log.trace("received conference creation request={}", conference);
         DateTimeFormatter dtf = DateTimeFormat.forPattern("MM/DD/YYYY HH:mm:ss");
-
+        scheduler.setConferenceName(conference.getConferenceName());
         try {
             BufferedWriter bf = new BufferedWriter(new FileWriter(new File("src\\main\\resources\\conference.txt")));
             bf.write( conference.getConferenceName() + "\n");
