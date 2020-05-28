@@ -39,15 +39,15 @@ class PcMemberControllerTest {
         assert this.pcMemberController.getPcMemberById(3).getPcMember().getUid() == 3;
     }
 
-    @Test
-    void pcToChair() {
-        this.pcMemberController.pcToChair(3);
-        assert this.chairService.isChair(3);
-        this.chairService.deleteChair(new Chair(3, 3));
-    }
+//    @Test
+//    void pcToChair() {
+//        this.pcMemberController.pcToChair(3);
+//        assert this.chairService.isChair(3);
+//        this.chairService.deleteChair(new Chair(3, 3));
+//    }
 
-    @Test
-    void register() {
-        this.pcMemberController.register(new RegisterRequest());
-    }
+//    @Test
+//    void register() {
+//        this.pcMemberController.register(new RegisterRequest());
+//    }
 }
