@@ -1,0 +1,16 @@
+<app-header></app-header>
+
+<div class="main-div">
+  <mat-card>
+
+    <h1 class="mat-h1">Here you can see your papers and their qualifiers</h1>
+
+    <mat-nav-list>
+      <a *ngFor="let paper of papers" mat-list-item>
+          {{paper.title}} <b>({{paper.accepted}})</b>
+      </a>
+
+    </mat-nav-list>
+  </mat-card>
+
+</div>

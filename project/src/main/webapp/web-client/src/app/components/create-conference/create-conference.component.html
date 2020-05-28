@@ -91,9 +91,10 @@
     <button (click)="createConferenceButtonPressed()" color="primary" id="create-conference-button" mat-raised-button>
       Create conference!
     </button>
-    <mat-error *ngIf="!validData">Input data is invalid!</mat-error>
-    <mat-error *ngIf="conferenceFailed">Couldn't create conference</mat-error>
+    <mat-error *ngIf="!validData" class = "error">Input data is invalid!</mat-error>
+    <mat-error *ngIf="conferenceFailed" class = "error">Couldn't create conference</mat-error>
 
   </mat-card>
+  <br><br>
 
 </div>

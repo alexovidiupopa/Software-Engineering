@@ -11,6 +11,10 @@ import {PaperReviewerPair} from '../../model/PaperReviewerPair';
   providedIn: 'root'
 })
 export class PaperService {
+    addPaper(paper: any) {
+        throw new Error("Method not implemented.");
+    }
+
   httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
   };
@@ -145,7 +149,6 @@ export class PaperService {
       map(result => result['papers']),
       catchError(this.handleError<Paper[]>('getAllPapers', []))
     );
-
   }
 
   getAllReviewersForPaper(paperId: number): Observable<Reviewer[]> {
@@ -284,5 +287,14 @@ export class PaperService {
         catchError(this.handleError<boolean>('addPaperToSession'))
       );
 
+  }
+
+  getReviewsForAuthor(id: number) : Observable<Paper[]> {
+    const url = this.url + '/getPapersForAuthor/' + id;
+    return this.http.get<Paper[]>(url, this.httpOptions)
+      .pipe(
+        map(result=>result['papers']),
+        catchError(this.handleError<Paper[]>('getReviewsForAuthor',[]))
+      );
   }
 }

@@ -10,7 +10,7 @@ export class LoginComponent implements OnInit {
   loading = false;
   submitted = false;
   returnUrl: string;
-  error: string;
+  error: string = '';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -52,19 +52,23 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-
+    // this.error = ''
     this.loading = true;
     this.authenticationService.login(this.formFields.username.value, this.formFields.password.value)
       //.pipe(first())
       .subscribe(
         data => {
           console.log(data);
+          console.log("here3");
           this.returnUrl = data['url'];
           this.router.navigate([this.returnUrl]);
         },
         error => {
           this.error = error;
-          this.loading = false;
+          console.log(error);
+          this.loading = false
+          this.submitted=false;
+          alert("Invalid credentials");
         });
   }
 }

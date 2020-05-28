@@ -3,7 +3,15 @@
   <h1 id = "title" >Author Homepage</h1>
 </div>
 
-<button mat-raised-button color="warn" class="my_button_class" routerLink="/paper/all" style="position:absolute; left:40%;bottom:59%">
-  <!--fixme those should show only if there is a conference-->
-  Manage papers
-</button>
+<div style="display:flex; position:absolute; left:28%;bottom:45%; width:100%">
+  <button mat-raised-button class="my_button_class" routerLink="/paper/upload">
+    Upload a new paper
+  </button>
+  <button mat-raised-button class="my_button_class" routerLink="/paper/all" >
+    My papers
+  </button>
+  <button class="my_button_class" color="warn" mat-raised-button routerLink="/reviews/{{authenticationService.getCurrentUser().id}}"
+          >
+    Reviews for my paper
+  </button>
+</div>

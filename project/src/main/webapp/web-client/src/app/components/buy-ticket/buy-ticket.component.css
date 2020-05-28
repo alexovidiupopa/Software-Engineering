@@ -1,10 +1,51 @@
 .main-div {
-  height: 100vh;
+  position: relative;
+  height: 90%;
   display: flex;
+  width: 40%;
+  margin-left: 30%;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 1%;
+  margin-top: 5%;
+  margin-bottom: 4%;
+}
+#spinner{
+  margin-top: 3%;
+  margin-left: 39%;
+}
+
+.buy-another-button{
+
+  position: absolute;
+  right: 4%;
+  background-color: #225e93;
+  color: white;
+  width: 40%;
+}
+
+.buy-another-button:hover
+{
+  background-color: #2e8dda;
+}
+
+.checkout-button
+{
+  position: relative;
+  margin-left: 0;
+  background-color: #50a000;
+  color: white;
+  width: 43%;
+}
+
+.checkout-button:hover
+{
+  background-color: #5eb500;
+}
+
+#costText
+{
+
 }
 
 #buttons-grid {
@@ -36,6 +77,11 @@
   background-color: #e12032;
 }
 
+#error
+{
+  margin-top: 4%;
+  margin-left: 29%;
+}
 
 #title {
   position: absolute;

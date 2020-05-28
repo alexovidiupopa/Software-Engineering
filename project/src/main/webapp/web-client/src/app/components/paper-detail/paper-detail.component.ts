@@ -84,11 +84,15 @@ export class PaperDetailComponent implements OnInit {
         console.log(newName);
       }
 
+      if (this.paper.contentUrl===null){
+        this.paper.contentUrl = "/" + this.paperFile.name;
+      }
       if (this.paperFile!==null){
         const newNameContent = this.paper.contentUrl.substring(this.paper.contentUrl.lastIndexOf("/")+1);
         console.log(newNameContent);
         this.paperFile = new File([this.paperFile],newNameContent,{type:this.paperFile.type});
       }
+
       console.log(this.abstractFile);
       // fixme this would probably crash due to lack of null-checking on files
       this.paperService.updatePaper(this.id, this.authenticationService.getCurrentUser().id, this.paperTitle, this.paperKeywords, this.abstractFile, this.paperFile, this.paper.contentUrl.substring(this.paper.contentUrl.lastIndexOf("/")+1))

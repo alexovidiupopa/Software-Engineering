@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Ticket} from "../../model/ticket";
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-homepage',
@@ -8,12 +9,17 @@ import {Ticket} from "../../model/ticket";
 })
 export class HomepageComponent implements OnInit {
 
-  constructor() {
+  constructor(private router: Router) {
   }
 
   ngOnInit(): void {
 
     localStorage.setItem('cart', JSON.stringify(new Array<Ticket>()));
+  }
+
+  goToAuthorRegister()
+  {
+    this.router.navigate(["author-register"]);
   }
 
 }

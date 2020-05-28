@@ -31,20 +31,21 @@ export class AuthenticationService {
 
   constructor(private http: HttpClient, private pcService : ProgramCommitteeService) {
     //this.currentUserSubject = new BehaviorSubject<any>(JSON.parse(localStorage.getItem('currentUser')));
-    this.currentUser = of(this.getCurrentUser());
+   // this.currentUser = of(this.getCurrentUser());
   }
 
   public get currentUserValue() {
     return this.currentUserSubject.value;
   }
 
-  public getCurrentUser() {
+  public getCurrentUser()  {
     console.log(this.user);
     //return this.currentUserSubject.value;
     const user = JSON.parse(localStorage.getItem('currentUser'));
     if (user===null){
       return null;
     }
+   // return user;
     return new User(user['firstName'],user['lastName'], user['username'], user['password'], user['type'],user['url'],<number>user['id']);
     //return JSON.parse(localStorage.getItem('currentUser')) as User;
   }
@@ -57,7 +58,12 @@ export class AuthenticationService {
     user.setToken(token);
   }
 
-  login(username, password) {
+  public getUser(): User{
+    console.log(this.user);
+    return this.user;
+  }
+
+  login(username, password) : Observable<User>  {
     return this.http.post<request>(this.url + '/login', JSON.stringify(new LoginUserBody(username, password)), {
       headers: new HttpHeaders({'Content-Type': 'application/json'})
     }).pipe(
@@ -65,29 +71,22 @@ export class AuthenticationService {
         const decodedToken = this.decode_JWT_token(response['message']);
         console.log(decodedToken);
         this.response.success = decodedToken['success'];
-
+        //this.urlCopy = decodedToken['url'];
         if (this.response.success === true) {
           this.response.type = decodedToken['type'];
-          this.pcService.getUserInfo(Number(decodedToken['uid']))
-            .subscribe(result=>this.user =
-              new User(result.firstname, result.lastname,result.username,null,this.response.type,
-                null,result.uid)
-            );
-          //this.user = new User('firstname', 'lastname', 'username', 'password', this.response.type, 'idk', decodedToken['uid']);
-          if (this.user.type === 'chair') {
-            this.user.url = '/chair-home';
-          } else if (this.user.type === 'pc') {
-            this.user.url = '/pc-home';
-          } else if (this.user.type === 'author') {
-            this.user.url = '/author-home';
-          }
-
-          this.assignAnIdentificationTokenToUser(this.user);
+          this.user = new User(decodedToken['firstname'],
+                               decodedToken['lastname'],
+            decodedToken['username'],
+            null,
+            this.response.type,
+            decodedToken['url'],
+            Number(decodedToken['uid'])
+                              );
           localStorage.setItem('currentUser', JSON.stringify(this.user));
-          //this.currentUserSubject.next(this.user);
-          return (this.user);
+
+           return (this.user);
         } else {
-          return Error('username or password incorrect');
+          throw new Error('username or password incorrect');
         }
       })
     );
@@ -100,8 +99,7 @@ export class AuthenticationService {
   }
 
   private decode_JWT_token(token: any) {
-    const decodedToken = jwt_decode(token);
-    return decodedToken;
+    return jwt_decode(token);
   }
 }
 

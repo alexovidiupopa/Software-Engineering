@@ -26,8 +26,10 @@ public class ConferenceController {
     private Scheduler scheduler;
 
     @RequestMapping(value = "/exists", method = RequestMethod.GET)
-    Boolean conferenceExists() {
-        return scheduler.getConferenceName() != null;
+    MessageResponse conferenceExists() {
+        if (getCurrentPhase().getMessage().equals("false"))
+            return new MessageResponse("false");
+        return new MessageResponse("true");
     }
 
 
@@ -45,13 +47,15 @@ public class ConferenceController {
             bf.write(conference.getSecondPhaseDeadline() + "\n");
             bf.write(conference.getThirdPhaseDeadline() + "\n");
             bf.close();
+            log.trace("created scheduler={}", scheduler);
+            System.out.println(scheduler);
+            return new MessageResponse("true");
         } catch (IOException e) {
             e.printStackTrace();
+            return new MessageResponse("false");
         }
 
-        log.trace("created scheduler={}", scheduler);
-        System.out.println(scheduler);
-        return new MessageResponse("true");
+
     }
 
     @RequestMapping(value = "/getCurrentPhase", method = RequestMethod.GET)

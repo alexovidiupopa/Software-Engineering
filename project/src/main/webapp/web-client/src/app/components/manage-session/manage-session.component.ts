@@ -16,15 +16,16 @@ export class ManageSessionComponent implements OnInit {
   sessions: Sesssion[];
   pair: any[]
   papers: Paper[];
+  loading: boolean = true;
 
 
   constructor(private route: ActivatedRoute, private sessionService: SessionService, private paperService: PaperService) {
-
+    this.getSession();
+    this.getPapers();
   }
 
   ngOnInit(): void {
-    this.getSession();
-    this.getPapers();
+
   }
 
 
@@ -32,15 +33,14 @@ export class ManageSessionComponent implements OnInit {
   {
 
     let paperString = "";
-    let sessionPapers: Paper[] = [];
-    for( let paper of this.papers.values())
+    for( let index = 0; index < this.papers.length; index++)
     {
-      if (paper.sessionId == id)
-        paperString += paper.title
-      paperString += "\n "
+      if (this.papers[index].session == id) {
+        paperString += this.papers[index].title
+        paperString += ", "
+      }
     }
-
-    return paperString;
+    return paperString.slice(0,-2);
   }
 
   getSession()
@@ -52,7 +52,11 @@ export class ManageSessionComponent implements OnInit {
   getPapers()
   {
     this.paperService.getAllPapers()
-      .subscribe( papers => this.papers = papers)
+      .subscribe( papers =>
+      {
+        this.papers = papers
+        this.loading = false;
+      })
   }
 
 }

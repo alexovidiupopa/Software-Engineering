@@ -1,6 +1,7 @@
 <!--
 <app-header></app-header>
 -->
+<app-header></app-header>
 
 <div *ngIf="pc" id="main-div">
   <mat-card class="example-card">
@@ -20,8 +21,8 @@
       </section>
     </mat-card-content>
     <mat-card-actions>
-      <button (click)="makeChair(pc.uid)" color="primary" mat-flat-button>Give Chair credentials</button>
-      <button (click)="goBack()" mat-flat-button>Back</button>
+      <button (click)="makeChair(pc.uid)" id = "makeChair" mat-flat-button>Give Chair credentials</button>
+      <button (click)="goBack()" id = "back" mat-flat-button>Back</button>
     </mat-card-actions>
     <mat-error *ngIf="!successfulUpdate">Couldn't update to chair</mat-error>
   </mat-card>

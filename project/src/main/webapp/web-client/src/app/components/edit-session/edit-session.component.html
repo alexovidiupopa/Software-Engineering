@@ -1,26 +1,28 @@
 <app-header></app-header>
+
+<h1 id = "title">Edit session {{id}}</h1>
 <div id="main">
   <div class="main-div">
     <mat-card>
-      <mat-form-field>
-        <mat-label> Room</mat-label>
+      <mat-form-field >
+        <mat-label>Room</mat-label>
         <mat-select id="rooms" (selectionChange)="selectRoom($event)">
           <mat-option *ngFor="let room of rooms" [value]="room.rid">
-            {{room.rid}}   {{room.capacity}}
+            {{room.rid + " (cap : " + room.capacity + ")"}}
           </mat-option>
         </mat-select>
       </mat-form-field>
 
-      <mat-form-field>
+      <mat-form-field >
         <mat-label> Chair</mat-label>
         <mat-select id="chairs" (selectionChange)="selectChair($event)">
           <mat-option *ngFor="let chair of chairs" [value]="chair.cid">
-            {{chair.cid}}
+            {{getNameForChairUid(chair.uid)}}
           </mat-option>
         </mat-select>
       </mat-form-field>
 
-      <mat-form-field>
+      <mat-form-field >
         <mat-label>Choose a time</mat-label>
         <div class="time-input">
           <input matInput type="time" value="{{sessionTime}}">
@@ -32,6 +34,9 @@
 
       <br>
 
+      <div id = "spinner" [hidden]="!loading">
+        <mat-spinner ></mat-spinner>
+      </div>
       <mat-selection-list (ngModelChange)="selectionChanged($event)" [(ngModel)]="selectedOptions" #list>
         <mat-list-option *ngFor="let paper of papers" [value]="paper">
           {{paper.title}}
@@ -41,6 +46,7 @@
       <button (click)="createSession()" color="primary" id="submit-bttn" mat-raised-button>
         Create session!
       </button>
+
     </mat-card>
   </div>
 </div>

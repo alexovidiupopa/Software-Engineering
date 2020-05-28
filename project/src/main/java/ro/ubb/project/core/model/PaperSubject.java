@@ -9,7 +9,7 @@ import javax.persistence.IdClass;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "papersubject", schema = "public")
+@Table(name = "papersubjects", schema = "public")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

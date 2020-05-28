@@ -15,6 +15,11 @@
   justify-content: center;
 }
 
+.error{
+  margin-top: 3%;
+}
+
+
 .datetime-container-children {
   flex-grow: 1;
 }
